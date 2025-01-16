@@ -7,50 +7,49 @@ import { loadFull } from "tsparticles";
 
 const Hero = () => {
   const particlesInit = async (main) => {
-    // Initialize tsparticles instance
     await loadFull(main);
   };
 
   const snowParticlesOptions = {
     background: {
       color: {
-        value: "#000000", // Black background
+        value: "#000000",
       },
     },
     particles: {
       number: {
-        value: 100, // Number of snow particles
+        value: 100,
         density: {
           enable: true,
           value_area: 800,
         },
       },
       color: {
-        value: "#ffffff", // White particles
+        value: "#ffffff",
       },
       shape: {
-        type: "circle", // Snow particle shape
+        type: "circle",
       },
       opacity: {
-        value: 0.8, // Slight transparency for particles
+        value: 0.8,
         random: true,
       },
       size: {
         value: 3,
-        random: true, // Random sizes for snowflakes
+        random: true,
       },
       move: {
         enable: true,
-        speed: 1, // Slow falling speed
-        direction: "bottom", // Snow falls down
-        out_mode: "out", // Disappear when out of bounds
+        speed: 1,
+        direction: "bottom",
+        out_mode: "out",
       },
     },
     interactivity: {
       events: {
         onhover: {
           enable: true,
-          mode: "repulse", // Particles move away on hover
+          mode: "repulse",
         },
       },
       modes: {
@@ -75,27 +74,25 @@ const Hero = () => {
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6 -mt-16">
-        {/* Heading without Typing Animation */}
+        {/* Heading */}
         <motion.h1
-          className="text-6xl font-extrabold text-white mb-4"
+          className="text-6xl font-extrabold text-white mb-8"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Hi, I'm [Your Name]
+          Hi, I'm Parsa Derakhshan
         </motion.h1>
 
-        {/* Subheading with Fade Animation */}
-        <motion.p
-          className="text-xl text-gray-300 mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
+        {/* Subheading with Typing Effect */}
+        <p
+          className="text-xl text-gray-300 mb-8 typing"
         >
           A passionate Full-Stack Developer specializing in Vue.js, .NET, and React.
-        </motion.p>
+        </p>
 
-        {/* Button with Hover and Tap Effects */}
+        {/* Button */}
+        <div></div>
         <motion.a
           href="#projects"
           className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"

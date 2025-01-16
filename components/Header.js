@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { FiMoon, FiSun } from "react-icons/fi"; // Updated icons for light/dark toggle
+import { FiMoon, FiSun } from "react-icons/fi"; // Icons for light/dark toggle
+import { motion } from "framer-motion"; // For animations
 
 export default function Header() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
@@ -40,17 +42,54 @@ export default function Header() {
     setLanguage(language === "en" ? "fr" : "en");
   };
 
+  // Add scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="bg-white dark:bg-black text-black dark:text-white shadow-md sticky top-0 z-50">
+    <motion.header
+      className={`fixed top-0 w-full z-50 transition-all ${
+        isScrolled
+          ? "bg-white/70 dark:bg-black/70 backdrop-blur-md shadow-lg"
+          : "bg-white dark:bg-black"
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="navbar container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
         <a className="btn btn-ghost normal-case text-xl">My Portfolio</a>
 
         {/* Navigation Links */}
         <nav className="hidden lg:flex space-x-4 items-center">
-          <a href="#about" className="btn btn-ghost">About</a>
-          <a href="#projects" className="btn btn-ghost">Projects</a>
-          <a href="#contact" className="btn btn-primary">Contact</a>
+          <a
+            href="#about"
+            className="btn btn-ghost hover:text-primary transition-colors hover:underline underline-offset-4"
+          >
+            About
+          </a>
+          <a
+            href="#projects"
+            className="btn btn-ghost hover:text-primary transition-colors hover:underline underline-offset-4"
+          >
+            Projects
+          </a>
+          <a
+            href="#contact"
+            className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold hover:scale-105 transition-transform duration-300"
+          >
+            Contact
+          </a>
 
           {/* Language Toggle */}
           <button
@@ -82,18 +121,19 @@ export default function Header() {
           </a>
 
           {/* Dark Mode Toggle */}
-          <button
+          <motion.button
             onClick={toggleDarkMode}
             className="btn btn-ghost"
             aria-label="Toggle Dark Mode"
+            whileTap={{ scale: 0.9 }}
           >
             {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-          </button>
+          </motion.button>
         </nav>
 
         {/* Mobile Menu Placeholder */}
         <button className="btn btn-ghost lg:hidden">Menu</button>
       </div>
-    </header>
+    </motion.header>
   );
 }

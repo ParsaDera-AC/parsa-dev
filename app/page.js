@@ -1,15 +1,17 @@
 import Header from "/components/Header.js";
 import Hero from "/components/Hero";
-import About from "/components/About";
+import AboutMe from "/components/AboutMe";
 import Projects from "/components/Projects";
 import Contact from "/components/Contact";
+import Skills from "@/components/Skills";
 
 export default function Page() {
   return (
     <>
       <Header />
       <Hero />
-      <About />
+      <AboutMe />
+      <Skills/>
       <Projects />
       <Contact />
     </>
