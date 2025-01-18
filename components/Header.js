@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiMoon, FiSun } from "react-icons/fi"; // Icons for light/dark toggle
+import { PiCodeSimpleFill } from "react-icons/pi"; // Your selected logo
 import { motion } from "framer-motion"; // For animations
 
 export default function Header() {
@@ -59,8 +60,8 @@ export default function Header() {
     <motion.header
       className={`fixed top-0 w-full z-50 transition-all ${
         isScrolled
-          ? "bg-white/70 dark:bg-black/70 backdrop-blur-md shadow-lg"
-          : "bg-white dark:bg-black"
+          ? "bg-white/70 dark:bg-transparent/70 backdrop-blur-md shadow-lg"
+          : "bg-white dark:bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -68,7 +69,12 @@ export default function Header() {
     >
       <div className="navbar container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
-        <a className="btn btn-ghost normal-case text-xl">My Portfolio</a>
+        <a className="btn btn-ghost normal-case text-xl flex items-center">
+          <PiCodeSimpleFill size={75} className="mr-2 text-white" />
+          <span className="text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold">
+            ParsaDera
+          </span>
+        </a>
 
         {/* Navigation Links */}
         <nav className="hidden lg:flex space-x-4 items-center">

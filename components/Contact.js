@@ -3,10 +3,37 @@
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const ContactMe = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
+  };
+
+  const formRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_dulypfd", // Replace with your EmailJS service ID
+        "template_rjm25rd", // Replace with your EmailJS template ID
+        formRef.current,
+        "HCKDydlJLoxHArG4Z" // Replace with your EmailJS public key
+      )
+      .then(
+        (result) => {
+          console.log("Message Sent:", result.text);
+          alert("Message sent successfully!");
+          formRef.current.reset();
+        },
+        (error) => {
+          console.error("Error:", error.text);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
   };
 
   const snowParticlesOptions = {
@@ -83,14 +110,12 @@ const ContactMe = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-
-          
           {/* Picture Section */}
           <div className="md:w-1/3 flex items-center justify-center bg-zinc-700 overflow-hidden">
             <img
               src="/profile.jpg"
               alt="Your Name"
-              className="w-auto h-full object-cover transform scale-80" // Ensures the height is full and width adjusts proportionally
+              className="w-auto h-full object-cover transform scale-80"
             />
           </div>
 
@@ -104,7 +129,7 @@ const ContactMe = () => {
             </p>
 
             {/* Form */}
-            <form className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <div>
                 <label
@@ -116,7 +141,7 @@ const ContactMe = () => {
                 <input
                   type="text"
                   id="name"
-                  name="name"
+                  name="user_name"
                   placeholder="Your Full Name"
                   className="w-full mt-1 p-3 
                              bg-zinc-700 
@@ -141,7 +166,7 @@ const ContactMe = () => {
                 <input
                   type="email"
                   id="email"
-                  name="email"
+                  name="user_email"
                   placeholder="youremail@example.com"
                   className="w-full mt-1 p-3 
                              bg-zinc-700 
