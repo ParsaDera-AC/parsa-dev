@@ -114,7 +114,7 @@ const ContactMe = () => {
           <div className="md:w-1/3 flex items-center justify-center bg-zinc-700 overflow-hidden">
             <img
               src="/profile.jpg"
-              alt="Your Name"
+              alt="ParsaPFP"
               className="w-auto h-full object-cover transform scale-80"
             />
           </div>
