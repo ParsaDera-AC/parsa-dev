@@ -46,11 +46,7 @@ export default function Header() {
   // Add scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -69,9 +65,12 @@ export default function Header() {
     >
       <div className="navbar container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
-        <a className="btn btn-ghost normal-case text-xl flex items-center">
-          <PiCodeSimpleFill size={75} className="mr-2 text-white" />
-          <span className="text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold">
+        <a className="btn btn-ghost normal-case text-xl flex items-center group">
+          <PiCodeSimpleFill
+            size={75}
+            className="mr-2 text-white transition-all duration-300 group-hover:text-purple-400 group-hover:shadow-purple-500/50 group-hover:drop-shadow-[0_0_25px_rgba(236,72,153,0.8)]"
+          />
+          <span className="text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold transition-all duration-300 group-hover:shadow-purple-500/50 group-hover:drop-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
             ParsaDera
           </span>
         </a>
@@ -80,19 +79,19 @@ export default function Header() {
         <nav className="hidden lg:flex space-x-4 items-center">
           <a
             href="#about"
-            className="btn btn-ghost hover:text-primary transition-colors hover:underline underline-offset-4"
+            className="btn btn-ghost transition-all duration-300 hover:text-purple-400 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
           >
             About
           </a>
           <a
             href="#projects"
-            className="btn btn-ghost hover:text-primary transition-colors hover:underline underline-offset-4"
+            className="btn btn-ghost transition-all duration-300 hover:text-purple-400 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
           >
             Projects
           </a>
           <a
             href="#contact"
-            className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold hover:scale-105 transition-transform duration-300"
+            className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold transition-all duration-300 hover:scale-105 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_20px_rgba(236,72,153,0.8)]"
           >
             Contact
           </a>
@@ -100,7 +99,7 @@ export default function Header() {
           {/* Language Toggle */}
           <button
             onClick={toggleLanguage}
-            className="btn btn-ghost"
+            className="btn btn-ghost transition-all duration-300 hover:text-purple-400 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
             aria-label="Toggle Language"
           >
             {language === "en" ? "FR" : "EN"}
@@ -111,7 +110,7 @@ export default function Header() {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-ghost"
+            className="btn btn-ghost transition-all duration-300 hover:text-purple-400 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
             aria-label="GitHub"
           >
             <FaGithub size={20} />
@@ -120,21 +119,13 @@ export default function Header() {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-ghost"
+            className="btn btn-ghost transition-all duration-300 hover:text-purple-400 hover:shadow-purple-500/50 hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]"
             aria-label="LinkedIn"
           >
             <FaLinkedin size={20} />
           </a>
 
-          {/* Dark Mode Toggle */}
-          <motion.button
-            onClick={toggleDarkMode}
-            className="btn btn-ghost"
-            aria-label="Toggle Dark Mode"
-            whileTap={{ scale: 0.9 }}
-          >
-            {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-          </motion.button>
+          
         </nav>
 
         {/* Mobile Menu Placeholder */}

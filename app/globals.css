@@ -11,6 +11,7 @@ html.dark {
   --background: #0a0a0a;
   --foreground: #ededed;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -19,40 +20,47 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  cursor: url('/spaceship.png'), url('/spaceship.cur'), auto;
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+/* VS Code-inspired code styling for typing (blinking cursor on right) */
+.code-vscode {
+  @apply font-mono text-gray-100 bg-gray-800 dark:bg-gray-900;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
 }
 
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+/* Blinking cursor for code (positioned on right edge, smaller) */
+.code-vscode::after {
+  content: "|";
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.5s step-end infinite;
+  color: #ffffff;
+  font-size: 1rem; /* Reduced size for subtlety */
 }
 
+/* Typing animation for subheading (no longer needed for static subheading) */
 .typing {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid #ffffff;
-  animation: typing 2.5s steps(40, end), blink 0.5s step-end infinite; /* Faster typing */
-  width: fit-content; /* Ensures no cutting of text */
-  max-width: 100%; /* Allows text to expand dynamically */
+  animation: typing 2.5s steps(40, end), blink 0.5s step-end infinite;
+  width: fit-content;
+  max-width: 100%;
 }
 
-/* Global CSS excerpt */
-.perspective {
-  perspective: 1000px;
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
-.preserve-3d {
-  transform-style: preserve-3d;
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }
-.backface-hidden {
-  backface-visibility: hidden;
-}
+
+.perspective { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
