@@ -6,73 +6,8 @@ import { loadFull } from "tsparticles";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Projects = () => {
-  // Snowy background particles
-  const particlesInit = async (main) => {
-    await loadFull(main);
-  };
-
-  const snowParticlesOptions = {
-    background: {
-      color: {
-        value: "#000000",
-      },
-    },
-    particles: {
-      number: {
-        value: 80,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: "#ffffff",
-      },
-      shape: {
-        type: "circle",
-      },
-      opacity: {
-        value: 0.8,
-        random: true,
-      },
-      size: {
-        value: 3,
-        random: true,
-      },
-      move: {
-        enable: true,
-        speed: 1,
-        direction: "bottom",
-        out_mode: "out",
-      },
-    },
-    interactivity: {
-      events: {
-        onhover: {
-          enable: true,
-          mode: "repulse",
-        },
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-          duration: 0.4,
-        },
-      },
-    },
-    retina_detect: true,
-  };
-
   return (
-    <section id="projects" className="relative min-h-screen py-16 bg-black text-white overflow-hidden">
-      {/* Snow Particles */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={snowParticlesOptions}
-        className="absolute inset-0 z-0"
-      />
-
+    <section id="projects" className="relative min-h-screen py-16 bg-transparent text-white overflow-hidden">
       {/* Content */}
       <div className="container mx-auto px-8 relative z-10">
         {/* Section Title */}

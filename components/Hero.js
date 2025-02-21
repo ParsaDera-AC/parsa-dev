@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import SnowBackground from "./SnowBackground"; 
 import { TypeAnimation } from "react-type-animation"; 
 import { FaPlay } from "react-icons/fa";
 
@@ -49,9 +48,7 @@ project = PortfolioProject("ParsaDera Portfolio")
 print(project.describe())`;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Snow Particles (Reused Component) */}
-      <SnowBackground />
+    <section className="relative min-h-screen bg-transparent flex items-center justify-center overflow-hidden">
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 sm:px-6">

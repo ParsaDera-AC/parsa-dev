@@ -17,24 +17,6 @@ const Resume = () => {
     await loadFull(main); // Load a lighter version
   };
 
-  const snowParticlesOptions = {
-    background: {
-      color: { value: "#000000" },
-    },
-    particles: {
-      number: { value: 100, density: { enable: true, value_area: 800 } },
-      color: { value: "#ffffff" },
-      shape: { type: "circle" },
-      opacity: { value: 0.7, random: true },
-      size: { value: 3, random: true },
-      move: { enable: true, speed: 1, direction: "bottom", out_mode: "out" },
-    },
-    interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } },
-      modes: { repulse: { distance: 100, duration: 0.4 } },
-    },
-    retina_detect: true,
-  };
 
   // Securely store this hash on the backend
   const hashedCorrectCode = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd233e6e5a0ef6bfe6e";
@@ -64,9 +46,6 @@ const Resume = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-transparent overflow-hidden">
-      {/* Snow Effect */}
-      <Particles id="tsparticles" init={particlesInit} options={snowParticlesOptions} className="absolute inset-0 z-0" />
-
       {/* Content */}
       <div className="container mx-auto px-8 relative z-10 text-center">
         <motion.div
