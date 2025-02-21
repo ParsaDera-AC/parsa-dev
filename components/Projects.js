@@ -87,7 +87,7 @@ const Projects = () => {
 
         {/* Project Card */}
         <motion.div
-          className="group bg-zinc-800 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+          className="group bg-zinc-800 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 hover:shadow-purple-500/50 transform transition-all duration-500 hover:scale-105"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}

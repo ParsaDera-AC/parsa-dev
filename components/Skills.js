@@ -1,93 +1,66 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
-import { FaJs, FaReact, FaNode, FaPython, FaHtml5, FaCss3, FaGit } from "react-icons/fa";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // For animations
+import {
+  FaHtml5,
+  FaCss3,
+  FaJs,
+  FaVuejs,
+  FaNodeJs,
+  FaPython,
+  FaGitAlt,
+  FaCode,
+  FaDocker,
+  FaDatabase,
+  FaCloud,
+  FaCogs,
+  FaEnvelope,
+  FaTerminal,
+} from "react-icons/fa";
 
 const skills = [
-  { skill: "JavaScript", level: 90, icon: <FaJs size={28} color="#FFFFFF" /> },
-  { skill: "React.js", level: 85, icon: <FaReact size={28} color="#FFFFFF" /> },
-  { skill: "Node.js", level: 80, icon: <FaNode size={28} color="#FFFFFF" /> },
-  { skill: "Python", level: 75, icon: <FaPython size={28} color="#FFFFFF" /> },
-  { skill: "HTML5", level: 95, icon: <FaHtml5 size={28} color="#FFFFFF" /> },
-  { skill: "CSS3", level: 90, icon: <FaCss3 size={28} color="#FFFFFF" /> },
-  { skill: "Git", level: 85, icon: <FaGit size={28} color="#FFFFFF" /> },
+  // Frameworks
+  { category: "Frameworks", skill: "React.js", icon: <FaVuejs size={60} color="#FFFFFF" /> },
+  { category: "Frameworks", skill: "Node.js", icon: <FaNodeJs size={60} color="#FFFFFF" /> },
+  { category: "Frameworks", skill: "Vue.js", icon: <FaVuejs size={60} color="#FFFFFF" /> },
+  { category: "Frameworks", skill: "Nuxt.js", icon: <FaVuejs size={60} color="#FFFFFF" /> },
+  // Languages
+  { category: "Languages", skill: "JavaScript", icon: <FaJs size={60} color="#FFFFFF" /> },
+  { category: "Languages", skill: "Python", icon: <FaPython size={60} color="#FFFFFF" /> },
+  { category: "Languages", skill: "HTML5", icon: <FaHtml5 size={60} color="#FFFFFF" /> },
+  { category: "Languages", skill: "CSS3", icon: <FaCss3 size={60} color="#FFFFFF" /> },
+  { category: "Languages", skill: "TypeScript", icon: <FaTerminal size={60} color="#FFFFFF" /> },
+  { category: "Languages", skill: "C#", icon: <FaTerminal size={60} color="#FFFFFF" /> },
+  // Technologies
+  { category: "Technologies", skill: "Git", icon: <FaGitAlt size={60} color="#FFFFFF" /> },
+  // Tools
+  { category: "Tools", skill: "Docker", icon: <FaDocker size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "MongoDB", icon: <FaDatabase size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "SQL", icon: <FaDatabase size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "RESTful API", icon: <FaEnvelope size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Visual Studio Code", icon: <FaCode size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Azure DevOps", icon: <FaCogs size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Azure Cloud", icon: <FaCloud size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "PostgreSQL", icon: <FaDatabase size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Postman", icon: <FaEnvelope size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Electron", icon: <FaTerminal size={60} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Beaver", icon: <FaTerminal size={60} color="#FFFFFF" /> },
 ];
 
 const SkillsSection = () => {
-  // Snowy background particles
-  const particlesInit = async (main) => {
-    await loadFull(main);
-  };
-
-  const snowParticlesOptions = {
-    background: {
-      color: {
-        value: "#000000", // Background color
-      },
-    },
-    particles: {
-      number: {
-        value: 80,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: "#ffffff", // Snow color
-      },
-      shape: {
-        type: "circle",
-      },
-      opacity: {
-        value: 0.8,
-        random: true,
-      },
-      size: {
-        value: 3,
-        random: true,
-      },
-      move: {
-        enable: true,
-        speed: 1,
-        direction: "bottom",
-        out_mode: "out",
-      },
-    },
-    interactivity: {
-      events: {
-        onhover: {
-          enable: true,
-          mode: "repulse",
-        },
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-          duration: 0.4,
-        },
-      },
-    },
-    retina_detect: true,
-  };
+  const [hoveredSkill, setHoveredSkill] = useState(null);
 
   return (
-    <section id="skills" className="relative min-h-screen py-16 transparent text-white overflow-hidden">
-      {/* Snow Particles */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={snowParticlesOptions}
-        className="absolute inset-0 z-0"
-      />
-
+    <section
+      id="skills"
+      className="relative min-h-screen py-16 bg-black text-white overflow-hidden"
+    >
       {/* Content */}
       <div className="container mx-auto px-8 relative z-10">
-        {/* Title */}
+        {/* Title and Subheading (Outside Container) */}
         <motion.h2
-          className="text-4xl font-bold text-center mb-8"
+          className="text-5xl font-bold text-center mb-12 text-white"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -103,43 +76,91 @@ const SkillsSection = () => {
           A showcase of my technical expertise, spanning frontend, backend, and DevOps.
         </motion.p>
 
-        {/* Skills List */}
-        <div className="space-y-6 max-w-4xl mx-auto">
-          {skills.map(({ skill, level, icon }) => (
-            <motion.div
-              key={skill}
-              className="space-y-2"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* Skill Name and Icon */}
-              <div className="flex items-center space-x-3 text-lg font-bold">
-                <span>{icon}</span>
-                <span>{skill}</span>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="relative group">
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <motion.div
-                    className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 h-2 rounded-full"
-                    style={{ width: `${level}%` }}
-                    whileHover={{ scaleX: 1.05 }}
-                  />
-                </div>
-
-                {/* Tooltip */}
-                <span
-                  className="absolute top-[-24px] left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm font-bold 
-                             py-1 px-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  {level}%
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Dark Grey Container for Table (Enhanced Vibrancy) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto bg-gray-800 rounded-xl p-12 shadow-xl border border-gray-700"
+        >
+          {/* Enhanced Table with DaisyUI */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="border border-white"
+          >
+            <div className="overflow-x-hidden"> {/* Changed from overflow-x-auto to overflow-x-hidden */}
+              <table className="table w-full">
+                <thead>
+                  <tr className="bg-gray-700 border-b border-white">
+                    <th className="py-4 px-6 text-left text-2xl font-bold text-gray-200">Category</th>
+                    <th className="py-4 px-6 text-left text-2xl font-bold text-gray-200">Skills</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(
+                    skills.reduce((acc, skill) => {
+                      acc[skill.category] = [...(acc[skill.category] || []), skill];
+                      return acc;
+                    }, {})
+                  ).map(([category, categorySkills], categoryIndex) => (
+                    <motion.tr
+                      key={category}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: categoryIndex * 0.2, duration: 0.5 }}
+                      className="border-b border-gray-600 hover:bg-gray-750"
+                    >
+                      <td className="py-6 px-6 border-r border-gray-600 text-2xl font-bold text-gray-300">
+                        {category}
+                      </td>
+                      <td className="py-6 px-6 flex flex-wrap gap-16">
+                        {categorySkills.map((skill, index) => (
+                          <motion.div
+                            key={skill.skill}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: (categoryIndex * categorySkills.length + index) * 0.05, duration: 0.3 }}
+                            className="group"
+                            whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(236, 72, 153, 0.7)" }}
+                            onMouseEnter={() => setHoveredSkill(skill.skill)}
+                            onMouseLeave={() => setHoveredSkill(null)}
+                          >
+                            <div className="flex items-center space-x-6 transition-all duration-300">
+                              {skill.icon}
+                              <span className="text-xl font-medium text-white group-hover:text-pink-400">
+                                {skill.skill}
+                              </span>
+                            </div>
+                            <AnimatePresence>
+                              {hoveredSkill === skill.skill && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 5 }}
+                                  className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-700 text-white text-sm font-bold py-2 px-3 rounded-lg shadow-lg border border-pink-500"
+                                >
+                                  {skill.skill}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-15 rounded-lg"
+                              initial={{ opacity: 0 }}
+                              whileHover={{ opacity: 0.15 }}
+                              transition={{ duration: 0.3 }}
+                            />
+                          </motion.div>
+                        ))}
+                      </td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

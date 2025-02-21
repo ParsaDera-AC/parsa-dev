@@ -105,7 +105,7 @@ const ContactMe = () => {
       <div className="container mx-auto px-8 relative z-10">
         <motion.div
           className="flex flex-col md:flex-row items-stretch rounded-2xl overflow-hidden shadow-xl 
-                     bg-zinc-800 text-white border border-zinc-700"
+                     bg-zinc-800 text-white border border-zinc-700 hover:shadow-purple-500/50 transform transition-all duration-500 hover:scale-105"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
