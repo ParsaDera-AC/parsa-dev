@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles"; // Load only necessary modules
 import sha256 from "js-sha256";
 
 const Resume = () => {
@@ -12,10 +10,7 @@ const Resume = () => {
   const [isValidCode, setIsValidCode] = useState(false);
   let timeoutId;
 
-  // Particle Config
-  const particlesInit = async (main) => {
-    await loadFull(main); // Load a lighter version
-  };
+
 
 
   // Securely store this hash on the backend

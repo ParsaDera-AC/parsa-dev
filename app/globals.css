@@ -63,3 +63,21 @@ body {
 .perspective { perspective: 1000px; }
 .preserve-3d { transform-style: preserve-3d; }
 .backface-hidden { backface-visibility: hidden; }
+
+@keyframes scroll-lines {
+  0% { transform: translateY(-100vh); opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0.5; }
+}
+
+.animate-scroll-lines {
+  animation: scroll-lines 10s linear infinite;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+.delay-2000 {
+  animation-delay: 2s;
+}

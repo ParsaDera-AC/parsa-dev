@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { TypeAnimation } from "react-type-animation"; 
+import { TypeAnimation } from "react-type-animation";
 import { FaPlay } from "react-icons/fa";
+import SnowBackground from "./SnowBackground";
 
 const Hero = ({ isDarkMode }) => {
   const pythonCode = `#!/usr/bin/env python3
@@ -49,7 +50,7 @@ print(project.describe())`;
 
   return (
     <section className="relative min-h-screen bg-transparent flex items-center justify-center overflow-hidden">
-
+      <SnowBackground />
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 sm:px-6">
         {/* Code Snippet Animation (VS Code + GraphQL-inspired, wider fixed size, Python, no syntax highlight) */}
@@ -99,7 +100,8 @@ print(project.describe())`;
         {/* Static Subheading with Tailwind Classes for Syntax Highlighting */}
         <div className="mb-12 max-w-2xl mx-auto">
           <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300">
-            A passionate <span className="text-blue-400">Full-Stack Developer</span>
+            A passionate{" "}
+            <span className="text-blue-400">Full-Stack Developer</span>
             <br />
             Specializing in <span className="text-green-400">Vue.js</span>,{" "}
             <span className="text-green-400">.NET</span>, and{" "}

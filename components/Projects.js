@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Projects = () => {
