@@ -54,7 +54,7 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen py-16 bg-black text-white overflow-hidden"
+      className="relative min-h-screen py-16 bg-transparent text-white overflow-hidden"
     >
       {/* Content */}
       <div className="container mx-auto px-8 relative z-10">

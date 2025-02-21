@@ -1,39 +1,12 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion"; // For animations
-import Particles from "react-tsparticles"; // For particles
-import { loadFull } from "tsparticles";
-import { TypeAnimation } from "react-type-animation"; // For typewriter effect
-import { FaPlay } from "react-icons/fa"; // For play button
+import { motion } from "framer-motion";
+import SnowBackground from "./SnowBackground"; 
+import { TypeAnimation } from "react-type-animation"; 
+import { FaPlay } from "react-icons/fa";
 
 const Hero = ({ isDarkMode }) => {
-  // Particle initialization
-  const particlesInit = async (main) => {
-    await loadFull(main);
-  };
-
-  // Dynamic particle options based on theme
-  const snowParticlesOptions = {
-    background: {
-      color: { value: isDarkMode ? "#1a202c" : "#ffffff" }, // Tailwind gray-800 for dark, white for light
-    },
-    particles: {
-      number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced density
-      color: { value: isDarkMode ? "#d1d5db" : "#6b7280" }, // Gray-300 for dark, Gray-500 for light
-      shape: { type: "circle" },
-      opacity: { value: 0.6, random: true }, // Slightly less intense
-      size: { value: 3, random: true },
-      move: { enable: true, speed: 0.5, direction: "bottom", out_mode: "out" }, // Slower movement
-    },
-    interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } },
-      modes: { repulse: { distance: 100, duration: 0.4 } },
-    },
-    retina_detect: true,
-  };
-
-  // Full Python code as plain text (no syntax highlighting)
   const pythonCode = `#!/usr/bin/env python3
 # Full-Stack Developer Portfolio
 
@@ -77,13 +50,8 @@ print(project.describe())`;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Snow Particles */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={snowParticlesOptions}
-        className="absolute inset-0 z-0"
-      />
+      {/* Snow Particles (Reused Component) */}
+      <SnowBackground />
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 sm:px-6">
