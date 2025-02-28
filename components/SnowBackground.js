@@ -14,43 +14,87 @@ const SnowBackground = () => {
       color: { value: "#000000" },
     },
     particles: {
-      number: { value: 100, density: { enable: true, value_area: 800 } },
+      number: { value: 150, density: { enable: true, value_area: 800 } },
       color: {
-        value: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"], // Red, Green, Blue, Yellow, Magenta
-        animation: {
-          enable: true,
-          speed: 20,
-          sync: true,
-        },
+        value: ["#6366f1", "#a855f7", "#ec4899", "#ffffff"], // Indigo, Purple, Pink, White
       },
-      shape: { type: "circle" },
-      opacity: { value: 0.7, random: true },
-      size: { value: 4, random: true },
-      move: { enable: true, speed: 1, direction: "bottom", out_mode: "out", random: true },
+      shape: { 
+        type: "circle",
+      },
+      opacity: { 
+        value: 0.6,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 0.5,
+          opacity_min: 0.1,
+          sync: false
+        }
+      },
+      size: { 
+        value: 3,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 2,
+          size_min: 0.1,
+          sync: false
+        }
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "bottom",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: {
+          enable: true,
+          rotateX: 600,
+          rotateY: 1200
+        }
+      },
     },
     interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } },
-      modes: { repulse: { distance: 100, duration: 0.4 } },
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "bubble"
+        },
+        onclick: {
+          enable: true,
+          mode: "repulse"
+        },
+        resize: true
+      },
+      modes: {
+        bubble: {
+          distance: 200,
+          size: 6,
+          duration: 0.3,
+          opacity: 1,
+          speed: 3
+        },
+        repulse: {
+          distance: 200,
+          duration: 0.4
+        }
+      }
     },
-    retina_detect: true,
+    retina_detect: true
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="fixed inset-0 -z-10">
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black opacity-80" />
       <Particles
         id="tsparticles"
         init={particlesInit}
         options={colorfulParticlesOptions}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0"
       />
-      {/* Scrolling Horizontal Line Effect */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-black/50">
-          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-white to-transparent animate-scroll-lines"></div>
-          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-white to-transparent animate-scroll-lines delay-1000"></div>
-          <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-white to-transparent animate-scroll-lines delay-2000"></div>
-        </div>
-      </div>
     </div>
   );
 };

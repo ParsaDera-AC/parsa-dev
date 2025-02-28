@@ -1,140 +1,215 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiArrowDown } from "react-icons/fi";
 import SnowBackground from "./SnowBackground";
 
 const Hero = ({ isDarkMode }) => {
+  const [isCodeVisible, setIsCodeVisible] = useState(true);
+  const controls = useAnimation();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Track mouse position for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   const pythonCode = `#!/usr/bin/env python3
 # Full-Stack Developer Portfolio
 
-# Define developer profile
-developer = {
-    "name": "Parsa Derakhshan",
-    "role": "Full-Stack Developer",
-    "skills": [
-        "Vue.js",
-        ".NET",
-        "React",
-        "Node.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Next.js",
-        "Python",
-        "Django",
-    ],
-    "projects": []
-}
-
-# Function to display skills
-def display_skills():
-    for skill in developer["skills"]:
-        print(f"Skill: {skill}")
-
-# Display developer profile
-print(f"Developer: {developer['name']} - Role: {developer['role']}")
-display_skills()
-
-# Example project snippet
-class PortfolioProject:
-    def __init__(self, name):
-        self.name = name
-    
-    def describe(self):
-        return f"Project: {self.name} - Built with {', '.join(developer['skills'][:3])}"
-
-project = PortfolioProject("ParsaDera Portfolio")
-print(project.describe())`;
+class Developer:
+    def __init__(self):
+        self.name = "Parsa Derakhshan"
+        self.role = "Full-Stack Developer"
+        self.skills = [
+            "Vue.js", ".NET", "React",
+            "Node.js", "TypeScript",
+            "Python", "Next.js"
+        ]
+        self.passion = "Building Beautiful Web Apps"
+        
+    def introduce(self):
+        return f"Hi, I'm {self.name}"`;
 
   return (
-    <section className="relative min-h-screen bg-transparent flex items-center justify-center overflow-hidden">
-      <SnowBackground />
-      {/* Hero Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6">
-        {/* Code Snippet Animation (VS Code + GraphQL-inspired, wider fixed size, Python, no syntax highlight) */}
+    <section className="relative min-h-screen pt-24 bg-transparent flex items-center justify-center overflow-hidden">
+       <SnowBackground />
+      {/* Floating Elements - Absolute positioned */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-xl"
+          animate={{
+            x: mousePosition.x * 0.05,
+            y: mousePosition.y * 0.05,
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-full blur-xl"
+          animate={{
+            x: mousePosition.x * -0.05,
+            y: mousePosition.y * -0.05,
+            scale: [1.2, 1, 1.2],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 flex flex-col items-center">
+        {/* Code Editor */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-8"
+          className="w-full max-w-4xl mb-12"
         >
-          <div className="relative w-[720px] h-[300px] max-w-full mx-auto bg-gray-800 dark:bg-gray-900 rounded-lg border border-gray-700 shadow-md overflow-hidden">
-            {/* Line numbers (static, mimicking GraphQL) */}
-            <div className="absolute left-0 top-0 h-full w-10 bg-gray-900 text-gray-500 text-sm font-mono flex flex-col items-end pr-2 pt-2">
-              {Array.from({ length: 20 }, (_, i) => (
-                <div key={i} className="h-6 leading-6">
-                  {i + 1}
-                </div>
-              ))}
+          <div className="relative bg-gray-800 dark:bg-gray-900 rounded-lg border border-gray-700 shadow-2xl overflow-hidden">
+            {/* Editor Header */}
+            <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-400">developer.py</span>
+                <button 
+                  onClick={() => setIsCodeVisible(!isCodeVisible)}
+                  className="p-1 hover:bg-gray-700 rounded"
+                >
+                  <FaPlay size={12} className="text-green-400" />
+                </button>
+              </div>
             </div>
 
-            {/* Code content with typing animation (line by line, no removal, plain white text) */}
-            <div className="pl-12 pr-12 w-full h-full">
-              <TypeAnimation
-                sequence={[pythonCode, 2000]} // Type the entire code once, pause for 2 seconds
-                wrapper="pre"
-                speed={50}
-                className="text-sm font-mono text-gray-100 w-full h-full overflow-auto code-vscode"
-              />
-            </div>
+            {/* Code Content */}
+            <div className="relative">
+              {/* Line Numbers */}
+              <div className="absolute left-0 top-0 h-full w-12 bg-gray-900 text-gray-600 text-sm font-mono flex flex-col items-end pr-2 pt-4">
+                {Array.from({ length: pythonCode.split('\n').length }, (_, i) => (
+                  <div key={i} className="h-6 leading-6">
+                    {i + 1}
+                  </div>
+                ))}
+              </div>
 
-            {/* Play button (like GraphQL) */}
-            <button className="absolute right-4 top-4 bg-indigo-500 text-white p-2 rounded-full hover:bg-indigo-600 transition-colors">
-              <FaPlay size={16} />
-            </button>
+              {/* Code with Typing Effect */}
+              <div className="pl-12 pr-4 pt-4 pb-4 overflow-x-auto">
+                <AnimatePresence mode="wait">
+                  {isCodeVisible && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <TypeAnimation
+                        sequence={[pythonCode]}
+                        wrapper="pre"
+                        speed={50}
+                        className="text-sm font-mono text-gray-100 leading-6"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Heading */}
-        <motion.h1
-          className="text-4xl sm:text-6xl font-extrabold text-gray-900 dark:text-white mb-8"
-          initial={{ opacity: 0, y: 50 }}
+        {/* Text Content */}
+        <motion.div
+          className="text-center space-y-6"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Hi, I'm Parsa Derakhshan
-        </motion.h1>
-
-        {/* Static Subheading with Tailwind Classes for Syntax Highlighting */}
-        <div className="mb-12 max-w-2xl mx-auto">
-          <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300">
-            A passionate{" "}
-            <span className="text-blue-400">Full-Stack Developer</span>
-            <br />
-            Specializing in <span className="text-green-400">Vue.js</span>,{" "}
-            <span className="text-green-400">.NET</span>, and{" "}
-            <span className="text-green-400">React</span>
-          </p>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          {/* Primary CTA */}
-          <motion.a
-            href="#projects"
-            className="inline-block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-            animate={{ scale: [1, 1.05, 1] }} // Pulse effect
+          <motion.h1
+            className="text-5xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+            animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="View my projects"
           >
-            View My Work
-          </motion.a>
+            Hi, I'm Parsa Derakhshan
+          </motion.h1>
 
-          {/* Secondary CTA */}
-          <motion.a
-            href="#contact"
-            className="inline-block bg-transparent border-2 border-purple-500 text-purple-500 dark:text-purple-300 font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-purple-500 hover:text-white dark:hover:text-white"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Get in touch"
+          <motion.p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto">
+            A passionate{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+              Full-Stack Developer
+            </span>
+            {" "}crafting beautiful digital experiences
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4 mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
           >
-            Get In Touch
-          </motion.a>
-        </div>
+            <motion.a
+              href="#projects"
+              className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View My Work
+            </motion.a>
+            <motion.a
+              href="#contact"
+              className="inline-flex items-center px-8 py-3 rounded-full border-2 border-purple-500 text-purple-400 font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get In Touch
+            </motion.a>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div 
+            className="flex justify-center space-x-4 mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+          >
+            <motion.a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-300"
+              whileHover={{ scale: 1.2, rotate: 5 }}
+            >
+              <FaGithub size={24} />
+            </motion.a>
+            <motion.a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-300"
+              whileHover={{ scale: 1.2, rotate: -5 }}
+            >
+              <FaLinkedin size={24} />
+            </motion.a>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <FiArrowDown className="text-gray-400 text-2xl animate-bounce" />
+        </motion.div>
       </div>
     </section>
   );

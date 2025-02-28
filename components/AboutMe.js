@@ -1,16 +1,49 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // For dynamic animations
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaGraduationCap,
   FaBriefcase,
   FaLaptopCode,
   FaMedal,
+  FaCode,
+  FaServer,
+  FaDatabase,
+  FaCloud,
 } from "react-icons/fa";
 
 const AboutMe = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [typedText, setTypedText] = useState("");
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  const introTexts = [
+    "Transforming ideas into elegant solutions",
+    "Building the future, one line at a time",
+    "Crafting digital experiences that matter"
+  ];
+
+  useEffect(() => {
+    const text = introTexts[currentTextIndex];
+    let currentIndex = 0;
+    let interval;
+
+    const typeText = () => {
+      if (currentIndex <= text.length) {
+        setTypedText(text.substring(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => {
+          setCurrentTextIndex((prev) => (prev + 1) % introTexts.length);
+        }, 2000);
+      }
+    };
+
+    interval = setInterval(typeText, 50);
+    return () => clearInterval(interval);
+  }, [currentTextIndex]);
 
   const cards = [
     {
@@ -20,6 +53,7 @@ const AboutMe = () => {
       icon: <FaGraduationCap size={40} className="text-pink-500" />,
       tooltip: "GPA: 3.7/4.0",
       color: "pink-500",
+      stats: ["Honours Graduate", "3.7 GPA", "Dean's List"],
     },
     {
       title: "Experience",
@@ -28,187 +62,160 @@ const AboutMe = () => {
       icon: <FaBriefcase size={40} className="text-purple-500" />,
       tooltip: "3+ Years of Experience",
       color: "purple-500",
+      stats: ["3+ Years", "Enterprise Apps", "Agile Teams"],
     },
     {
-      title: "Skills",
+      title: "Technical Expertise",
       description:
-        "Proficient in C#, React, Python, SQL, and REST APIs, with expertise in full-stack development.",
+        "Proficient in modern full-stack development with expertise in cloud solutions and microservices architecture.",
       icon: <FaLaptopCode size={40} className="text-indigo-500" />,
-      tooltip: "10+ Technologies",
+      tooltip: "Full-Stack Development",
       color: "indigo-500",
+      stats: ["Cloud Native", "CI/CD", "DevOps"],
     },
     {
       title: "Achievements",
       description:
-        "Dean’s Honour List for three consecutive years and numerous innovative projects.",
+        "Consistently recognized for technical excellence and innovative problem-solving in enterprise environments.",
       icon: <FaMedal size={40} className="text-yellow-500" />,
-      tooltip: "Dean's Honour List",
+      tooltip: "Technical Excellence",
       color: "yellow-500",
+      stats: ["Dean's List", "Innovation", "Leadership"],
     },
   ];
 
-  // Function to generate quantum variants with index
-  const getQuantumVariants = (index, color) => ({
-    initial: { opacity: 0, x: -50, scale: 0.8 },
-    animate: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        type: "spring",
-        stiffness: 100,
-        delay: index * 0.2,
-      },
-    },
-    hover: {
-      scale: 1.1,
-      boxShadow: `0 0 20px #${color === "pink-500" ? "ec4899" : color === "purple-500" ? "8b5cf6" : color === "indigo-500" ? "4f46e5" : color === "yellow-500" ? "e6db74" : color === "green-500" ? "22c55e" : "ef4444"}`,
-      transition: { duration: 0.3 },
-    },
-    glitch: {
-      x: [index * 2, -(index * 2), 0],
-      color: [
-        `#${color === "pink-500" ? "ec4899" : color === "purple-500" ? "8b5cf6" : color === "indigo-500" ? "4f46e5" : color === "yellow-500" ? "e6db74" : color === "green-500" ? "22c55e" : "ef4444"}`,
-        "#ffffff",
-        `#${color === "pink-500" ? "ec4899" : color === "purple-500" ? "8b5cf6" : color === "indigo-500" ? "4f46e5" : color === "yellow-500" ? "e6db74" : color === "green-500" ? "22c55e" : "ef4444"}`,
-      ],
-      transition: { duration: 0.1, repeat: 2, repeatType: "mirror" },
-    },
-  });
-
-  // Pulsing title with digital noise
-  const titleVariants = {
-    hidden: { opacity: 0, y: -50 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
-      scale: [1, 1.05, 1],
       transition: {
-        duration: 1,
-        type: "spring",
-        stiffness: 100,
-        repeat: Infinity,
-        repeatType: "reverse",
+        staggerChildren: 0.2,
       },
-    },
-    hover: {
-      scale: 1.1,
-      transition: { duration: 0.3 },
     },
   };
 
   return (
-    <section
-      id="about"
-      className="relative min-h-screen py-16 bg-transparent overflow-hidden"
-    >
-
-      {/* Content */}
+    <section id="about" className="relative min-h-screen py-20 bg-transparent">
       <div className="container mx-auto px-6 relative z-10">
-        {/* Pulsating Title with Digital Noise */}
-        <motion.h2
-          className="text-5xl font-bold text-center mb-12 text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text"
-          variants={titleVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
+        {/* Intro Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
         >
-          About Me
-          <motion.div
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
+          <motion.h2
+            className="text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
             animate={{
-              opacity: [0, 0.1, 0],
-              transition: { duration: 0.5, repeat: Infinity, repeatType: "reverse" },
+              backgroundPosition: ["0%", "100%"],
+              transition: { duration: 3, repeat: Infinity, repeatType: "reverse" },
             }}
           >
-            <span className="text-green-400 text-xs font-mono absolute -top-4 left-1/2 -translate-x-1/2 animate-matrix">
-              01010101...
-            </span>
-          </motion.div>
-        </motion.h2>
+            About Me
+          </motion.h2>
 
-        {/* Quantum-Tunneling Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            className="max-w-3xl mx-auto text-gray-300 leading-relaxed space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <p className="text-lg">
+              As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving 
+              to build robust, scalable applications. My journey in software development is driven by a 
+              passion for creating elegant solutions that make a real impact.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Tech Stack Indicators */}
+        <motion.div 
+          className="flex justify-center gap-8 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {[
+            { icon: <FaCode size={24} />, label: "Frontend" },
+            { icon: <FaServer size={24} />, label: "Backend" },
+            { icon: <FaDatabase size={24} />, label: "Database" },
+            { icon: <FaCloud size={24} />, label: "Cloud" },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              className="flex flex-col items-center gap-2"
+              whileHover={{ scale: 1.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white">
+                {item.icon}
+              </div>
+              <span className="text-gray-400 text-sm">{item.label}</span>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Experience Cards */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {cards.map((card, index) => (
             <motion.div
               key={index}
-              className={`relative bg-black/80 border-2 border-${card.color} rounded-lg p-6 shadow-lg`}
-              custom={index}
-              variants={getQuantumVariants(index, card.color)}
-              initial="initial"
-              animate={["animate", "glitch"]}
-              whileHover="hover"
-              onMouseEnter={() => {
-                setHoveredCard(index);
-                // Trigger glitch on hover
-                document.getElementById(`card-${index}`).classList.add("glitch");
-                setTimeout(() => document.getElementById(`card-${index}`).classList.remove("glitch"), 300);
-              }}
-              onMouseLeave={() => setHoveredCard(null)}
-              id={`card-${index}`}
+              className="relative group"
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
             >
-              <div className="flex flex-col items-center">
-                {card.icon}
-                <h3 className="text-xl font-bold text-white mt-2">{card.title}</h3>
-                <p className="text-sm text-gray-400 mt-2">{card.description}</p>
+              <div className={`
+                relative overflow-hidden rounded-xl bg-black/40 backdrop-blur-sm
+                border border-gray-800 p-6 hover:border-${card.color}
+                transition-all duration-300 hover:shadow-lg hover:shadow-${card.color}/20
+              `}>
+                {/* Card Header */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className={`p-3 rounded-lg bg-gradient-to-br from-${card.color} to-${card.color}/50`}>
+                    {card.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white">{card.title}</h3>
+                </div>
+
+                {/* Card Content */}
+                <p className="text-gray-400 text-sm mb-4">{card.description}</p>
+
+                {/* Stats */}
+                <div className="flex flex-wrap gap-2">
+                  {card.stats.map((stat, statIndex) => (
+                    <span
+                      key={statIndex}
+                      className={`
+                        px-3 py-1 text-xs rounded-full
+                        bg-${card.color}/10 text-${card.color}
+                        border border-${card.color}/20
+                      `}
+                    >
+                      {stat}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Hover Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
+                </div>
               </div>
-              <AnimatePresence>
-                {hoveredCard === index && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/80 rounded-lg p-2 text-white text-sm shadow-lg"
-                  >
-                    {card.tooltip}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <motion.div
-                className="absolute inset-0"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: [0, 0.05, 0],
-                  transition: { duration: 0.3, repeat: Infinity, repeatType: "reverse" },
-                }}
-              >
-                <span className="text-green-400 text-xs font-mono absolute animate-matrix">
-                  01010101...
-                </span>
-              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
-
-// CSS for matrix and glitch animations
-const styles = `
-  @keyframes matrix {
-    0% { opacity: 0; transform: translateY(100%); }
-    20% { opacity: 0.5; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-100%); }
-  }
-
-  @keyframes glitch {
-    0% { transform: translate(0, 0) scale(1); color: inherit; }
-    50% { transform: translate(2px, -2px) scale(1.02); color: #ffffff; }
-    100% { transform: translate(0, 0) scale(1); color: inherit; }
-  }
-
-  .animate-matrix {
-    animation: matrix 3s infinite;
-    position: absolute;
-    white-space: nowrap;
-  }
-
-  .glitch {
-    animation: glitch 0.3s ease-in-out;
-  }
-`;
 
 export default AboutMe;
