@@ -8,7 +8,7 @@ const Projects = () => {
     {
       title: "Enterprise Resource Management System",
       description: "Architected and developed a comprehensive web application for managing organizational resources and workflows. Implemented CQRS pattern and modern architectural principles to ensure scalability and maintainability.",
-      image: "/enterprise-project.jpg", // You'll need to add this image
+      image: "/enterprise.jpg", // You'll need to add this image
       techStack: [".NET/C#", "Vue.js", "SQL", "REST API", "Azure DevOps", "CQRS"],
       type: "Enterprise Application",
       category: "Full Stack",
@@ -20,7 +20,7 @@ const Projects = () => {
     {
       title: "Canadian Ski Patrol Rewrite Template",
       description: "Developed a CRUD modern web application templatefor the Canadian Ski Patrol using TypeScript and modern web technologies. Implemented material design components and responsive layouts with SCSS for an optimal user experience.",
-      image: "/ski-patrol-project.jpg",
+      image: "/skiPatrol.jpg",
       techStack: ["TypeScript", "Node.js", "LitElements", "SCSS", "Webpack", "Material Design"],
       type: "Web Application",
       category: "Full Stack",
@@ -32,7 +32,7 @@ const Projects = () => {
     {
       title: "Telegram Chat Analyzer",
       description: "Built a comprehensive chat analysis tool using Python, featuring advanced data visualization and statistical analysis of conversation patterns, user engagement, and sentiment analysis.",
-      image: "/telegram-project.jpg", // You'll need to add this image
+      image: "/telegram.jpg", // You'll need to add this image
       techStack: ["Python", "pandas", "NumPy", "seaborn", "matplotlib"],
       type: "Data Analysis",
       category: "Data Science",
@@ -44,7 +44,7 @@ const Projects = () => {
     {
       title: "Interactive Picross Game",
       description: "Developed a modern implementation of the classic Picross/Nonogram puzzle game with multiplayer support, featuring a sleek GUI and client-server architecture for online play.",
-      image: "/picross-project.jpg", // You'll need to add this image
+      image: "/piccross.jpg", // You'll need to add this image
       techStack: ["Java", "Swing", "Socket Programming", "Multi-threading"],
       type: "Game Development",
       category: "Desktop Application",
