@@ -47,7 +47,7 @@ const Projects = () => {
     {
       title: "Interactive Picross Game",
       description: "Developed a modern implementation of the classic Picross/Nonogram puzzle game with multiplayer support, featuring a sleek GUI and client-server architecture for online play.",
-      image: "/picross.jpg",
+      image: "/piccross.jpg",
       techStack: ["React", "Node.js", "Socket.io", "Express", "MongoDB"],
       type: "Game Development",
       category: "Full Stack",
@@ -59,7 +59,7 @@ const Projects = () => {
     {
       title: "SQO Group Website",
       description: "Designed and developed a professional website for a quantum physics research group, implementing responsive design principles and modern UI/UX practices.",
-      image: "/sqo.jpg",
+      image: "/sqogroup.jpg",
       techStack: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
       type: "Web Application",
       category: "Frontend",
@@ -84,113 +84,120 @@ const Projects = () => {
   });
 
   return (
-    <section id="projects" className="py-24 bg-gradient-to-b from-black to-gray-900">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
-          >
-            {messages?.projects?.title || "Featured Projects"}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-gray-400 max-w-2xl mx-auto"
-          >
-            {messages?.projects?.subtitle || "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions."}
-          </motion.p>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
+    <div className="bg-transparent w-full">
+      <section id="projects" className="relative py-24">
+        {/* Primary background */}
+        <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
+        
+        
+        
+        {/* Content container */}
+        <div className="container mx-auto px-6 relative" style={{ zIndex: 2 }}>
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500/50 transition-all duration-300"
+              transition={{ duration: 0.6 }}
+              className="text-5xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
             >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
+              {messages?.projects?.title || "Featured Projects"}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-gray-400 max-w-2xl mx-auto"
+            >
+              {messages?.projects?.subtitle || "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions."}
+            </motion.p>
+          </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                    {project.type}
-                  </span>
-                  <span className="px-3 py-1 text-xs rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">
-                    {project.category}
-                  </span>
-                </div>
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500/50 transition-all duration-300 flex flex-col"
+              >
+                  {/* Project Image */}
+                  <div className="relative h-64 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
 
-                <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-purple-400 transition-colors duration-300">
-                  {project.title}
-                </h3>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        {project.type}
+                      </span>
+                      <span className="px-3 py-1 text-xs rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">
+                        {project.category}
+                      </span>
+                    </div>
 
-                <p className="text-gray-400 text-sm mb-4">
-                  {project.description}
-                </p>
+                    <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
+                      {project.title}
+                    </h3>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2 py-1 text-xs rounded-md bg-gray-800 text-gray-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                    <p className="text-gray-400 text-base mb-6">
+                      {project.description}
+                    </p>
 
-                {/* Project Links */}
-                <div className="flex gap-4">
-                  {project.links.github && (
-                    <a
-                      href={project.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition-colors duration-300"
-                    >
-                      <FaGithub />
-                      {messages?.projects?.viewCode || "View Code"}
-                    </a>
-                  )}
-                  {project.links.demo && (
-                    <a
-                      href={project.links.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300"
-                    >
-                      <FaExternalLinkAlt />
-                      {messages?.projects?.liveDemo || "Live Demo"}
-                    </a>
-                  )}
-                </div>
-              </div>
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.techStack.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-3 py-1.5 text-sm rounded-md bg-gray-800/50 text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
 
-              {/* Hover Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
-          ))}
+                    {/* Project Links */}
+                    <div className="flex gap-6 mt-auto">
+                      {project.links.github && (
+                        <a
+                          href={project.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition-colors duration-300"
+                        >
+                          <FaGithub className="text-lg" />
+                          {messages?.projects?.viewCode || "View Code"}
+                        </a>
+                      )}
+                      {project.links.demo && (
+                        <a
+                          href={project.links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300"
+                        >
+                          <FaExternalLinkAlt className="text-lg" />
+                          {messages?.projects?.liveDemo || "Live Demo"}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

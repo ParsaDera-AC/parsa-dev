@@ -144,8 +144,7 @@ const Skills = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            A comprehensive showcase of my technical expertise across various domains. 
-            Click on categories to explore my skills in detail.
+            Explore my technical toolkit spanning various domains. Each skill represents hands-on experience in real-world projects.
           </motion.p>
 
           {/* Category Navigation */}
@@ -157,16 +156,22 @@ const Skills = () => {
                 className={`px-6 py-3 rounded-full text-white font-semibold transition-all duration-300
                   ${categoryColors[category]} 
                   ${(category === 'All' && !selectedCategory) || selectedCategory === category 
-                    ? 'scale-110 shadow-lg shadow-purple-500/50' 
-                    : 'hover:scale-105'}
-                  backdrop-blur-sm`}
+                    ? 'scale-110 shadow-lg shadow-purple-500/50 ring-2 ring-white/20' 
+                    : 'hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30'}
+                  backdrop-blur-sm relative overflow-hidden group`}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {category}
+                <span className="relative z-10">{category}</span>
+                <motion.div
+                  className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                  animate={{ scale: [0.8, 1], opacity: [0, 1] }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                />
               </motion.button>
             ))}
           </div>
@@ -194,6 +199,7 @@ const Skills = () => {
                 >
                   {category}
                 </motion.h3>
+                
                 <div className={`${
                   selectedCategory 
                     ? 'flex flex-wrap gap-3 justify-center' 
@@ -202,54 +208,51 @@ const Skills = () => {
                   {categorySkills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.skill}
-                      className="relative"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ 
-                        opacity: (!selectedCategory || selectedCategory === category) ? 1 : 0,
-                        x: (!selectedCategory || selectedCategory === category) ? 0 : -20,
+                      className={`group cursor-pointer flex items-center justify-start px-4 py-3 rounded-xl
+                        ${categoryColors[category]}
+                        shadow-lg hover:shadow-xl transition-all duration-300
+                        backdrop-blur-sm border border-gray-700/30 hover:border-white/20
+                        w-[220px] relative overflow-hidden`}
+                      onMouseEnter={() => setHoveredSkill(skill.skill)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      whileHover={{ 
+                        scale: 1.05,
+                        rotate: [0, -1, 1, 0],
+                        transition: { duration: 0.2 }
                       }}
-                      transition={{ duration: 0.3, delay: skillIndex * 0.05 }}
                     >
-                      <motion.div
-                        className={`group cursor-pointer flex items-center justify-start px-4 py-2.5 rounded-full
-                          ${categoryColors[category]}
-                          shadow-lg hover:shadow-xl transition-all duration-300
-                          backdrop-blur-sm border border-gray-700/30
-                          w-[200px]`}
-                        onMouseEnter={() => setHoveredSkill(skill.skill)}
-                        onMouseLeave={() => setHoveredSkill(null)}
-                        whileHover={{ 
-                          scale: 1.05,
-                          rotate: [0, -1, 1, 0],
-                          transition: { duration: 0.2 }
-                        }}
-                      >
-                        <div className="flex items-center gap-3 w-full">
-                          <span className="flex-shrink-0">
-                            {skill.icon || <FaCode size={20} color="#FFFFFF" />}
-                          </span>
-                          <span className="text-base font-medium truncate">
-                            {skill.skill}
-                          </span>
+                      <div className="flex items-center gap-3 w-full relative z-10">
+                        <div className="p-2 rounded-lg bg-white/10 backdrop-blur-sm transition-all duration-300 group-hover:bg-white/20">
+                          {skill.icon || <FaCode size={20} color="#FFFFFF" />}
                         </div>
-                      </motion.div>
+                        <span className="text-base font-medium truncate text-white/90 group-hover:text-white">
+                          {skill.skill}
+                        </span>
+                      </div>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0"
+                        initial={{ x: '-100%', opacity: 0 }}
+                        whileHover={{ x: '100%', opacity: 1 }}
+                        transition={{ duration: 0.6, ease: 'easeInOut' }}
+                      />
 
-                      {/* Skill Tooltip */}
+                      {/* Enhanced Skill Tooltip */}
                       <AnimatePresence>
                         {hoveredSkill === skill.skill && (
                           <motion.div
-                            className="absolute -top-12 left-1/2 transform -translate-x-1/2 
+                            className="absolute -top-14 left-1/2 transform -translate-x-1/2 
                               bg-black/90 text-white px-4 py-2 rounded-lg text-sm
-                              border border-gray-700 shadow-lg z-50 whitespace-nowrap"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
+                              border border-gray-700/50 shadow-lg z-50 whitespace-nowrap
+                              backdrop-blur-md"
+                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
                           >
                             {skill.skill}
                             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 
-                              border-l-8 border-r-8 border-t-8 
-                              border-l-transparent border-r-transparent border-t-black/90">
+                              w-4 h-4 bg-black/90 border border-gray-700/50
+                              rotate-45 -z-10">
                             </div>
                           </motion.div>
                         )}
