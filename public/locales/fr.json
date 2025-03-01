@@ -125,5 +125,48 @@
       "message": "Votre Message",
       "submit": "Envoyer le Message"
     }
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Voici quelques-uns de mes projets récents",
+    "categories": {
+      "all": "Tous",
+      "fullStack": "Full Stack",
+      "frontend": "Frontend",
+      "dataScience": "Science des Données",
+      "gamedev": "Dév. de Jeux"
+    },
+    "items": {
+      "erms": {
+        "title": "Système de Gestion des Ressources d'Entreprise",
+        "description": "Architecturé et développé une application web complète pour la gestion des ressources et des flux de travail organisationnels. Implémentation du pattern CQRS et des principes architecturaux modernes pour assurer l'évolutivité et la maintenabilité.",
+        "tags": ["Application d'Entreprise", "Full Stack"],
+        "technologies": [".NET/C#", "Vue.js", "SQL", "REST API", "Azure DevOps", "CQRS"]
+      },
+      "skiPatrol": {
+        "title": "Modèle de Réécriture pour la Patrouille de Ski Canadienne",
+        "description": "Développé un modèle d'application web CRUD moderne pour la Patrouille de Ski Canadienne utilisant TypeScript et des technologies web modernes. Implémentation de composants Material Design et de mises en page responsives avec SCSS pour une expérience utilisateur optimale.",
+        "tags": ["Application Web", "Full Stack"],
+        "technologies": ["TypeScript", "Node.js", "LitElements", "SCSS", "Webpack", "Material Design"]
+      },
+      "telegramAnalyzer": {
+        "title": "Analyseur de Conversations Telegram",
+        "description": "Créé un outil complet d'analyse de conversations utilisant Python, avec visualisation avancée des données et analyse statistique des modèles de conversation, de l'engagement des utilisateurs et analyse des sentiments.",
+        "tags": ["Analyse de Données", "Science des Données"],
+        "technologies": ["Python", "pandas", "NumPy", "seaborn", "matplotlib"]
+      },
+      "picross": {
+        "title": "Jeu Picross Interactif",
+        "description": "Développé une implémentation moderne du jeu de puzzle classique Picross/Nonogram avec support multijoueur, présentant une interface graphique élégante et des algorithmes efficaces.",
+        "tags": ["Développement de Jeux", "Full Stack"],
+        "technologies": ["Unity", "C#", "Multijoueur", "UI/UX"]
+      },
+      "sqoWebsite": {
+        "title": "Site Web du Groupe SQO",
+        "description": "Conçu et développé un site web professionnel pour un groupe de recherche en physique quantique, implémentant des principes de design responsive et des technologies web modernes.",
+        "tags": ["Application Web", "Frontend"],
+        "technologies": ["React", "Next.js", "Tailwind CSS", "Design Responsive"]
+      }
+    }
   }
 } 

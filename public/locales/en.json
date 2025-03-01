@@ -125,5 +125,48 @@
       "message": "Your Message",
       "submit": "Send Message"
     }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Here are some of my recent projects",
+    "categories": {
+      "all": "All",
+      "fullStack": "Full Stack",
+      "frontend": "Frontend",
+      "dataScience": "Data Science",
+      "gamedev": "Game Dev"
+    },
+    "items": {
+      "erms": {
+        "title": "Enterprise Resource Management System",
+        "description": "Architected and developed a comprehensive web application for managing organizational resources and workflows. Implemented CQRS pattern and modern architectural principles to ensure scalability and maintainability.",
+        "tags": ["Enterprise Application", "Full Stack"],
+        "technologies": [".NET/C#", "Vue.js", "SQL", "REST API", "Azure DevOps", "CQRS"]
+      },
+      "skiPatrol": {
+        "title": "Canadian Ski Patrol Rewrite Template",
+        "description": "Developed a CRUD modern web application template for the Canadian Ski Patrol using TypeScript and modern web technologies. Implemented material design components and responsive layouts with SCSS for an optimal user experience.",
+        "tags": ["Web Application", "Full Stack"],
+        "technologies": ["TypeScript", "Node.js", "LitElements", "SCSS", "Webpack", "Material Design"]
+      },
+      "telegramAnalyzer": {
+        "title": "Telegram Chat Analyzer",
+        "description": "Built a comprehensive chat analysis tool using Python, featuring advanced data visualization and statistical analysis of conversation patterns, user engagement, and sentiment analysis.",
+        "tags": ["Data Analysis", "Data Science"],
+        "technologies": ["Python", "pandas", "NumPy", "seaborn", "matplotlib"]
+      },
+      "picross": {
+        "title": "Interactive Picross Game",
+        "description": "Developed a modern implementation of the classic Picross/Nonogram puzzle game with multiplayer support, featuring a sleek GUI and efficient algorithms.",
+        "tags": ["Game Development", "Full Stack"],
+        "technologies": ["Unity", "C#", "Multiplayer", "UI/UX"]
+      },
+      "sqoWebsite": {
+        "title": "SQO Group Website",
+        "description": "Designed and developed a professional website for a quantum physics research group, implementing responsive design principles and modern web technologies.",
+        "tags": ["Web Application", "Frontend"],
+        "technologies": ["React", "Next.js", "Tailwind CSS", "Responsive Design"]
+      }
+    }
   }
 } 
