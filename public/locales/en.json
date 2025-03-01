@@ -15,6 +15,95 @@
     "viewWork": "View My Work",
     "contact": "Get In Touch"
   },
+  "about": {
+    "title": "About Me",
+    "description": "As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving to build robust, scalable applications. My journey in software development is driven by a passion for creating elegant solutions that make a real impact.",
+    "skills": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "cloud": "Cloud"
+    },
+    "cards": {
+      "education": {
+        "title": "Education",
+        "description": "Advanced Diploma in Computer Engineering Technology from Algonquin College with Honours (2023).",
+        "stats": ["Honours Graduate", "3.7 GPA", "Dean's List"]
+      },
+      "experience": {
+        "title": "Experience",
+        "description": "Full-Stack Programmer Analyst at the Canadian Coast Guard, specializing in critical applications.",
+        "stats": ["3+ Years", "Enterprise Apps", "Agile Teams"]
+      },
+      "expertise": {
+        "title": "Technical Expertise",
+        "description": "Proficient in modern full-stack development with expertise in cloud solutions and microservices architecture.",
+        "stats": ["Cloud Native", "CI/CD", "DevOps"]
+      },
+      "achievements": {
+        "title": "Achievements",
+        "description": "Consistently recognized for technical excellence and innovative problem-solving in enterprise environments.",
+        "stats": ["Dean's List", "Innovation", "Leadership"]
+      }
+    }
+  },
+  "softSkills": {
+    "title": "Soft Skills",
+    "leadership": {
+      "title": "Leadership & Collaboration",
+      "description": "Proven track record of leading technical initiatives and collaborating across government agencies",
+      "skills": [
+        "Technical Coaching",
+        "Cross-Agency Collaboration",
+        "Team Leadership"
+      ]
+    },
+    "problemSolving": {
+      "title": "Problem Solving",
+      "description": "Strong analytical mindset demonstrated through complex application development and automation",
+      "skills": [
+        "Technical Analysis",
+        "Process Automation",
+        "Innovation"
+      ]
+    },
+    "communication": {
+      "title": "Technical Communication",
+      "description": "Expert at translating complex technical concepts and writing comprehensive documentation",
+      "skills": [
+        "Technical Documentation",
+        "Client Relations",
+        "Knowledge Transfer"
+      ]
+    },
+    "projectManagement": {
+      "title": "Project Management",
+      "description": "Experienced in Agile methodologies and managing multiple critical applications",
+      "skills": [
+        "Agile/Scrum",
+        "Resource Planning",
+        "Deadline Management"
+      ]
+    },
+    "dataAnalysis": {
+      "title": "Data Analysis",
+      "description": "Strong analytical skills in data visualization and statistical analysis",
+      "skills": [
+        "Risk Analysis",
+        "Data Visualization",
+        "Statistical Modeling"
+      ]
+    },
+    "adaptability": {
+      "title": "Technical Adaptability",
+      "description": "Proven ability to quickly master new technologies and frameworks",
+      "skills": [
+        "Multi-platform",
+        "Quick Learning",
+        "Technology Integration"
+      ]
+    }
+  },
   "resume": {
     "title": "Unlock My Resume",
     "subtitle": "Enter the special access code to download my resume instantly!",

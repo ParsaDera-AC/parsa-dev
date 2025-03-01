@@ -15,6 +15,95 @@
     "viewWork": "Voir mes projets",
     "contact": "Me contacter"
   },
+  "about": {
+    "title": "À Propos de Moi",
+    "description": "En tant que développeur Full-Stack expérimenté, je combine expertise technique et résolution créative de problèmes pour créer des applications robustes et évolutives. Mon parcours dans le développement logiciel est motivé par une passion pour la création de solutions élégantes qui ont un impact réel.",
+    "skills": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de données",
+      "cloud": "Cloud"
+    },
+    "cards": {
+      "education": {
+        "title": "Formation",
+        "description": "Diplôme avancé en technologie du génie informatique du Collège Algonquin avec mention (2023).",
+        "stats": ["Diplômé avec mention", "GPA 3.7", "Liste du doyen"]
+      },
+      "experience": {
+        "title": "Expérience",
+        "description": "Analyste-programmeur Full-Stack à la Garde côtière canadienne, spécialisé dans les applications critiques.",
+        "stats": ["3+ ans", "Apps Enterprise", "Équipes Agiles"]
+      },
+      "expertise": {
+        "title": "Expertise Technique",
+        "description": "Maîtrise du développement full-stack moderne avec expertise en solutions cloud et architecture microservices.",
+        "stats": ["Cloud Native", "CI/CD", "DevOps"]
+      },
+      "achievements": {
+        "title": "Réalisations",
+        "description": "Régulièrement reconnu pour l'excellence technique et la résolution innovante de problèmes dans des environnements d'entreprise.",
+        "stats": ["Liste du doyen", "Innovation", "Leadership"]
+      }
+    }
+  },
+  "softSkills": {
+    "title": "Compétences Douces",
+    "leadership": {
+      "title": "Leadership & Collaboration",
+      "description": "Expérience prouvée dans la direction d'initiatives techniques et la collaboration entre agences gouvernementales",
+      "skills": [
+        "Coaching Technique",
+        "Collaboration Inter-agences",
+        "Leadership d'Équipe"
+      ]
+    },
+    "problemSolving": {
+      "title": "Résolution de Problèmes",
+      "description": "Esprit analytique démontré à travers le développement d'applications complexes et l'automatisation",
+      "skills": [
+        "Analyse Technique",
+        "Automatisation des Processus",
+        "Innovation"
+      ]
+    },
+    "communication": {
+      "title": "Communication Technique",
+      "description": "Expert dans la traduction de concepts techniques complexes et la rédaction de documentation complète",
+      "skills": [
+        "Documentation Technique",
+        "Relations Clients",
+        "Transfert de Connaissances"
+      ]
+    },
+    "projectManagement": {
+      "title": "Gestion de Projet",
+      "description": "Expérimenté dans les méthodologies Agile et la gestion de multiples applications critiques",
+      "skills": [
+        "Agile/Scrum",
+        "Planification des Ressources",
+        "Gestion des Délais"
+      ]
+    },
+    "dataAnalysis": {
+      "title": "Analyse de Données",
+      "description": "Compétences analytiques solides en visualisation de données et analyse statistique",
+      "skills": [
+        "Analyse des Risques",
+        "Visualisation des Données",
+        "Modélisation Statistique"
+      ]
+    },
+    "adaptability": {
+      "title": "Adaptabilité Technique",
+      "description": "Capacité prouvée à maîtriser rapidement les nouvelles technologies et frameworks",
+      "skills": [
+        "Multi-plateforme",
+        "Apprentissage Rapide",
+        "Intégration Technologique"
+      ]
+    }
+  },
   "resume": {
     "title": "Débloquer mon CV",
     "subtitle": "Entrez le code d'accès spécial pour télécharger mon CV instantanément !",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FaGraduationCap,
   FaBriefcase,
@@ -12,76 +12,51 @@ import {
   FaDatabase,
   FaCloud,
 } from "react-icons/fa";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AboutMe = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [typedText, setTypedText] = useState("");
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
-  const introTexts = [
-    "Transforming ideas into elegant solutions",
-    "Building the future, one line at a time",
-    "Crafting digital experiences that matter"
-  ];
-
-  useEffect(() => {
-    const text = introTexts[currentTextIndex];
-    let currentIndex = 0;
-    let interval;
-
-    const typeText = () => {
-      if (currentIndex <= text.length) {
-        setTypedText(text.substring(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => {
-          setCurrentTextIndex((prev) => (prev + 1) % introTexts.length);
-        }, 2000);
-      }
-    };
-
-    interval = setInterval(typeText, 50);
-    return () => clearInterval(interval);
-  }, [currentTextIndex]);
+  const { messages } = useLanguage();
 
   const cards = [
     {
-      title: "Education",
-      description:
+      title: messages?.about?.cards?.education?.title || "Education",
+      description: messages?.about?.cards?.education?.description || 
         "Advanced Diploma in Computer Engineering Technology from Algonquin College with Honours (2023).",
       icon: <FaGraduationCap size={40} className="text-pink-500" />,
-      tooltip: "GPA: 3.7/4.0",
       color: "pink-500",
-      stats: ["Honours Graduate", "3.7 GPA", "Dean's List"],
+      stats: messages?.about?.cards?.education?.stats || ["Honours Graduate", "3.7 GPA", "Dean's List"],
     },
     {
-      title: "Experience",
-      description:
+      title: messages?.about?.cards?.experience?.title || "Experience",
+      description: messages?.about?.cards?.experience?.description ||
         "Full-Stack Programmer Analyst at the Canadian Coast Guard, specializing in critical applications.",
       icon: <FaBriefcase size={40} className="text-purple-500" />,
-      tooltip: "3+ Years of Experience",
       color: "purple-500",
-      stats: ["3+ Years", "Enterprise Apps", "Agile Teams"],
+      stats: messages?.about?.cards?.experience?.stats || ["3+ Years", "Enterprise Apps", "Agile Teams"],
     },
     {
-      title: "Technical Expertise",
-      description:
+      title: messages?.about?.cards?.expertise?.title || "Technical Expertise",
+      description: messages?.about?.cards?.expertise?.description ||
         "Proficient in modern full-stack development with expertise in cloud solutions and microservices architecture.",
       icon: <FaLaptopCode size={40} className="text-indigo-500" />,
-      tooltip: "Full-Stack Development",
       color: "indigo-500",
-      stats: ["Cloud Native", "CI/CD", "DevOps"],
+      stats: messages?.about?.cards?.expertise?.stats || ["Cloud Native", "CI/CD", "DevOps"],
     },
     {
-      title: "Achievements",
-      description:
+      title: messages?.about?.cards?.achievements?.title || "Achievements",
+      description: messages?.about?.cards?.achievements?.description ||
         "Consistently recognized for technical excellence and innovative problem-solving in enterprise environments.",
       icon: <FaMedal size={40} className="text-yellow-500" />,
-      tooltip: "Technical Excellence",
       color: "yellow-500",
-      stats: ["Dean's List", "Innovation", "Leadership"],
+      stats: messages?.about?.cards?.achievements?.stats || ["Dean's List", "Innovation", "Leadership"],
     },
+  ];
+
+  const skills = [
+    { icon: <FaCode size={24} />, label: messages?.about?.skills?.frontend || "Frontend" },
+    { icon: <FaServer size={24} />, label: messages?.about?.skills?.backend || "Backend" },
+    { icon: <FaDatabase size={24} />, label: messages?.about?.skills?.database || "Database" },
+    { icon: <FaCloud size={24} />, label: messages?.about?.skills?.cloud || "Cloud" },
   ];
 
   const containerVariants = {
@@ -122,7 +97,7 @@ const AboutMe = () => {
                 transition: { duration: 3, repeat: Infinity, repeatType: "reverse" },
               }}
             >
-              About Me
+              {messages?.about?.title || "About Me"}
             </motion.h2>
 
             <motion.div
@@ -132,26 +107,20 @@ const AboutMe = () => {
               transition={{ delay: 0.4 }}
             >
               <p className="text-lg">
-                As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving 
-                to build robust, scalable applications. My journey in software development is driven by a 
-                passion for creating elegant solutions that make a real impact.
+                {messages?.about?.description || 
+                  "As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving to build robust, scalable applications. My journey in software development is driven by a passion for creating elegant solutions that make a real impact."}
               </p>
             </motion.div>
           </motion.div>
 
           {/* Tech Stack Indicators */}
-          <motion.div 
+          <motion.div
             className="flex justify-center gap-8 mb-16"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            {[
-              { icon: <FaCode size={24} />, label: "Frontend" },
-              { icon: <FaServer size={24} />, label: "Backend" },
-              { icon: <FaDatabase size={24} />, label: "Database" },
-              { icon: <FaCloud size={24} />, label: "Cloud" },
-            ].map((item, index) => (
+            {skills.map((item, index) => (
               <motion.div
                 key={index}
                 className="flex flex-col items-center gap-2"
