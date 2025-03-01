@@ -1,117 +1,167 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import sha256 from "js-sha256";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaLock, FaUnlock, FaDownload, FaKey } from 'react-icons/fa';
 
-const Resume = () => {
-  const [accessCode, setAccessCode] = useState("");
-  const [feedbackMessage, setFeedbackMessage] = useState(null);
-  const [isValidCode, setIsValidCode] = useState(false);
-  let timeoutId;
+export default function Resume() {
+  const [accessCode, setAccessCode] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-
-
-
-  // Securely store this hash on the backend
-  const hashedCorrectCode = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd233e6e5a0ef6bfe6e";
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setIsError(false);
 
-    if (sha256(accessCode) === hashedCorrectCode) {
-      setIsValidCode(true);
-      setFeedbackMessage("✅ Download unlocked! Click below.");
+    // Simulate verification delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    if (accessCode === 'your-access-code') { // Replace with your actual access code
+      setIsUnlocked(true);
+      // Add your resume download logic here
     } else {
-      setFeedbackMessage("❌ Incorrect code. Try again.");
-      setIsValidCode(false);
+      setIsError(true);
     }
-
-    // Clear message after 2 seconds
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      setFeedbackMessage(null);
-    }, 2000);
+    setIsLoading(false);
   };
 
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => clearTimeout(timeoutId);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-transparent overflow-hidden">
-      {/* Content */}
-      <div className="container mx-auto px-8 relative z-10 text-center">
-        <motion.div
-          className="bg-zinc-900 rounded-2xl p-10 shadow-2xl border border-gray-800 hover:shadow-purple-500/50 transform transition-all duration-500 hover:scale-105 max-w-md mx-auto"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-        >
-          {/* Title */}
-          <motion.h2
-            className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mb-6"
-            initial={{ opacity: 0, y: -20 }}
+    <section id="resume" className="relative py-24">
+      {/* Subtle top border/divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-4xl">
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+      </div>
+
+      <div className="min-h-[80vh] flex items-center justify-center">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_500px_at_50%_50%,rgba(168,85,247,0.1),transparent)]" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-md mx-auto"
           >
-            Unlock My Resume
-          </motion.h2>
-
-          <p className="text-gray-400 mb-6">Enter the special access code to download my resume instantly!</p>
-
-          {/* Feedback Message */}
-          {feedbackMessage && (
-            <motion.p
-              className={`text-sm mb-4 ${
-                isValidCode ? "text-green-400" : "text-red-400"
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              {feedbackMessage}
-            </motion.p>
-          )}
-
-          {/* Input Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <input
-              type="text"
-              placeholder="Enter Access Code"
-              value={accessCode}
-              onChange={(e) => setAccessCode(e.target.value)}
-              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500"
-              required
-            />
-            <motion.button
-              type="submit"
-              className="w-full px-8 py-3 font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
-              whileHover={{ scale: 1.1, boxShadow: "0 0 20px rgba(236, 72, 153, 0.8)" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Submit Code
-            </motion.button>
-          </form>
-
-          {/* Download Button */}
-          {isValidCode && (
-            <motion.div className="mt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-              <a
-                href="/Resume.pdf"
-                download="ParsaDerakhshan_Resume.pdf"
-                className="w-full inline-block px-8 py-3 font-bold bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-lg hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105"
+            <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
+              {/* Title with animated gradient */}
+              <motion.h2
+                className="text-4xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-300% animate-gradient"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
               >
-                Download Resume
-              </a>
-            </motion.div>
-          )}
-        </motion.div>
+                Unlock My Resume
+              </motion.h2>
+
+              <motion.p
+                className="text-gray-400 text-center mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                Enter the special access code to download my resume instantly!
+              </motion.p>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur"
+                    animate={{
+                      opacity: [0.5, 0.8, 0.5],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={accessCode}
+                      onChange={(e) => setAccessCode(e.target.value)}
+                      className={`w-full px-4 py-3 bg-black/50 border ${
+                        isError ? 'border-red-500/50' : 'border-purple-500/50'
+                      } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300`}
+                      placeholder="Enter Access Code"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <motion.div
+                        animate={isUnlocked ? { rotate: [0, 20, 0] } : {}}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {isUnlocked ? (
+                          <FaUnlock className="text-green-400" />
+                        ) : (
+                          <FaLock className="text-gray-500" />
+                        )}
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+
+                {isError && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-sm text-center"
+                  >
+                    Invalid access code. Please try again.
+                  </motion.p>
+                )}
+
+                <motion.button
+                  type="submit"
+                  className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black transition-all duration-300 relative overflow-hidden group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={isLoading}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {isLoading ? (
+                      <motion.div
+                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      />
+                    ) : (
+                      <>
+                        {isUnlocked ? <FaDownload /> : <FaKey />}
+                        {isUnlocked ? "Download Resume" : "Submit Code"}
+                      </>
+                    )}
+                  </span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
+                    initial={{ x: "100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.button>
+              </form>
+
+              {/* Additional Info */}
+              <motion.p
+                className="mt-6 text-sm text-gray-500 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                Don't have the access code?{" "}
+                <a href="#contact" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
+                  Contact me
+                </a>
+              </motion.p>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Resume;
+}

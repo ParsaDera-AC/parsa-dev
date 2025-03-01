@@ -5,9 +5,9 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaPlay, FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiArrowDown } from "react-icons/fi";
-import SnowBackground from "./SnowBackground";
+import AmbientBackground from "./SnowBackground";
 
-const Hero = ({ isDarkMode }) => {
+export default function Hero() {
   const [isCodeVisible, setIsCodeVisible] = useState(true);
   const controls = useAnimation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -39,8 +39,8 @@ class Developer:
         return f"Hi, I'm {self.name}"`;
 
   return (
-    <section className="relative min-h-screen pt-24 bg-transparent flex items-center justify-center overflow-hidden">
-       <SnowBackground />
+    <section id="home" className="relative min-h-[90vh] flex items-center justify-center py-24">
+      <AmbientBackground />
       {/* Floating Elements - Absolute positioned */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -213,6 +213,4 @@ class Developer:
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

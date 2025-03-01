@@ -4,47 +4,47 @@ import React from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
-const SnowBackground = () => {
+const AmbientBackground = () => {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
 
-  const colorfulParticlesOptions = {
+  const particlesOptions = {
     background: {
       color: { value: "#000000" },
     },
     particles: {
-      number: { value: 150, density: { enable: true, value_area: 800 } },
+      number: { value: 10, density: { enable: true, value_area: 800 } },
       color: {
-        value: ["#6366f1", "#a855f7", "#ec4899", "#ffffff"], // Indigo, Purple, Pink, White
+        value: ["#6366f1", "#a855f7", "#ec4899"], // Indigo, Purple, Pink
       },
       shape: { 
         type: "circle",
       },
       opacity: { 
-        value: 0.6,
+        value: 0.3,
         random: true,
         anim: {
           enable: true,
-          speed: 0.5,
+          speed: 0.2,
           opacity_min: 0.1,
           sync: false
         }
       },
       size: { 
-        value: 3,
+        value: 100,
         random: true,
         anim: {
           enable: true,
-          speed: 2,
-          size_min: 0.1,
+          speed: 1,
+          size_min: 50,
           sync: false
         }
       },
       move: {
         enable: true,
-        speed: 2,
-        direction: "bottom",
+        speed: 0.4,
+        direction: "none",
         random: true,
         straight: false,
         out_mode: "out",
@@ -55,28 +55,21 @@ const SnowBackground = () => {
           rotateY: 1200
         }
       },
+      blur: {
+        enable: true,
+        value: 10
+      }
     },
     interactivity: {
       detect_on: "canvas",
       events: {
         onhover: {
           enable: true,
-          mode: "bubble"
-        },
-        onclick: {
-          enable: true,
           mode: "repulse"
         },
         resize: true
       },
       modes: {
-        bubble: {
-          distance: 200,
-          size: 6,
-          duration: 0.3,
-          opacity: 1,
-          speed: 3
-        },
         repulse: {
           distance: 200,
           duration: 0.4
@@ -88,11 +81,23 @@ const SnowBackground = () => {
 
   return (
     <div className="fixed inset-0 -z-10">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black opacity-80" />
+      {/* Base gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black opacity-80" />
+      
+      {/* Animated gradients */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -inset-[10%] opacity-50">
+          <div className="absolute top-1/4 left-1/4 w-full h-full bg-gradient-to-r from-indigo-500/10 to-transparent rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
+          <div className="absolute top-1/3 right-1/4 w-full h-full bg-gradient-to-l from-purple-500/10 to-transparent rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '10s' }} />
+          <div className="absolute bottom-1/4 left-1/3 w-full h-full bg-gradient-to-tr from-pink-500/10 to-transparent rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '12s' }} />
+        </div>
+      </div>
+
+      {/* Particles */}
       <Particles
         id="tsparticles"
         init={particlesInit}
-        options={colorfulParticlesOptions}
+        options={particlesOptions}
         className="absolute inset-0"
       />
     </div>
@@ -120,4 +125,4 @@ const styles = `
   }
 `;
 
-export default SnowBackground;
+export default AmbientBackground;
