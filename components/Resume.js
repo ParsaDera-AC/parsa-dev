@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaLock, FaUnlock, FaDownload, FaKey } from 'react-icons/fa';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Resume() {
   const [accessCode, setAccessCode] = useState('');
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { messages } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,11 @@ export default function Resume() {
     }
     setIsLoading(false);
   };
+
+  // Early return if messages are not loaded yet
+  if (!messages) {
+    return null;
+  }
 
   return (
     <section id="resume" className="relative py-24">
@@ -56,7 +63,7 @@ export default function Resume() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                Unlock My Resume
+                {messages?.resume?.title || "Unlock My Resume"}
               </motion.h2>
 
               <motion.p
@@ -65,7 +72,7 @@ export default function Resume() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                Enter the special access code to download my resume instantly!
+                {messages?.resume?.subtitle || "Enter the special access code to download my resume instantly!"}
               </motion.p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -89,7 +96,7 @@ export default function Resume() {
                       className={`w-full px-4 py-3 bg-black/50 border ${
                         isError ? 'border-red-500/50' : 'border-purple-500/50'
                       } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300`}
-                      placeholder="Enter Access Code"
+                      placeholder={messages?.resume?.placeholder || "Enter Access Code"}
                     />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
                       <motion.div
@@ -153,9 +160,9 @@ export default function Resume() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                Don't have the access code?{" "}
+                {messages?.resume?.noCode || "Don't have the access code?"}{" "}
                 <a href="#contact" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
-                  Contact me
+                  {messages?.resume?.contactMe || "Contact me"}
                 </a>
               </motion.p>
             </div>

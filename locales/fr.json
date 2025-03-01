@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "softskills": "Compétences douces",
+    "projects": "Projets",
+    "resume": "CV",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis Parsa Derakhshan",
+    "role": "Un développeur",
+    "title": "Full-Stack",
+    "description": "passionné créant de belles expériences numériques",
+    "viewWork": "Voir mes projets",
+    "contact": "Me contacter"
+  },
+  "resume": {
+    "title": "Débloquer mon CV",
+    "subtitle": "Entrez le code d'accès spécial pour télécharger mon CV instantanément !",
+    "placeholder": "Entrer le code d'accès",
+    "submit": "Soumettre le code",
+    "noCode": "Vous n'avez pas le code d'accès ?",
+    "contactMe": "Contactez-moi"
+  }
+} 

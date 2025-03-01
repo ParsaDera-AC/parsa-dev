@@ -14,14 +14,16 @@ import {
 import { FiMoon, FiSun, FiGlobe } from "react-icons/fi";
 import { PiCodeSimpleFill } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
-import AmbientBackground from "./SnowBackground";
+import AmbientBackground from "@/components/AmbientBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Header() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const { toggleLanguage, messages, language } = useLanguage();
 
   // Navigation items
   const navItems = [
@@ -80,7 +82,7 @@ export default function Header() {
       <AmbientBackground />
       <motion.header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-black/80 backdrop-blur-md" : "bg-transparent"
+          isScrolled ? "bg-transparent backdrop-blur-md" : "bg-transparent"
         }`}
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -157,13 +159,51 @@ export default function Header() {
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span>{messages?.nav?.[item.id] || item.label}</span>
                 </motion.a>
               ))}
             </nav>
 
             {/* Right Side Items */}
             <div className="flex items-center space-x-4">
+              {/* Language Toggle */}
+              <div className="relative">
+                <motion.button
+                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                  className="p-2 rounded-lg text-gray-300 hover:text-purple-400 hover:bg-white/5 transition-all duration-300 flex items-center space-x-1"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FiGlobe size={20} />
+                  <span className="text-sm font-medium">{language.toUpperCase()}</span>
+                </motion.button>
+
+                <AnimatePresence>
+                  {isLangMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute right-0 mt-2 w-32 rounded-lg bg-black/90 backdrop-blur-md border border-gray-800 shadow-lg overflow-hidden"
+                    >
+                      {["en", "fr"].map((lang) => (
+                        <button
+                          key={lang}
+                          onClick={() => {
+                            toggleLanguage();
+                            setIsLangMenuOpen(false);
+                          }}
+                          className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200
+                            ${language === lang ? "text-purple-400 bg-white/10" : "text-gray-300 hover:text-purple-400 hover:bg-white/5"}`}
+                        >
+                          {lang === "en" ? "English" : "Français"}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               {/* Social Links */}
               <motion.a
                 href="https://github.com/ParsaDera-AC"
@@ -243,7 +283,7 @@ export default function Header() {
                       whileHover={{ x: 10 }}
                     >
                       {item.icon}
-                      <span>{item.label}</span>
+                      <span>{messages?.nav?.[item.id] || item.label}</span>
                     </motion.a>
                   ))}
                 </nav>

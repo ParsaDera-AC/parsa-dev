@@ -5,12 +5,13 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaPlay, FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiArrowDown } from "react-icons/fi";
-import AmbientBackground from "./SnowBackground";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
   const [isCodeVisible, setIsCodeVisible] = useState(true);
   const controls = useAnimation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { messages } = useLanguage();
 
   // Track mouse position for parallax effect
   useEffect(() => {
@@ -40,7 +41,6 @@ class Developer:
 
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center justify-center py-24">
-      <AmbientBackground />
       {/* Floating Elements - Absolute positioned */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -138,15 +138,15 @@ class Developer:
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            Hi, I'm Parsa Derakhshan
+            {messages?.hero?.greeting || "Hi, I'm Parsa Derakhshan"}
           </motion.h1>
 
           <motion.p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto">
-            A passionate{" "}
+            {messages?.hero?.role || "A passionate"}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-              Full-Stack Developer
+              {messages?.hero?.title || "Full-Stack Developer"}
             </span>
-            {" "}crafting beautiful digital experiences
+            {" "}{messages?.hero?.description || "crafting beautiful digital experiences"}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -162,7 +162,7 @@ class Developer:
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              View My Work
+              {messages?.hero?.viewWork || "View My Work"}
             </motion.a>
             <motion.a
               href="#contact"
@@ -170,7 +170,7 @@ class Developer:
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get In Touch
+              {messages?.hero?.contact || "Get In Touch"}
             </motion.a>
           </motion.div>
 

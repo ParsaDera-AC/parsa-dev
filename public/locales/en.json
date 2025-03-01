@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "softskills": "Soft Skills",
+    "projects": "Projects",
+    "resume": "Resume",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Parsa Derakhshan",
+    "role": "A passionate",
+    "title": "Full-Stack Developer",
+    "description": "crafting beautiful digital experiences",
+    "viewWork": "View My Work",
+    "contact": "Get In Touch"
+  },
+  "resume": {
+    "title": "Unlock My Resume",
+    "subtitle": "Enter the special access code to download my resume instantly!",
+    "placeholder": "Enter Access Code",
+    "submit": "Submit Code",
+    "noCode": "Don't have the access code?",
+    "contactMe": "Contact me"
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Have a question or want to work together? I'd love to hear from you!",
+    "connectTitle": "Connect With Me",
+    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.",
+    "quickResponse": "Quick Response",
+    "responseMessage": "I typically respond within 24 hours during business days. Looking forward to connecting with you!",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "submit": "Send Message"
+    }
+  }
+} 

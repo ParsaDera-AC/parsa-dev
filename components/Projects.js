@@ -2,64 +2,72 @@
 
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaServer, FaMobile } from "react-icons/fa";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Projects = () => {
+  const { messages } = useLanguage();
+
+  // Early return if messages are not loaded yet
+  if (!messages) {
+    return null;
+  }
+
   const projects = [
     {
-      title: "Enterprise Resource Management System",
-      description: "Architected and developed a comprehensive web application for managing organizational resources and workflows. Implemented CQRS pattern and modern architectural principles to ensure scalability and maintainability.",
+      title: messages.projects.items.erms.title,
+      description: messages.projects.items.erms.description,
       image: "/enterprise.jpg", // You'll need to add this image
       techStack: [".NET/C#", "Vue.js", "SQL", "REST API", "Azure DevOps", "CQRS"],
-      type: "Enterprise Application",
-      category: "Full Stack",
+      type: messages.projects.types.enterprise,
+      category: messages.projects.categories.fullStack,
       links: {
         github: null,
         demo: null,
       }
     },
     {
-      title: "Canadian Ski Patrol Rewrite Template",
-      description: "Developed a CRUD modern web application templatefor the Canadian Ski Patrol using TypeScript and modern web technologies. Implemented material design components and responsive layouts with SCSS for an optimal user experience.",
+      title: messages.projects.items.skiPatrol.title,
+      description: messages.projects.items.skiPatrol.description,
       image: "/skiPatrol.jpg",
       techStack: ["TypeScript", "Node.js", "LitElements", "SCSS", "Webpack", "Material Design"],
-      type: "Web Application",
-      category: "Full Stack",
+      type: messages.projects.types.web,
+      category: messages.projects.categories.fullStack,
       links: {
         github: "https://github.com/ParsaDera-AC/Basic-Node.js-Project",
         demo: null,
       }
     },
     {
-      title: "Telegram Chat Analyzer",
-      description: "Built a comprehensive chat analysis tool using Python, featuring advanced data visualization and statistical analysis of conversation patterns, user engagement, and sentiment analysis.",
+      title: messages.projects.items.telegram.title,
+      description: messages.projects.items.telegram.description,
       image: "/telegram.jpg", // You'll need to add this image
       techStack: ["Python", "pandas", "NumPy", "seaborn", "matplotlib"],
-      type: "Data Analysis",
-      category: "Data Science",
+      type: messages.projects.types.data,
+      category: messages.projects.categories.dataScience,
       links: {
         github: "#", // Add your GitHub link
         demo: null,
       }
     },
     {
-      title: "Interactive Picross Game",
-      description: "Developed a modern implementation of the classic Picross/Nonogram puzzle game with multiplayer support, featuring a sleek GUI and client-server architecture for online play.",
+      title: messages.projects.items.picross.title,
+      description: messages.projects.items.picross.description,
       image: "/piccross.jpg", // You'll need to add this image
       techStack: ["Java", "Swing", "Socket Programming", "Multi-threading"],
-      type: "Game Development",
-      category: "Desktop Application",
+      type: messages.projects.types.game,
+      category: messages.projects.categories.desktop,
       links: {
         github: "#", // Add your GitHub link
         demo: null,
       }
     },
     {
-      title: "SQO Group Website",
-      description: "Designed and developed a professional website for a quantum physics research group, implementing responsive design principles and modern UI/UX practices.",
+      title: messages.projects.items.sqo.title,
+      description: messages.projects.items.sqo.description,
       image: "/sqogroup.jpg",
       techStack: ["WordPress", "PHP", "CSS", "HTML", "SEO"],
-      type: "Web Development",
-      category: "Frontend",
+      type: messages.projects.types.web,
+      category: messages.projects.categories.frontend,
       links: {
         github: null,
         demo: "https://sqogroup.ca",
@@ -94,10 +102,10 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-            Featured Projects
+            {messages.projects.title}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions.
+            {messages.projects.subtitle}
           </p>
         </motion.div>
 
@@ -161,7 +169,7 @@ const Projects = () => {
                       className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-300"
                     >
                       <FaGithub size={16} />
-                      <span>View Code</span>
+                      <span>{messages.projects.viewCode}</span>
                     </a>
                   )}
                   {project.links.demo && (
@@ -172,7 +180,7 @@ const Projects = () => {
                       className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-300"
                     >
                       <FaExternalLinkAlt size={16} />
-                      <span>Live Demo</span>
+                      <span>{messages.projects.liveDemo}</span>
                     </a>
                   )}
                 </div>

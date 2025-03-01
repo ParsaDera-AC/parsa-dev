@@ -12,7 +12,6 @@ import {
   FaDatabase,
   FaCloud,
 } from "react-icons/fa";
-import AmbientBackground from "./SnowBackground";
 
 const AboutMe = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -97,11 +96,9 @@ const AboutMe = () => {
 
   return (
     <section id="about" className="relative py-24">
-      <AmbientBackground />
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_500px_at_50%_50%,rgba(168,85,247,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-transparent" />
       </div>
 
       {/* Subtle top border/divider */}

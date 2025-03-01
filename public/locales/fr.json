@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "softskills": "Compétences douces",
+    "projects": "Projets",
+    "resume": "CV",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis Parsa Derakhshan",
+    "role": "Un développeur",
+    "title": "Full-Stack",
+    "description": "passionné créant de belles expériences numériques",
+    "viewWork": "Voir mes projets",
+    "contact": "Me contacter"
+  },
+  "resume": {
+    "title": "Débloquer mon CV",
+    "subtitle": "Entrez le code d'accès spécial pour télécharger mon CV instantanément !",
+    "placeholder": "Entrer le code d'accès",
+    "submit": "Soumettre le code",
+    "noCode": "Vous n'avez pas le code d'accès ?",
+    "contactMe": "Contactez-moi"
+  },
+  "contact": {
+    "title": "Connectons-nous",
+    "subtitle": "Vous avez une question ou vous souhaitez collaborer ? J'aimerais avoir de vos nouvelles !",
+    "connectTitle": "Me Contacter",
+    "description": "Je suis toujours ouvert à la discussion de nouveaux projets, d'idées créatives ou d'opportunités de faire partie de vos visions.",
+    "quickResponse": "Réponse Rapide",
+    "responseMessage": "Je réponds généralement dans les 24 heures pendant les jours ouvrables. Au plaisir d'échanger avec vous !",
+    "form": {
+      "name": "Votre Nom",
+      "email": "Votre Email",
+      "message": "Votre Message",
+      "submit": "Envoyer le Message"
+    }
+  }
+} 
