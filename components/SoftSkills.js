@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import { FaUsers, FaLightbulb, FaComments, FaClock, FaChartBar, FaRocket } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const SoftSkills = () => {
   const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   const skills = [
     {
@@ -77,7 +79,9 @@ const SoftSkills = () => {
   ];
 
   return (
-    <section id="softskills" className="py-24 bg-black relative">
+    <section id="softskills" className={`py-24 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-black' : 'bg-white'
+    }`}>
       {/* Section Title */}
       <div className="text-center mb-16">
         <motion.h2
@@ -99,20 +103,30 @@ const SoftSkills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-purple-500/50 transition-all duration-300"
+              className={`backdrop-blur-sm rounded-xl p-6 border transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-black/40 border-gray-800 hover:border-purple-500/50' 
+                  : 'bg-white/80 border-gray-200 hover:border-purple-500/50'
+              }`}
             >
               {/* Skill Header */}
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className={`p-3 rounded-lg ${
+                  isDarkMode ? 'bg-white/5' : 'bg-gray-50'
+                }`}>
                   {skill.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className={`text-xl font-semibold ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                   {skill.title}
                 </h3>
               </div>
 
               {/* Skill Description */}
-              <p className="text-gray-400 text-sm mb-4">
+              <p className={`text-sm mb-4 ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
                 {skill.description}
               </p>
 
@@ -121,7 +135,11 @@ const SoftSkills = () => {
                 {skill.tags.map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20"
+                    className={`px-3 py-1 text-xs rounded-full text-purple-600 ${
+                      isDarkMode 
+                        ? 'bg-purple-500/10 border border-purple-500/20' 
+                        : 'bg-purple-50 border border-purple-100'
+                    }`}
                   >
                     {tag}
                   </span>
