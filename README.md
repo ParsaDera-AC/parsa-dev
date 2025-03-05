@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Personal Portfolio Website
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js, React, and TailwindCSS. Features a dynamic theme switcher, interactive particle background, and multilingual support.
 
-First, run the development server:
+![Portfolio Preview](public/preview.png)
 
+## ✨ Features
+
+- 🌓 Dynamic Dark/Light mode
+- 🎨 Interactive particle background with theme integration
+- 🌐 Multilingual support
+- 📱 Fully responsive design
+- ⚡ Next.js 13+ with App Router
+- 🎭 Smooth animations with Framer Motion
+- 🎯 Interactive project cards
+- 📬 Contact form with validation
+- 🔍 SEO optimized
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 13+
+- **Styling:** TailwindCSS
+- **Animations:** Framer Motion
+- **Particles:** tsParticles
+- **Icons:** React Icons
+- **Language Management:** Custom Context API
+- **Theme Management:** Custom Theme Context
+- **Code Quality:** ESLint, Prettier
+
+## 🛠️ Installation Steps
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/portfolio.git
+```
+
+2. Change the working directory
+```bash
+cd portfolio
+```
+
+3. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+4. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🏗️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+portfolio/
+├── app/
+│   ├── [lang]/
+│   │   └── page.js
+│   ├── layout.js
+│   └── globals.css
+├── components/
+│   ├── AboutMe.js
+│   ├── AmbientBackground.js
+│   ├── Contact.js
+│   ├── Hero.js
+│   ├── Navbar.js
+│   └── Projects.js
+├── context/
+│   ├── LanguageContext.js
+│   └── ThemeContext.js
+├── public/
+│   └── assets/
+└── package.json
+```
 
-## Learn More
+## 🎨 Color Reference
 
-To learn more about Next.js, take a look at the following resources:
+| Color          | Dark Mode     | Light Mode    |
+| -------------- | ------------ | ------------- |
+| Background     | #000000      | #FFFFFF      |
+| Primary        | #A855F7      | #1F2937      |
+| Secondary      | #EC4899      | #9333EA      |
+| Text           | #FFFFFF      | #1F2937      |
+| Accent         | #A855F7      | #7C3AED      |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌟 Key Features Explained
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dynamic Theme Switching
+- Seamless transition between dark and light modes
+- Theme-aware components and animations
+- Persistent theme preference storage
 
-## Deploy on Vercel
+### Interactive Particle Background
+- Dynamic particle system that responds to theme changes
+- Interactive hover and click effects
+- Performance optimized for smooth animations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Multilingual Support
+- Built-in language switching capability
+- Extensible language context
+- SEO-friendly URL structure with language parameters
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Responsive Design
+- Mobile-first approach
+- Fluid typography and spacing
+- Optimized layouts for all screen sizes
+
+## 🔧 Environment Variables
+
+To run this project, you might need to add the following environment variables to your .env file:
+
+```bash
+NEXT_PUBLIC_SITE_URL=your_site_url
+```
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/yourusername/portfolio/issues).
+
+## 📝 License
+
+This project is [MIT](./LICENSE) licensed.
+
+## 👨‍💻 Author
+
+**Your Name**
+- Website: [your-website.com](https://your-website.com)
+- GitHub: [@yourusername](https://github.com/yourusername)
+- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
+
+## 💖 Support
+
+Give a ⭐️ if you like this project!
