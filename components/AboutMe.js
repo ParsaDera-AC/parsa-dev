@@ -147,7 +147,7 @@ const AboutMe = () => {
 
           {/* Experience Cards */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -156,59 +156,80 @@ const AboutMe = () => {
               <motion.div
                 key={index}
                 className="relative group"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ 
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 <div className={`
-                  relative overflow-hidden rounded-xl backdrop-blur-sm
-                  border transition-all duration-300 hover:shadow-lg
+                  relative overflow-hidden rounded-xl backdrop-blur-md p-6
+                  border-2 transition-all duration-300 h-full min-w-[300px]
+                  before:absolute before:inset-0 before:bg-gradient-to-br 
+                  before:from-${card.color}/5 before:to-transparent before:opacity-50
+                  after:absolute after:inset-0 after:bg-gradient-to-tl 
+                  after:from-${card.color}/5 after:to-transparent after:opacity-50
                   ${isDarkMode 
-                    ? `bg-black/40 border-gray-800 hover:border-${card.color} hover:shadow-${card.color}/20` 
-                    : `bg-white/80 border-gray-200 hover:border-${card.color} hover:shadow-${card.color}/20`
+                    ? `bg-black/40 border-gray-800/50 hover:border-${card.color} hover:shadow-lg hover:shadow-${card.color}/20` 
+                    : `bg-white/90 border-gray-200/50 hover:border-${card.color} hover:shadow-lg hover:shadow-${card.color}/20`
                   }
                 `}>
-                  {/* Card Header */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className={`p-3 rounded-lg bg-gradient-to-br from-${card.color} to-${card.color}/50`}>
-                      {card.icon}
+                  <div className="flex flex-col items-start gap-4 h-full relative z-10">
+                    {/* Icon and Title */}
+                    <div className="flex items-center gap-4 w-full">
+                      <div className={`
+                        flex-shrink-0 p-3 rounded-xl
+                        bg-gradient-to-br from-${card.color} to-${card.color}/50
+                        shadow-lg shadow-${card.color}/20
+                        transform group-hover:scale-110 transition-transform duration-300
+                      `}>
+                        {card.icon}
+                      </div>
+                      <h3 className={`text-xl font-bold ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                      } group-hover:text-${card.color} transition-colors duration-300`}>
+                        {card.title}
+                      </h3>
                     </div>
-                    <h3 className={`text-xl font-semibold ${
-                      isDarkMode ? 'text-white' : 'text-gray-900'
+
+                    {/* Description */}
+                    <p className={`text-base leading-relaxed flex-grow ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
                     }`}>
-                      {card.title}
-                    </h3>
+                      {card.description}
+                    </p>
+
+                    {/* Stats */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {card.stats.map((stat, statIndex) => (
+                        <span
+                          key={statIndex}
+                          className={`
+                            text-center px-3 py-1.5 text-sm rounded-lg font-medium
+                            ${isDarkMode 
+                              ? `bg-${card.color}/10 text-${card.color} border-${card.color}/20 hover:bg-${card.color}/15 hover:border-${card.color}/30` 
+                              : `bg-${card.color}/5 text-${card.color}-600 border-${card.color}/10 hover:bg-${card.color}/10 hover:border-${card.color}/20`
+                            }
+                            border transform hover:scale-105 transition-all duration-200
+                            whitespace-nowrap
+                          `}
+                        >
+                          {stat}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Card Content */}
-                  <p className={`text-sm mb-4 ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    {card.description}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="flex flex-wrap gap-2">
-                    {card.stats.map((stat, statIndex) => (
-                      <span
-                        key={statIndex}
-                        className={`
-                          px-3 py-1 text-xs rounded-full
-                          bg-${card.color}/10 text-${card.color}
-                          border border-${card.color}/20
-                        `}
-                      >
-                        {stat}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-${
-                      isDarkMode ? 'white/5' : 'black/5'
-                    } to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000`}></div>
+                  {/* Enhanced Hover Effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className={`
+                      absolute inset-0 bg-gradient-to-r from-transparent 
+                      via-${isDarkMode ? 'white/10' : card.color + '/5'} to-transparent 
+                      transform -skew-x-12 translate-x-full 
+                      group-hover:translate-x-[-200%] transition-transform duration-1500
+                    `}></div>
                   </div>
                 </div>
               </motion.div>

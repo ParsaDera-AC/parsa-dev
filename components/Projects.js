@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaServer, FaMobile } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const Projects = () => {
-  const { messages, isDarkMode } = useLanguage();
+  const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   const defaultProjects = [
     {
@@ -107,7 +109,7 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto`}
+              className={`${isDarkMode ? 'text-white' : 'text-black'} max-w-2xl mx-auto`}
             >
               {messages?.projects?.subtitle || "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions."}
             </motion.p>
@@ -123,8 +125,8 @@ const Projects = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative rounded-xl overflow-hidden border transition-all duration-300 flex flex-col ${
                   isDarkMode 
-                    ? '' 
-                    : ''
+                    ? 'bg-black/40 border-gray-800/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20' 
+                    : 'bg-white/90 border-gray-200/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20'
                 }`}
               >
                 {/* Project Image */}
