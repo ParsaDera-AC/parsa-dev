@@ -14,10 +14,12 @@ import {
 } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { useDocuments } from '@/context/DocumentContext';
 
 const AboutMe = () => {
   const { messages } = useLanguage();
   const { isDarkMode } = useTheme();
+  const { getSecureDocumentUrl } = useDocuments();
 
   const getTagStyles = (baseColor) => {
     if (isDarkMode) {
@@ -91,6 +93,11 @@ const AboutMe = () => {
         staggerChildren: 0.2,
       },
     },
+  };
+
+  const handleDownloadCV = () => {
+    const cvUrl = getSecureDocumentUrl('cv', currentLanguage);
+    window.open(cvUrl, '_blank');
   };
 
   return (
