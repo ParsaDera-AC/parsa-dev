@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Enable static exports
+  output: 'export', // Changed to 'export' for static site generation
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true, // Already correct, as GitHub Pages doesn't support Next.js image optimization
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/your-repo-name' : '', // Replace with your repository name
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '',
-}
+  trailingSlash: true, // Add this for better compatibility
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig;
