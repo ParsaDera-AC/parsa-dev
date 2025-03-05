@@ -6,12 +6,14 @@ import { TypeAnimation } from "react-type-animation";
 import { FaPlay, FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiArrowDown } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Hero() {
   const [isCodeVisible, setIsCodeVisible] = useState(true);
   const controls = useAnimation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   // Track mouse position for parallax effect
   useEffect(() => {
@@ -141,7 +143,9 @@ class Developer:
             {messages?.hero?.greeting || "Hi, I'm Parsa Derakhshan"}
           </motion.h1>
 
-          <motion.p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto">
+          <motion.p className={`text-xl sm:text-2xl max-w-2xl mx-auto ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-700'
+          }`}>
             {messages?.hero?.role || "A passionate"}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
               {messages?.hero?.title || "Full-Stack Developer"}
@@ -185,7 +189,9 @@ class Developer:
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-300"
+              className={`transition-colors duration-300 ${
+                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
               whileHover={{ scale: 1.2, rotate: 5 }}
             >
               <FaGithub size={24} />
@@ -194,7 +200,9 @@ class Developer:
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-300"
+              className={`transition-colors duration-300 ${
+                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
               whileHover={{ scale: 1.2, rotate: -5 }}
             >
               <FaLinkedin size={24} />
@@ -208,7 +216,9 @@ class Developer:
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <FiArrowDown className="text-gray-400 text-2xl animate-bounce" />
+          <FiArrowDown className={`text-2xl animate-bounce ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-600'
+          }`} />
         </motion.div>
       </div>
     </section>

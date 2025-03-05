@@ -25,7 +25,7 @@ import {
   SiDotnet,
   SiPandas,
   SiNumpy,
-  SiRstudioide ,
+  SiRstudioide,
   SiJupyter,
   SiBootstrap,
   SiMysql,
@@ -39,6 +39,7 @@ import { VscAzureDevops } from "react-icons/vsc";
 import { DiVisualstudio } from "react-icons/di";
 import { DiNetbeans } from "react-icons/di";
 import { useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
 
 // Skills array with validated icons
 const skills = [
@@ -47,16 +48,16 @@ const skills = [
   { category: "Frameworks", skill: "Vue.js", icon: <FaVuejs size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: "Nuxt.js", icon: <SiNuxtdotjs size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: ".NET", icon: <SiDotnet size={24} color="#FFFFFF" /> },
-  { category: "Frameworks", skill: "Blazor", icon: <SiDotnet size={24} color="#FFFFFF" /> }, // Proxy
-  { category: "Frameworks", skill: "Razor", icon: <SiDotnet size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Frameworks", skill: "Blazor", icon: <SiDotnet size={24} color="#FFFFFF" /> },
+  { category: "Frameworks", skill: "Razor", icon: <SiDotnet size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: "Bootstrap", icon: <SiBootstrap size={24} color="#FFFFFF" /> },
   
   { category: "Languages", skill: "C#", icon: <SiDotnet size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "JavaScript", icon: <FaJs size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "Python", icon: <FaPython size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "R", icon: <SiRstudioide size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Languages", skill: "R", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "Java", icon: <FaJava size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "C/C++", icon: <FaCode size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Languages", skill: "C/C++", icon: <FaCode size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "SQL", icon: <FaDatabase size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "PHP", icon: <FaPhp size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "CSS", icon: <FaCss3 size={24} color="#FFFFFF" /> },
@@ -67,21 +68,22 @@ const skills = [
 
   { category: "Technologies", skill: "Git", icon: <FaGitAlt size={24} color="#FFFFFF" /> },
   { category: "Technologies", skill: "REST API", icon: <FaEnvelope size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "CQRS", icon: <FaCogs size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Technologies", skill: "CQRS", icon: <FaCogs size={24} color="#FFFFFF" /> },
   { category: "Technologies", skill: "Pandas", icon: <SiPandas size={24} color="#FFFFFF" /> },
   { category: "Technologies", skill: "NumPy", icon: <SiNumpy size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "ggplot2", icon: <SiRstudioide size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Technologies", skill: "ggplot2", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
+
   { category: "Tools", skill: "Docker", icon: <FaDocker size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "MongoDB", icon: <FaDatabase size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "MySQL", icon: <SiMysql size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "PostgreSQL", icon: <FaDatabase size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Azure DevOps", icon: <VscAzureDevops size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Tools", skill: "Azure DevOps", icon: <VscAzureDevops size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "Azure Cloud", icon: <FaCloud size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Visual Studio Code", icon: <DiVisualstudio  size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Microsoft Visual Studio", icon: <DiVisualstudio  size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Tools", skill: "Visual Studio Code", icon: <DiVisualstudio size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Microsoft Visual Studio", icon: <DiVisualstudio size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "Jupyter Notebook", icon: <SiJupyter size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "RStudio", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "GitBash", icon: <FaGitAlt size={24} color="#FFFFFF" /> }, // Proxy
+  { category: "Tools", skill: "GitBash", icon: <FaGitAlt size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "Cisco Packet Tracer", icon: <SiCisco size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "Wireshark", icon: <SiWireshark size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "VMware", icon: <SiVmware size={24} color="#FFFFFF" /> },
@@ -105,6 +107,7 @@ const categoryColors = {
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [hoveredSkill, setHoveredSkill] = useState(null);
+  const { isDarkMode } = useTheme();
 
   // Group skills by category
   const skillsByCategory = skills.reduce((acc, skill) => {
@@ -122,10 +125,14 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="relative min-h-screen py-16 text-white">
+    <section id="skills" className={`relative min-h-screen py-16 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
       <div className="container mx-auto px-8 relative z-20">
         <motion.div
-          className="bg-black/60 backdrop-blur-md rounded-xl p-12 shadow-lg border border-gray-800"
+          className={`backdrop-blur-md rounded-xl p-12 shadow-lg border ${
+            isDarkMode 
+              ? 'bg-black/60 border-gray-800' 
+              : 'bg-white/80 border-gray-200'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -139,7 +146,9 @@ const Skills = () => {
             Skills & Expertise
           </motion.h2>
           <motion.p
-            className="text-center text-gray-400 mb-12 max-w-2xl mx-auto"
+            className={`text-center mb-12 max-w-2xl mx-auto ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-600'
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -177,10 +186,10 @@ const Skills = () => {
           </div>
 
           {/* Skills Grid */}
-          <div className={`${
+          <div className={`grid gap-8 ${
             selectedCategory 
               ? 'flex flex-wrap gap-4 justify-center' 
-              : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'
+              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
           }`}>
             {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
               <motion.div
@@ -211,7 +220,7 @@ const Skills = () => {
                       className={`group cursor-pointer flex items-center justify-start px-4 py-3 rounded-xl
                         ${categoryColors[category]}
                         shadow-lg hover:shadow-xl transition-all duration-300
-                        backdrop-blur-sm border border-gray-700/30 hover:border-white/20
+                        backdrop-blur-sm border border-white/20 hover:border-white/30
                         w-[220px] relative overflow-hidden`}
                       onMouseEnter={() => setHoveredSkill(skill.skill)}
                       onMouseLeave={() => setHoveredSkill(null)}
@@ -229,6 +238,7 @@ const Skills = () => {
                           {skill.skill}
                         </span>
                       </div>
+                      
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0"
                         initial={{ x: '-100%', opacity: 0 }}
@@ -240,19 +250,25 @@ const Skills = () => {
                       <AnimatePresence>
                         {hoveredSkill === skill.skill && (
                           <motion.div
-                            className="absolute -top-14 left-1/2 transform -translate-x-1/2 
-                              bg-black/90 text-white px-4 py-2 rounded-lg text-sm
-                              border border-gray-700/50 shadow-lg z-50 whitespace-nowrap
-                              backdrop-blur-md"
+                            className={`absolute -top-14 left-1/2 transform -translate-x-1/2 
+                              px-4 py-2 rounded-lg text-sm whitespace-nowrap
+                              backdrop-blur-md z-50 border ${
+                                isDarkMode
+                                  ? 'bg-black/90 text-white border-gray-700/50'
+                                  : 'bg-white/90 text-gray-900 border-gray-200/50'
+                              }`}
                             initial={{ opacity: 0, y: 10, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
                           >
                             {skill.skill}
-                            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 
-                              w-4 h-4 bg-black/90 border border-gray-700/50
-                              rotate-45 -z-10">
+                            <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 
+                              w-4 h-4 rotate-45 -z-10 ${
+                                isDarkMode
+                                  ? 'bg-black/90 border border-gray-700/50'
+                                  : 'bg-white/90 border border-gray-200/50'
+                              }`}>
                             </div>
                           </motion.div>
                         )}

@@ -20,13 +20,13 @@ const AmbientBackground = () => {
         particles: {
           number: { value: 70, density: { enable: true, value_area: 800 } },
           color: {
-            value: isDarkMode ? "#a855f7" : "#374151",
+            value: isDarkMode ? "#a855f7" : "#1f2937",
           },
           shape: { 
             type: "circle",
           },
           opacity: { 
-            value: 0.3,
+            value: isDarkMode ? 0.3 : 0.15,
             random: false,
           },
           size: { 
@@ -39,8 +39,8 @@ const AmbientBackground = () => {
           line_linked: {
             enable: true,
             distance: 150,
-            color: isDarkMode ? "#a855f7" : "#374151",
-            opacity: 0.18,
+            color: isDarkMode ? "#a855f7" : "#1f2937",
+            opacity: isDarkMode ? 0.18 : 0.12,
             width: 2
           },
           move: {
@@ -75,7 +75,7 @@ const AmbientBackground = () => {
             grab: {
               distance: 180,
               line_linked: {
-                opacity: 0.5
+                opacity: isDarkMode ? 0.5 : 0.25
               }
             },
             push: {
@@ -97,21 +97,24 @@ const AmbientBackground = () => {
   }, []); // Initialize only once
 
   useEffect(() => {
-    console.log("Theme changed:", isDarkMode ? "dark" : "light"); // Debug log
     const container = containerRef.current;
     if (!container) return;
 
     try {
-      const color = isDarkMode ? "#a855f7" : "#374151";
+      const color = isDarkMode ? "#a855f7" : "#1f2937";
       
       // Update options
       container.options.particles.color.value = color;
       container.options.particles.line_linked.color = color;
+      container.options.particles.opacity.value = isDarkMode ? 0.3 : 0.15;
+      container.options.particles.line_linked.opacity = isDarkMode ? 0.18 : 0.12;
+      container.options.interactivity.modes.grab.line_linked.opacity = isDarkMode ? 0.5 : 0.25;
 
       // Update all existing particles
       container.particles.forEach(particle => {
         particle.color.value = color;
         particle.lineLinkedColor = { value: color };
+        particle.opacity.value = isDarkMode ? 0.3 : 0.15;
       });
 
       // Force refresh the particles
@@ -132,7 +135,7 @@ const AmbientBackground = () => {
       
       {/* Very subtle vignette effect */}
       <div className={`absolute inset-0 bg-radial-gradient transition-opacity duration-300 ${
-        isDarkMode ? 'opacity-40' : 'opacity-10'
+        isDarkMode ? 'opacity-40' : 'opacity-5'
       }`} />
 
       {/* Container for particles */}

@@ -101,7 +101,9 @@ export default function Header() {
                   >
                     <PiCodeSimpleFill
                       size={32}
-                      className="text-white/90 transition-all duration-300 group-hover:text-purple-400 group-hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+                      className={`transition-all duration-300 group-hover:text-purple-400 group-hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.5)] ${
+                        isDarkMode ? 'text-white/90' : 'text-gray-800'
+                      }`}
                     />
                   </motion.div>
                   <div className="flex items-center space-x-1">
@@ -112,7 +114,9 @@ export default function Header() {
                     >
                       Parsa
                     </motion.span>
-                    <span className="text-2xl font-light text-gray-400 px-0.5">/</span>
+                    <span className={`text-2xl font-light px-0.5 ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}>/</span>
                     <motion.span
                       className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-pink-600"
                       whileHover={{ y: -2 }}
@@ -133,8 +137,12 @@ export default function Header() {
                   href={`#${item.id}`}
                   className={`px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-300
                     ${activeSection === item.id
-                      ? "text-purple-400 bg-white/10"
-                      : "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                      ? isDarkMode 
+                        ? "text-purple-400 bg-white/10"
+                        : "text-purple-600 bg-gray-100"
+                      : isDarkMode
+                        ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                        : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
                     }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -151,7 +159,11 @@ export default function Header() {
               <div className="relative">
                 <motion.button
                   onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                  className="p-2 rounded-lg text-gray-300 hover:text-purple-400 hover:bg-white/5 transition-all duration-300 flex items-center space-x-1"
+                  className={`p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
+                    isDarkMode 
+                      ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
+                      : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
+                  }`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -165,7 +177,11 @@ export default function Header() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-32 rounded-lg bg-black/90 backdrop-blur-md border border-gray-800 shadow-lg overflow-hidden"
+                      className={`absolute right-0 mt-2 w-32 rounded-lg backdrop-blur-md border shadow-lg overflow-hidden ${
+                        isDarkMode 
+                          ? 'bg-black/90 border-gray-800'
+                          : 'bg-white/90 border-gray-200'
+                      }`}
                     >
                       {["en", "fr"].map((lang) => (
                         <button
@@ -175,7 +191,14 @@ export default function Header() {
                             setIsLangMenuOpen(false);
                           }}
                           className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200
-                            ${language === lang ? "text-purple-400 bg-white/10" : "text-gray-300 hover:text-purple-400 hover:bg-white/5"}`}
+                            ${language === lang 
+                              ? isDarkMode
+                                ? "text-purple-400 bg-white/10"
+                                : "text-purple-600 bg-gray-50"
+                              : isDarkMode
+                                ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                                : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
+                            }`}
                         >
                           {lang === "en" ? "English" : "Français"}
                         </button>
@@ -190,7 +213,11 @@ export default function Header() {
                 href="https://github.com/ParsaDera-AC"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                className={`transition-colors duration-300 ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:text-purple-400'
+                    : 'text-gray-600 hover:text-purple-600'
+                }`}
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
                 <FaGithub size={20} />
@@ -199,7 +226,11 @@ export default function Header() {
                 href="https://www.linkedin.com/in/parsa-derakhshan-0b0b3b1b2/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                className={`transition-colors duration-300 ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:text-purple-400'
+                    : 'text-gray-600 hover:text-purple-600'
+                }`}
                 whileHover={{ scale: 1.1, rotate: -5 }}
               >
                 <FaLinkedin size={20} />
@@ -208,7 +239,11 @@ export default function Header() {
               {/* Dark Mode Toggle */}
               <motion.button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-300 hover:text-purple-400 hover:bg-white/5 transition-all duration-300"
+                className={`p-2 rounded-lg transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
+                    : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
+                }`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -217,7 +252,11 @@ export default function Header() {
 
               {/* Mobile Menu Button */}
               <motion.button
-                className="md:hidden p-2 rounded-lg text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                className={`md:hidden p-2 rounded-lg ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
+                    : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
+                }`}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -247,7 +286,11 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-black/90 backdrop-blur-md border-t border-gray-800"
+              className={`md:hidden backdrop-blur-md border-t ${
+                isDarkMode 
+                  ? 'bg-black/90 border-gray-800'
+                  : 'bg-white/90 border-gray-200'
+              }`}
             >
               <div className="container mx-auto px-6 py-4">
                 <nav className="flex flex-col space-y-2">
@@ -257,8 +300,12 @@ export default function Header() {
                       href={`#${item.id}`}
                       className={`px-4 py-3 rounded-lg flex items-center space-x-2 transition-all duration-300
                         ${activeSection === item.id
-                          ? "text-purple-400 bg-white/10"
-                          : "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                          ? isDarkMode 
+                            ? "text-purple-400 bg-white/10"
+                            : "text-purple-600 bg-gray-100"
+                          : isDarkMode
+                            ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                            : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
                         }`}
                       onClick={() => setIsMenuOpen(false)}
                       whileHover={{ x: 10 }}

@@ -13,9 +13,11 @@ import {
   FaCloud,
 } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const AboutMe = () => {
   const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   const cards = [
     {
@@ -73,7 +75,7 @@ const AboutMe = () => {
     <section id="about" className="relative py-24">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-transparent" />
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`} />
       </div>
 
       {/* Subtle top border/divider */}
@@ -101,7 +103,9 @@ const AboutMe = () => {
             </motion.h2>
 
             <motion.div
-              className="max-w-3xl mx-auto text-gray-300 leading-relaxed space-y-6"
+              className={`max-w-3xl mx-auto leading-relaxed space-y-6 ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -132,7 +136,11 @@ const AboutMe = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white">
                   {item.icon}
                 </div>
-                <span className="text-gray-400 text-sm">{item.label}</span>
+                <span className={`text-sm ${
+                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  {item.label}
+                </span>
               </motion.div>
             ))}
           </motion.div>
@@ -154,20 +162,31 @@ const AboutMe = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <div className={`
-                  relative overflow-hidden rounded-xl bg-black/40 backdrop-blur-sm
-                  border border-gray-800 p-6 hover:border-${card.color}
-                  transition-all duration-300 hover:shadow-lg hover:shadow-${card.color}/20
+                  relative overflow-hidden rounded-xl backdrop-blur-sm
+                  border transition-all duration-300 hover:shadow-lg
+                  ${isDarkMode 
+                    ? `bg-black/40 border-gray-800 hover:border-${card.color} hover:shadow-${card.color}/20` 
+                    : `bg-white/80 border-gray-200 hover:border-${card.color} hover:shadow-${card.color}/20`
+                  }
                 `}>
                   {/* Card Header */}
                   <div className="flex items-center gap-4 mb-4">
                     <div className={`p-3 rounded-lg bg-gradient-to-br from-${card.color} to-${card.color}/50`}>
                       {card.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-white">{card.title}</h3>
+                    <h3 className={`text-xl font-semibold ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {card.title}
+                    </h3>
                   </div>
 
                   {/* Card Content */}
-                  <p className="text-gray-400 text-sm mb-4">{card.description}</p>
+                  <p className={`text-sm mb-4 ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {card.description}
+                  </p>
 
                   {/* Stats */}
                   <div className="flex flex-wrap gap-2">
@@ -187,7 +206,9 @@ const AboutMe = () => {
 
                   {/* Hover Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
+                    <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-${
+                      isDarkMode ? 'white/5' : 'black/5'
+                    } to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000`}></div>
                   </div>
                 </div>
               </motion.div>

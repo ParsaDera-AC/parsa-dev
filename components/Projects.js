@@ -5,7 +5,7 @@ import { FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaServer, FaMobile } f
 import { useLanguage } from "@/context/LanguageContext";
 
 const Projects = () => {
-  const { messages } = useLanguage();
+  const { messages, isDarkMode } = useLanguage();
 
   const defaultProjects = [
     {
@@ -84,7 +84,7 @@ const Projects = () => {
   });
 
   return (
-    <div className="bg-transparent w-full">
+    <div className="bg-black w-full">
       <section id="projects" className="relative py-24">
         {/* Primary background */}
         <div className="absolute top-0 left-0 w-full h-full bg-transparent"></div>
@@ -92,7 +92,7 @@ const Projects = () => {
         
         
         {/* Content container */}
-        <div className="container mx-auto px-6 relative" style={{ zIndex: 2 }}>
+        <div className="container mx-auto px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
             <motion.h2
@@ -107,88 +107,118 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-gray-400 max-w-2xl mx-auto"
+              className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto`}
             >
               {messages?.projects?.subtitle || "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions."}
             </motion.p>
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500/50 transition-all duration-300 flex flex-col"
+                className={`group relative rounded-xl overflow-hidden border transition-all duration-300 flex flex-col ${
+                  isDarkMode 
+                    ? '' 
+                    : ''
+                }`}
               >
-                  {/* Project Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                    />
+                {/* Project Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-t ${isDarkMode ? 'from-gray-900' : 'from-black/40'} to-transparent z-10`} />
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="p-8 flex flex-col flex-grow">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className={`px-3 py-1 text-xs rounded-full border ${
+                      isDarkMode 
+                        ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' 
+                        : 'bg-purple-100 text-purple-700 border-purple-200'
+                    }`}>
+                      {project.type}
+                    </span>
+                    <span className={`px-3 py-1 text-xs rounded-full border ${
+                      isDarkMode 
+                        ? 'bg-pink-500/10 text-pink-400 border-pink-500/20' 
+                        : 'bg-pink-100 text-pink-700 border-pink-200'
+                    }`}>
+                      {project.category}
+                    </span>
                   </div>
 
-                  <div className="p-8 flex flex-col flex-grow">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                        {project.type}
+                  <h3 className={`text-2xl font-semibold mb-3 ${
+                    isDarkMode 
+                      ? 'text-white group-hover:text-purple-400' 
+                      : 'text-gray-900 group-hover:text-purple-600'
+                  } transition-colors duration-300`}>
+                    {project.title}
+                  </h3>
+
+                  <p className={`text-base mb-6 ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.techStack.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className={`px-3 py-1.5 text-sm rounded-md transition-colors duration-300 ${
+                          isDarkMode 
+                            ? 'bg-gray-800/50 text-gray-300 hover:bg-gray-800' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {tech}
                       </span>
-                      <span className="px-3 py-1 text-xs rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">
-                        {project.category}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-gray-400 text-base mb-6">
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.techStack.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-3 py-1.5 text-sm rounded-md bg-gray-800/50 text-gray-300 hover:bg-gray-800 transition-colors duration-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Project Links */}
-                    <div className="flex gap-6 mt-auto">
-                      {project.links.github && (
-                        <a
-                          href={project.links.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition-colors duration-300"
-                        >
-                          <FaGithub className="text-lg" />
-                          {messages?.projects?.viewCode || "View Code"}
-                        </a>
-                      )}
-                      {project.links.demo && (
-                        <a
-                          href={project.links.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300"
-                        >
-                          <FaExternalLinkAlt className="text-lg" />
-                          {messages?.projects?.liveDemo || "Live Demo"}
-                        </a>
-                      )}
-                    </div>
+                    ))}
                   </div>
+
+                  {/* Project Links */}
+                  <div className="flex gap-6 mt-auto">
+                    {project.links.github && (
+                      <a
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 text-sm ${
+                          isDarkMode 
+                            ? 'text-gray-400 hover:text-purple-400' 
+                            : 'text-gray-600 hover:text-purple-600'
+                        } transition-colors duration-300`}
+                      >
+                        <FaGithub className="text-lg" />
+                        {messages?.projects?.viewCode || "View Code"}
+                      </a>
+                    )}
+                    {project.links.demo && (
+                      <a
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 text-sm ${
+                          isDarkMode 
+                            ? 'text-gray-400 hover:text-pink-400' 
+                            : 'text-gray-600 hover:text-pink-600'
+                        } transition-colors duration-300`}
+                      >
+                        <FaExternalLinkAlt className="text-lg" />
+                        {messages?.projects?.liveDemo || "Live Demo"}
+                      </a>
+                    )}
+                  </div>
+                </div>
 
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
