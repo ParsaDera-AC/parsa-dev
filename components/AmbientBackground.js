@@ -103,18 +103,36 @@ const AmbientBackground = () => {
     try {
       const color = isDarkMode ? "#a855f7" : "#1f2937";
       
-      // Update options
-      container.options.particles.color.value = color;
-      container.options.particles.line_linked.color = color;
-      container.options.particles.opacity.value = isDarkMode ? 0.3 : 0.15;
-      container.options.particles.line_linked.opacity = isDarkMode ? 0.18 : 0.12;
-      container.options.interactivity.modes.grab.line_linked.opacity = isDarkMode ? 0.5 : 0.25;
+      // Safely update options with null checks
+      if (container.options.particles?.color) {
+        container.options.particles.color.value = color;
+      }
+      
+      if (container.options.particles?.links) {
+        container.options.particles.links.color = color;
+        container.options.particles.links.opacity = isDarkMode ? 0.18 : 0.12;
+      }
+      
+      if (container.options.particles?.opacity) {
+        container.options.particles.opacity.value = isDarkMode ? 0.3 : 0.15;
+      }
 
-      // Update all existing particles
-      container.particles.forEach(particle => {
-        particle.color.value = color;
-        particle.lineLinkedColor = { value: color };
-        particle.opacity.value = isDarkMode ? 0.3 : 0.15;
+      if (container.options.interactivity?.modes?.grab?.links) {
+        container.options.interactivity.modes.grab.links.opacity = isDarkMode ? 0.5 : 0.25;
+      }
+
+      // Update all existing particles using the proper method
+      const particles = container.particles.array || [];
+      particles.forEach(particle => {
+        if (particle.color) {
+          particle.color.value = color;
+        }
+        if (particle.links) {
+          particle.links.color = color;
+        }
+        if (particle.opacity) {
+          particle.opacity.value = isDarkMode ? 0.3 : 0.15;
+        }
       });
 
       // Force refresh the particles

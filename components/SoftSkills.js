@@ -80,7 +80,7 @@ const SoftSkills = () => {
 
   return (
     <section id="softskills" className={`py-24 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-black' : 'bg-white'
+      isDarkMode ? 'bg-transparent' : 'bg-transparent'
     }`}>
       {/* Section Title */}
       <div className="text-center mb-16">

@@ -97,7 +97,7 @@ const AboutMe = () => {
     <section id="about" className="relative py-24">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`} />
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
       </div>
 
       {/* Subtle top border/divider */}

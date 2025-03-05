@@ -149,32 +149,34 @@ export default function Contact() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="flex flex-col justify-between h-full"
+                  className="flex flex-col h-full justify-between"
                 >
                   {/* Profile Picture */}
-                  <motion.div
-                    className="relative mb-8 group"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    {/* Animated Border */}
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
+                  <div className="flex-none">
+                    <motion.div
+                      className="relative mb-8 group"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      {/* Animated Border */}
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
 
-                    {/* Image Container */}
-                    <div className="relative aspect-square overflow-hidden rounded-xl">
-                      <img
-                        src="/profile.jpg"
-                        alt="Parsa Derakhshan"
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
-                      />
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 group-hover:from-purple-900/60 transition-colors duration-300" />
-                    </div>
-                  </motion.div>
+                      {/* Image Container */}
+                      <div className="relative aspect-square overflow-hidden rounded-xl">
+                        <img
+                          src="/profile.jpg"
+                          alt="Parsa Derakhshan"
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
+                        />
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 group-hover:from-purple-900/60 transition-colors duration-300" />
+                      </div>
+                    </motion.div>
+                  </div>
 
                   {/* Contact Info */}
-                  <div className="space-y-6">
+                  <div className="flex-none space-y-6">
                     <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                       {messages.contact.connectTitle}
                     </h3>
@@ -211,7 +213,7 @@ export default function Contact() {
 
                   {/* Additional Info */}
                   <motion.div
-                    className={`mt-8 p-6 rounded-lg border backdrop-blur-sm ${
+                    className={`mt-8 p-6 rounded-lg border backdrop-blur-sm flex-1 min-h-0 ${
                       isDarkMode
                         ? "bg-[#0f0f0f] border-gray-800 shadow-purple-500/5"
                         : "bg-[#f8f5ff] border-gray-200 shadow-purple-100/50"
