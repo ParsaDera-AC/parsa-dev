@@ -15,7 +15,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeField, setActiveField] = useState(null);
-  const { messages } = useLanguage();
+  const { messages, isDarkMode } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,8 +78,8 @@ export default function Contact() {
       <div className="min-h-[80vh] flex items-center justify-center">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_500px_at_50%_50%,rgba(168,85,247,0.1),transparent)]" />
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
+          <div className={`absolute top-0 left-0 w-full h-full ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -89,7 +89,7 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
+            <div className={`${isDarkMode ? 'bg-transparent' : 'bg-transparent'} backdrop-blur-xl rounded-2xl p-8 border ${isDarkMode ? 'border-purple-500/20' : 'border-purple-200/50'} shadow-2xl ${isDarkMode ? 'shadow-purple-500/10' : 'shadow-purple-100/50'}`}>
               {/* Title */}
               <div className="text-center mb-12">
                 <motion.div
@@ -98,17 +98,17 @@ export default function Contact() {
                   transition={{ delay: 0.2 }}
                   className="flex items-center justify-center gap-2 mb-4"
                 >
-                  <HiSparkles className="text-purple-400 text-2xl" />
+                  <HiSparkles className={`${isDarkMode ? 'text-purple-400' : 'text-purple-500'} text-2xl`} />
                   <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400">
                     {messages.contact.title}
                   </h2>
-                  <HiSparkles className="text-purple-400 text-2xl" />
+                  <HiSparkles className={`${isDarkMode ? 'text-purple-400' : 'text-purple-500'} text-2xl`} />
                 </motion.div>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="text-gray-400 max-w-2xl mx-auto"
+                  className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto`}
                 >
                   {messages.contact.subtitle}
                 </motion.p>
@@ -149,7 +149,7 @@ export default function Contact() {
                     <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                       {messages.contact.connectTitle}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} leading-relaxed`}>
                       {messages.contact.description}
                     </p>
 
@@ -176,15 +176,15 @@ export default function Contact() {
 
                   {/* Additional Info */}
                   <motion.div
-                    className="mt-8 p-6 bg-purple-500/5 rounded-lg border border-purple-500/10"
+                    className={`mt-8 p-6 ${isDarkMode ? 'bg-[#0f0f0f] border-gray-800' : 'bg-[#f8f5ff] border-gray-200'} rounded-lg border backdrop-blur-sm`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
                   >
-                    <h4 className="text-lg font-semibold text-purple-400 mb-2">
+                    <h4 className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'} mb-2`}>
                       {messages.contact.quickResponse}
                     </h4>
-                    <p className="text-gray-400 text-sm">
+                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
                       {messages.contact.responseMessage}
                     </p>
                   </motion.div>
@@ -227,7 +227,7 @@ export default function Contact() {
                         onFocus={() => setActiveField('name')}
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.name}
-                        className="w-full px-6 py-4 bg-black/50 border border-purple-500/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10"
+                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10`}
                         required
                       />
                     </div>
@@ -247,7 +247,7 @@ export default function Contact() {
                         onFocus={() => setActiveField('email')}
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.email}
-                        className="w-full px-6 py-4 bg-black/50 border border-purple-500/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10"
+                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10`}
                         required
                       />
                     </div>
@@ -267,7 +267,7 @@ export default function Contact() {
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.message}
                         rows={8}
-                        className="w-full px-6 py-4 bg-black/50 border border-purple-500/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 resize-none"
+                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 resize-none`}
                         required
                       />
                     </div>

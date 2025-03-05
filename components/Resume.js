@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaLock, FaUnlock, FaDownload, FaKey } from 'react-icons/fa';
 import { useLanguage } from '@/context/LanguageContext';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Resume() {
   const [accessCode, setAccessCode] = useState('');
@@ -11,6 +12,7 @@ export default function Resume() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +46,8 @@ export default function Resume() {
       <div className="min-h-[80vh] flex items-center justify-center">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_500px_at_50%_50%,rgba(168,85,247,0.1),transparent)]" />
+          <div className={`absolute inset-0 ${ 'bg-transparent'}`} />
+          <div className={`absolute inset-0 ${ 'bg-transparent'}`} />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -55,7 +57,7 @@ export default function Resume() {
             transition={{ duration: 0.8 }}
             className="max-w-md mx-auto"
           >
-            <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 border border-purple-500/20 shadow-2xl shadow-purple-500/10">
+            <div className={`${isDarkMode ? 'bg-[#0f0f0f]' : 'bg-white/80'} backdrop-blur-xl rounded-2xl p-8 border ${isDarkMode ? 'border-purple-500/20' : 'border-purple-300/30'} shadow-2xl ${isDarkMode ? 'shadow-purple-500/10' : 'shadow-purple-300/20'}`}>
               {/* Title with animated gradient */}
               <motion.h2
                 className="text-4xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-300% animate-gradient"
@@ -67,7 +69,7 @@ export default function Resume() {
               </motion.h2>
 
               <motion.p
-                className="text-gray-400 text-center mb-8"
+                className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-center mb-8`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -77,25 +79,14 @@ export default function Resume() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="relative">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur"
-                    animate={{
-                      opacity: [0.5, 0.8, 0.5],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
                   <div className="relative">
                     <input
                       type="text"
                       value={accessCode}
                       onChange={(e) => setAccessCode(e.target.value)}
-                      className={`w-full px-4 py-3 bg-black/50 border ${
-                        isError ? 'border-red-500/50' : 'border-purple-500/50'
-                      } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 transition-colors duration-300`}
+                      className={`w-full px-4 py-3 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white/90 text-gray-900'} border ${
+                        isError ? 'border-red-500/50' : isDarkMode ? 'border-purple-500/50' : 'border-purple-300/50'
+                      } rounded-lg ${isDarkMode ? 'placeholder-gray-500' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300`}
                       placeholder={messages?.resume?.placeholder || "Enter Access Code"}
                     />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -104,9 +95,9 @@ export default function Resume() {
                         transition={{ duration: 0.5 }}
                       >
                         {isUnlocked ? (
-                          <FaUnlock className="text-green-400" />
+                          <FaUnlock className={`${isDarkMode ? 'text-green-400' : 'text-green-500'}`} />
                         ) : (
-                          <FaLock className="text-gray-500" />
+                          <FaLock className={`${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`} />
                         )}
                       </motion.div>
                     </div>
@@ -155,13 +146,13 @@ export default function Resume() {
 
               {/* Additional Info */}
               <motion.p
-                className="mt-6 text-sm text-gray-500 text-center"
+                className={`mt-6 text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} text-center`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
                 {messages?.resume?.noCode || "Don't have the access code?"}{" "}
-                <a href="#contact" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
+                <a href="#contact" className={`${isDarkMode ? 'text-purple-400 hover:text-purple-300' : 'text-purple-500 hover:text-purple-600'} transition-colors duration-300`}>
                   {messages?.resume?.contactMe || "Contact me"}
                 </a>
               </motion.p>
