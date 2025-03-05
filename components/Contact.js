@@ -1,66 +1,74 @@
 "use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaPaperPlane, FaGithub, FaLinkedin, FaEnvelope, FaCheck } from 'react-icons/fa';
-import { HiSparkles } from 'react-icons/hi';
-import { useLanguage } from '@/context/LanguageContext';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FaPaperPlane,
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+  FaCheck,
+} from "react-icons/fa";
+import { HiSparkles } from "react-icons/hi";
+import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeField, setActiveField] = useState(null);
-  const { messages, isDarkMode } = useLanguage();
+  const { messages } = useLanguage();
+  const { isDarkMode } = useTheme();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     setIsSubmitted(true);
     setIsSubmitting(false);
-    
+
     // Reset form after showing success message
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", message: "" });
     }, 3000);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const socialLinks = [
     {
-      name: 'GitHub',
+      name: "GitHub",
       icon: <FaGithub size={20} />,
-      url: 'https://github.com/ParsaDera-AC',
-      color: 'hover:text-purple-400'
+      url: "https://github.com/ParsaDera-AC",
+      color: "hover:text-purple-400",
     },
     {
-      name: 'LinkedIn',
+      name: "LinkedIn",
       icon: <FaLinkedin size={20} />,
-      url: 'https://www.linkedin.com/in/parsa-derakhshan-0b0b3b1b2/',
-      color: 'hover:text-blue-400'
+      url: "https://www.linkedin.com/in/parsa-derakhshan-0b0b3b1b2/",
+      color: "hover:text-blue-400",
     },
     {
-      name: 'Email',
+      name: "Email",
       icon: <FaEnvelope size={20} />,
-      url: 'mailto:your.email@example.com',
-      color: 'hover:text-pink-400'
-    }
+      url: "mailto:your.email@example.com",
+      color: "hover:text-pink-400",
+    },
   ];
 
   // Early return if messages are not loaded yet
@@ -78,8 +86,11 @@ export default function Contact() {
       <div className="min-h-[80vh] flex items-center justify-center">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
-          <div className={`absolute top-0 left-0 w-full h-full ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
+          <div
+            className={`absolute inset-0 ${
+              isDarkMode ? "bg-transparent" : "bg-transparent"
+            }`}
+          />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -89,7 +100,15 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className={`${isDarkMode ? 'bg-transparent' : 'bg-transparent'} backdrop-blur-xl rounded-2xl p-8 border ${isDarkMode ? 'border-purple-500/20' : 'border-purple-200/50'} shadow-2xl ${isDarkMode ? 'shadow-purple-500/10' : 'shadow-purple-100/50'}`}>
+            <div
+              className={`backdrop-blur-xl rounded-2xl p-8 border ${
+                isDarkMode
+                  ? "bg-[#1a1a1a] border-gray-800"
+                  : "bg-white/90 border-gray-200"
+              } shadow-2xl ${
+                isDarkMode ? "shadow-purple-500/10" : "shadow-purple-100/50"
+              }`}
+            >
               {/* Title */}
               <div className="text-center mb-12">
                 <motion.div
@@ -98,17 +117,27 @@ export default function Contact() {
                   transition={{ delay: 0.2 }}
                   className="flex items-center justify-center gap-2 mb-4"
                 >
-                  <HiSparkles className={`${isDarkMode ? 'text-purple-400' : 'text-purple-500'} text-2xl`} />
+                  <HiSparkles
+                    className={`${
+                      isDarkMode ? "text-purple-400" : "text-purple-500"
+                    } text-2xl`}
+                  />
                   <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400">
                     {messages.contact.title}
                   </h2>
-                  <HiSparkles className={`${isDarkMode ? 'text-purple-400' : 'text-purple-500'} text-2xl`} />
+                  <HiSparkles
+                    className={`${
+                      isDarkMode ? "text-purple-400" : "text-purple-500"
+                    } text-2xl`}
+                  />
                 </motion.div>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-2xl mx-auto`}
+                  className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-600"
+                  } max-w-2xl mx-auto`}
                 >
                   {messages.contact.subtitle}
                 </motion.p>
@@ -131,7 +160,7 @@ export default function Contact() {
                   >
                     {/* Animated Border */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
-                    
+
                     {/* Image Container */}
                     <div className="relative aspect-square overflow-hidden rounded-xl">
                       <img
@@ -149,7 +178,11 @@ export default function Contact() {
                     <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                       {messages.contact.connectTitle}
                     </h3>
-                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} leading-relaxed`}>
+                    <p
+                      className={`${
+                        isDarkMode ? "text-gray-400" : "text-gray-600"
+                      } leading-relaxed`}
+                    >
                       {messages.contact.description}
                     </p>
 
@@ -161,7 +194,9 @@ export default function Contact() {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex items-center gap-3 text-gray-400 ${link.color} transition-colors duration-300`}
+                          className={`flex items-center gap-3 ${
+                            isDarkMode ? "text-gray-400" : "text-gray-500"
+                          } ${link.color} transition-colors duration-300`}
                           whileHover={{ x: 10 }}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -176,15 +211,27 @@ export default function Contact() {
 
                   {/* Additional Info */}
                   <motion.div
-                    className={`mt-8 p-6 ${isDarkMode ? 'bg-[#0f0f0f] border-gray-800' : 'bg-[#f8f5ff] border-gray-200'} rounded-lg border backdrop-blur-sm`}
+                    className={`mt-8 p-6 rounded-lg border backdrop-blur-sm ${
+                      isDarkMode
+                        ? "bg-[#0f0f0f] border-gray-800 shadow-purple-500/5"
+                        : "bg-[#f8f5ff] border-gray-200 shadow-purple-100/50"
+                    }`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
                   >
-                    <h4 className={`text-lg font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'} mb-2`}>
+                    <h4
+                      className={`text-lg font-semibold ${
+                        isDarkMode ? "text-purple-400" : "text-purple-600"
+                      } mb-2`}
+                    >
                       {messages.contact.quickResponse}
                     </h4>
-                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
+                    <p
+                      className={`${
+                        isDarkMode ? "text-gray-400" : "text-gray-600"
+                      } text-sm`}
+                    >
                       {messages.contact.responseMessage}
                     </p>
                   </motion.div>
@@ -216,7 +263,7 @@ export default function Contact() {
                     <div className="relative">
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur transition-opacity duration-300 ${
-                          activeField === 'name' ? 'opacity-100' : 'opacity-0'
+                          activeField === "name" ? "opacity-100" : "opacity-0"
                         }`}
                       />
                       <input
@@ -224,10 +271,14 @@ export default function Contact() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        onFocus={() => setActiveField('name')}
+                        onFocus={() => setActiveField("name")}
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.name}
-                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10`}
+                        className={`w-full px-6 py-4 border rounded-lg focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 ${
+                          isDarkMode
+                            ? "bg-[#1a1a1a] text-white border-gray-700 placeholder-gray-500"
+                            : "bg-white/80 text-gray-900 border-gray-200 placeholder-gray-400"
+                        }`}
                         required
                       />
                     </div>
@@ -236,7 +287,7 @@ export default function Contact() {
                     <div className="relative">
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur transition-opacity duration-300 ${
-                          activeField === 'email' ? 'opacity-100' : 'opacity-0'
+                          activeField === "email" ? "opacity-100" : "opacity-0"
                         }`}
                       />
                       <input
@@ -244,10 +295,14 @@ export default function Contact() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        onFocus={() => setActiveField('email')}
+                        onFocus={() => setActiveField("email")}
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.email}
-                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10`}
+                        className={`w-full px-6 py-4 border rounded-lg focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 ${
+                          isDarkMode
+                            ? "bg-[#1a1a1a] text-white border-gray-700 placeholder-gray-500"
+                            : "bg-white/80 text-gray-900 border-gray-200 placeholder-gray-400"
+                        }`}
                         required
                       />
                     </div>
@@ -256,18 +311,24 @@ export default function Contact() {
                     <div className="relative">
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur transition-opacity duration-300 ${
-                          activeField === 'message' ? 'opacity-100' : 'opacity-0'
+                          activeField === "message"
+                            ? "opacity-100"
+                            : "opacity-0"
                         }`}
                       />
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        onFocus={() => setActiveField('message')}
+                        onFocus={() => setActiveField("message")}
                         onBlur={() => setActiveField(null)}
                         placeholder={messages.contact.form.message}
                         rows={8}
-                        className={`w-full px-6 py-4 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-transparent'} border border-purple-500/50 rounded-lg ${isDarkMode ? 'placeholder-gray-400' : 'placeholder-gray-400'} focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 resize-none`}
+                        className={`w-full px-6 py-4 border rounded-lg focus:outline-none focus:border-purple-400 transition-colors duration-300 relative z-10 resize-none ${
+                          isDarkMode
+                            ? "bg-[#1a1a1a] text-white border-gray-700 placeholder-gray-500"
+                            : "bg-white/80 text-gray-900 border-gray-200 placeholder-gray-400"
+                        }`}
                         required
                       />
                     </div>
@@ -275,7 +336,14 @@ export default function Contact() {
                     {/* Submit Button */}
                     <motion.button
                       type="submit"
-                      className="w-full py-4 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black transition-all duration-300 relative overflow-hidden group text-lg"
+                      className={`w-full py-4 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold 
+                        hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 
+                        focus:ring-offset-2 ${
+                          isDarkMode
+                            ? "focus:ring-offset-[#1a1a1a]"
+                            : "focus:ring-offset-white"
+                        } 
+                        transition-all duration-300 relative overflow-hidden group text-lg`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       disabled={isSubmitting || isSubmitted}
@@ -285,7 +353,11 @@ export default function Contact() {
                           <motion.div
                             className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full"
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            transition={{
+                              duration: 1,
+                              repeat: Infinity,
+                              ease: "linear",
+                            }}
                           />
                         ) : isSubmitted ? (
                           <>

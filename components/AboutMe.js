@@ -19,13 +19,35 @@ const AboutMe = () => {
   const { messages } = useLanguage();
   const { isDarkMode } = useTheme();
 
+  const getTagStyles = (baseColor) => {
+    if (isDarkMode) {
+      return `bg-${baseColor}-500/10 text-${baseColor}-400 border-${baseColor}-500/30 
+              hover:bg-${baseColor}-500/20 hover:border-${baseColor}-500/50`;
+    }
+    // Special handling for indigo and yellow in light mode
+    if (baseColor === 'indigo') {
+      return `bg-indigo-100 text-indigo-700 border-indigo-200
+              hover:bg-indigo-200 hover:border-indigo-300`;
+    }
+    if (baseColor === 'yellow') {
+      return `bg-yellow-100 text-yellow-800 border-yellow-200
+              hover:bg-yellow-200 hover:border-yellow-300`;
+    }
+    if (baseColor === 'pink') {
+      return `bg-pink-100 text-pink-700 border-pink-200
+              hover:bg-pink-200 hover:border-pink-300`;
+    }
+    return `bg-${baseColor}-100 text-${baseColor}-600 border-${baseColor}-200
+            hover:bg-${baseColor}-200 hover:border-${baseColor}-300`;
+  };
+
   const cards = [
     {
       title: messages?.about?.cards?.education?.title || "Education",
       description: messages?.about?.cards?.education?.description || 
         "Advanced Diploma in Computer Engineering Technology from Algonquin College with Honours (2023).",
       icon: <FaGraduationCap size={40} className="text-pink-500" />,
-      color: "pink-500",
+      color: "pink",
       stats: messages?.about?.cards?.education?.stats || ["Honours Graduate", "3.7 GPA", "Dean's List"],
     },
     {
@@ -33,7 +55,7 @@ const AboutMe = () => {
       description: messages?.about?.cards?.experience?.description ||
         "Full-Stack Programmer Analyst at the Canadian Coast Guard, specializing in critical applications.",
       icon: <FaBriefcase size={40} className="text-purple-500" />,
-      color: "purple-500",
+      color: "purple",
       stats: messages?.about?.cards?.experience?.stats || ["3+ Years", "Enterprise Apps", "Agile Teams"],
     },
     {
@@ -41,7 +63,7 @@ const AboutMe = () => {
       description: messages?.about?.cards?.expertise?.description ||
         "Proficient in modern full-stack development with expertise in cloud solutions and microservices architecture.",
       icon: <FaLaptopCode size={40} className="text-indigo-500" />,
-      color: "indigo-500",
+      color: "indigo",
       stats: messages?.about?.cards?.expertise?.stats || ["Cloud Native", "CI/CD", "DevOps"],
     },
     {
@@ -49,7 +71,7 @@ const AboutMe = () => {
       description: messages?.about?.cards?.achievements?.description ||
         "Consistently recognized for technical excellence and innovative problem-solving in enterprise environments.",
       icon: <FaMedal size={40} className="text-yellow-500" />,
-      color: "yellow-500",
+      color: "yellow",
       stats: messages?.about?.cards?.achievements?.stats || ["Dean's List", "Innovation", "Leadership"],
     },
   ];
@@ -207,12 +229,9 @@ const AboutMe = () => {
                         <span
                           key={statIndex}
                           className={`
-                            text-center px-3 py-1.5 text-sm rounded-lg font-medium
-                            ${isDarkMode 
-                              ? `bg-${card.color}/10 text-${card.color} border-${card.color}/20 hover:bg-${card.color}/15 hover:border-${card.color}/30` 
-                              : `bg-${card.color}/5 text-${card.color}-600 border-${card.color}/10 hover:bg-${card.color}/10 hover:border-${card.color}/20`
-                            }
-                            border transform hover:scale-105 transition-all duration-200
+                            text-center px-3 py-1.5 text-sm rounded-lg font-medium border
+                            ${getTagStyles(card.color.split('-')[0])}
+                            transform hover:scale-105 transition-all duration-200
                             whitespace-nowrap
                           `}
                         >
