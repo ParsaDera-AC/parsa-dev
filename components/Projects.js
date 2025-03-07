@@ -125,8 +125,8 @@ const Projects = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative rounded-xl overflow-hidden border transition-all duration-300 flex flex-col ${
                   isDarkMode 
-                    ? 'bg-black/40 border-gray-800/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20' 
-                    : 'bg-white/90 border-gray-200/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20'
+                    ? 'bg-black border-gray-800/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20' 
+                    : 'bg-white border-gray-200/50 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20'
                 }`}
               >
                 {/* Project Image */}
