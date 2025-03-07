@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   FaGraduationCap,
@@ -17,11 +17,12 @@ import { useTheme } from "@/context/ThemeContext";
 import { useDocuments } from '@/context/DocumentContext';
 
 const AboutMe = () => {
-  const { messages } = useLanguage();
+  const { messages, currentLanguage } = useLanguage();
   const { isDarkMode } = useTheme();
   const { getSecureDocumentUrl } = useDocuments();
 
-  const getTagStyles = (baseColor) => {
+  // Memoize the getTagStyles function to avoid recalculations
+  const getTagStyles = useCallback((baseColor) => {
     if (isDarkMode) {
       return `bg-${baseColor}-500/10 text-${baseColor}-400 border-${baseColor}-500/30 
               hover:bg-${baseColor}-500/20 hover:border-${baseColor}-500/50`;
@@ -41,9 +42,10 @@ const AboutMe = () => {
     }
     return `bg-${baseColor}-100 text-${baseColor}-600 border-${baseColor}-200
             hover:bg-${baseColor}-200 hover:border-${baseColor}-300`;
-  };
+  }, [isDarkMode]);
 
-  const cards = [
+  // Memoize cards data to prevent unnecessary re-renders
+  const cards = useMemo(() => [
     {
       title: messages?.about?.cards?.education?.title || "Education",
       description: messages?.about?.cards?.education?.description || 
@@ -76,15 +78,17 @@ const AboutMe = () => {
       color: "yellow",
       stats: messages?.about?.cards?.achievements?.stats || ["Dean's List", "Innovation", "Leadership"],
     },
-  ];
+  ], [messages]);
 
-  const skills = [
+  // Memoize skills data
+  const skills = useMemo(() => [
     { icon: <FaCode size={24} />, label: messages?.about?.skills?.frontend || "Frontend" },
     { icon: <FaServer size={24} />, label: messages?.about?.skills?.backend || "Backend" },
     { icon: <FaDatabase size={24} />, label: messages?.about?.skills?.database || "Database" },
     { icon: <FaCloud size={24} />, label: messages?.about?.skills?.cloud || "Cloud" },
-  ];
+  ], [messages]);
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -95,16 +99,16 @@ const AboutMe = () => {
     },
   };
 
-  const handleDownloadCV = () => {
+  const handleDownloadCV = useCallback(() => {
     const cvUrl = getSecureDocumentUrl('cv', currentLanguage);
     window.open(cvUrl, '_blank');
-  };
+  }, [getSecureDocumentUrl, currentLanguage]);
 
   return (
     <section id="about" className="relative py-24">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`} />
+        <div className="absolute inset-0" />
       </div>
 
       {/* Subtle top border/divider */}
