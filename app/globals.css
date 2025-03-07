@@ -3,50 +3,244 @@
 @tailwind utilities;
 
 :root {
+  /* Core colors */
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Brand colors */
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --primary-dark: #7c3aed;
+  --secondary: #ec4899;
+  --secondary-light: #f472b6;
+  --secondary-dark: #db2777;
+  --accent: #6366f1;
+  
+  /* RGB values for CSS functions */
+  --primary-rgb: 139, 92, 246;
+  --primary-light-rgb: 167, 139, 250;
+  --primary-dark-rgb: 124, 58, 237;
+  --secondary-rgb: 236, 72, 153;
+  --secondary-light-rgb: 244, 114, 182;
+  --secondary-dark-rgb: 219, 39, 119;
+  --accent-rgb: 99, 102, 241;
+
+  /* Neutrals */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Border radius */
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
 }
 
 html.dark {
   --background: #000000;
   --foreground: #ffffff;
+  
+  /* Adjusted brand colors for dark mode */
+  --primary: #a855f7;
+  --primary-light: #c084fc;
+  --primary-dark: #9333ea;
+  --secondary: #ec4899;
+  --secondary-light: #f472b6;
+  --secondary-dark: #db2777;
+  
+  /* RGB values for dark mode */
+  --primary-rgb: 168, 85, 247;
+  --primary-light-rgb: 192, 132, 252;
+  --primary-dark-rgb: 147, 51, 234;
+  --secondary-rgb: 236, 72, 153;
+  --secondary-light-rgb: 244, 114, 182;
+  --secondary-dark-rgb: 219, 39, 119;
+  --accent-rgb: 99, 102, 241;
+  
+  /* Neutrals - inverted for dark mode */
+  --neutral-50: #111827;
+  --neutral-100: #1f2937;
+  --neutral-200: #374151;
+  --neutral-300: #4b5563;
+  --neutral-400: #6b7280;
+  --neutral-500: #9ca3af;
+  --neutral-600: #d1d5db;
+  --neutral-700: #e5e7eb;
+  --neutral-800: #f3f4f6;
+  --neutral-900: #f9fafb;
+  
+  /* Shadows for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgb(255 255 255 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(255 255 255 / 0.1), 0 1px 2px -1px rgb(255 255 255 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(255 255 255 / 0.05), 0 2px 4px -2px rgb(255 255 255 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(255 255 255 / 0.05), 0 4px 6px -4px rgb(255 255 255 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(255 255 255 / 0.03), 0 8px 10px -6px rgb(255 255 255 / 0.03);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Adjust for fixed header */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
+  line-height: 1.6;
+  font-size: var(--font-size-base);
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Ensure SVG icons use their default colors instead of inheriting body color */
-svg {
-  color: inherit; /* Use the default color of the SVG or any explicit color set by components */
+/* Typography scale */
+h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-6);
 }
 
-/* VS Code-inspired code styling for typing (blinking cursor on right) */
+h2 {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-4);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+p {
+  margin-bottom: var(--space-4);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* SVG */
+svg {
+  color: inherit;
+}
+
+/* Code blocks */
 .code-vscode {
   @apply font-mono text-gray-100 bg-gray-800 dark:bg-gray-900;
   line-height: 1.5;
   white-space: pre-wrap;
   overflow-x: auto;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
-/* Blinking cursor for code (positioned on right edge, smaller) */
 .code-vscode::after {
   content: "|";
   display: inline-block;
   margin-left: 2px;
   animation: blink 0.5s step-end infinite;
   color: #ffffff;
-  font-size: 1rem; /* Reduced size for subtlety */
+  font-size: 1rem;
 }
 
-/* Typing animation for subheading (no longer needed for static subheading) */
 .typing {
   display: inline-block;
   overflow: hidden;
@@ -66,10 +260,12 @@ svg {
   50% { border-color: transparent; }
 }
 
+/* 3D effects */
 .perspective { perspective: 1000px; }
 .preserve-3d { transform-style: preserve-3d; }
 .backface-hidden { backface-visibility: hidden; }
 
+/* Scrolling animations */
 @keyframes scroll-lines {
   0% { transform: translateY(-100vh); opacity: 0.5; }
   50% { opacity: 1; }
@@ -88,32 +284,34 @@ svg {
   animation-delay: 2s;
 }
 
+/* Code background */
 .code-background {
-  @apply font-mono text-gray-400;
-  line-height: 1.5;
-  white-space: pre-wrap;
+  background-image: 
+    linear-gradient(to right, var(--primary-dark) 0.1em, transparent 0.1em),
+    linear-gradient(to bottom, var(--primary-dark) 0.1em, transparent 0.1em);
+  background-size: 5em 5em;
+  opacity: 0.05;
 }
 
-/* Theme transitions */
+/* Theme transition */
 .transition-theme {
   transition-property: color, background-color, border-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
 
-/* Background grid pattern */
+/* Background patterns */
 .bg-grid-pattern {
-  background-image: linear-gradient(to right, rgba(168, 85, 247, 0.1) 1px, transparent 1px), 
-                    linear-gradient(to bottom, rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(var(--primary-rgb), 0.1) 1px, transparent 1px), 
+                    linear-gradient(to bottom, rgba(var(--primary-rgb), 0.1) 1px, transparent 1px);
   background-size: 30px 30px;
 }
 
-/* Radial gradient */
 .bg-gradient-radial {
   background-image: radial-gradient(circle, var(--tw-gradient-stops));
 }
 
-/* Animation for floating elements */
+/* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -123,7 +321,6 @@ svg {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Animation for gradient movement */
 @keyframes gradient-xy {
   0%, 100% {
     background-size: 400% 400%;
@@ -139,7 +336,6 @@ svg {
   animation: gradient-xy 15s ease infinite;
 }
 
-/* Slow pulse animations */
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
@@ -151,4 +347,79 @@ svg {
 
 .animate-pulse-slower {
   animation: pulse-slow 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Loading effects */
+.skeleton-loader {
+  background: linear-gradient(90deg, 
+    var(--neutral-200) 25%, 
+    var(--neutral-300) 50%, 
+    var(--neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-400);
 }
