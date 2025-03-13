@@ -186,7 +186,7 @@ class Developer:
             transition={{ duration: 1, delay: 1.5 }}
           >
             <motion.a
-              href="https://github.com"
+              href="https://github.com/ParsaDera-AC"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors duration-300 ${
@@ -197,7 +197,7 @@ class Developer:
               <FaGithub size={24} />
             </motion.a>
             <motion.a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/parsa-dera-1360a11b3"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors duration-300 ${

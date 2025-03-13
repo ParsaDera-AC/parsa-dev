@@ -66,7 +66,7 @@ export default function Contact() {
     {
       name: "LinkedIn",
       icon: <FaLinkedin size={20} />,
-      url: "https://www.linkedin.com/in/parsa-derakhshan-0b0b3b1b2/",
+      url: "https://www.linkedin.com/in/parsa-dera-1360a11b3",
       color: "hover:text-blue-400",
     },
     {

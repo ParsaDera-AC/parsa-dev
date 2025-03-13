@@ -42,7 +42,7 @@ const Projects = () => {
       type: "Data Analysis",
       category: "Data Science",
       links: {
-        github: "#",
+        github: null,
         demo: null,
       }
     },
@@ -54,7 +54,7 @@ const Projects = () => {
       type: "Game Development",
       category: "Full Stack",
       links: {
-        github: "#",
+        github: null,
         demo: null,
       }
     },
@@ -66,8 +66,8 @@ const Projects = () => {
       type: "Web Application",
       category: "Frontend",
       links: {
-        github: "#",
-        demo: null,
+        github: null,
+        demo: "https://sqogroup.ca"
       }
     }
   ];
@@ -139,7 +139,7 @@ const Projects = () => {
                   />
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow">
+                <div className="p-8 flex flex-col flex-grow relative z-10">
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className={`px-3 py-1 text-xs rounded-full border ${
                       isDarkMode 
@@ -188,35 +188,58 @@ const Projects = () => {
                   </div>
 
                   {/* Project Links */}
-                  <div className="flex gap-6 mt-auto">
-                    {project.links.github && (
+                  <div className="flex gap-4 mt-auto relative z-20">
+                    {project.links.github ? (
                       <a
                         href={project.links.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-2 text-sm ${
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.links.github, '_blank');
+                        }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
                           isDarkMode 
-                            ? 'text-gray-400 hover:text-purple-400' 
-                            : 'text-gray-600 hover:text-purple-600'
-                        } transition-colors duration-300`}
+                            ? 'bg-gray-800 text-purple-400 hover:bg-purple-500 hover:text-white' 
+                            : 'bg-gray-100 text-purple-600 hover:bg-purple-500 hover:text-white'
+                        } cursor-pointer`}
                       >
                         <FaGithub className="text-lg" />
-                        {messages?.projects?.viewCode || "View Code"}
+                        <span className="font-medium">
+                          {messages?.projects?.viewCode || "View Code"}
+                        </span>
                       </a>
+                    ) : (
+                      <div
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                          isDarkMode 
+                            ? 'bg-gray-800/50 text-gray-500' 
+                            : 'bg-gray-100/50 text-gray-400'
+                        } cursor-not-allowed opacity-75`}
+                      >
+                        <FaGithub className="text-lg" />
+                        <span className="font-medium">
+                          {messages?.projects?.privateRepo || "Private Repository"}
+                        </span>
+                      </div>
                     )}
                     {project.links.demo && (
                       <a
                         href={project.links.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-2 text-sm ${
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.links.demo, '_blank');
+                        }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
                           isDarkMode 
-                            ? 'text-gray-400 hover:text-pink-400' 
-                            : 'text-gray-600 hover:text-pink-600'
-                        } transition-colors duration-300`}
+                            ? 'bg-gray-800 text-pink-400 hover:bg-pink-500 hover:text-white' 
+                            : 'bg-gray-100 text-pink-600 hover:bg-pink-500 hover:text-white'
+                        } transition-all duration-300`}
                       >
                         <FaExternalLinkAlt className="text-lg" />
-                        {messages?.projects?.liveDemo || "Live Demo"}
+                        <span className="font-medium">{messages?.projects?.liveDemo || "Live Demo"}</span>
                       </a>
                     )}
                   </div>

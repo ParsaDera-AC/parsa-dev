@@ -223,7 +223,7 @@ export default function Header() {
                 <FaGithub size={20} />
               </motion.a>
               <motion.a
-                href="https://www.linkedin.com/in/parsa-derakhshan-0b0b3b1b2/"
+                href="https://www.linkedin.com/in/parsa-dera-1360a11b3"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`transition-colors duration-300 ${
