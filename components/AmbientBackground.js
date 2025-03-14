@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback, useState, memo } from "react";
 import { tsParticles } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { motion, useAnimation } from "framer-motion";
@@ -9,7 +9,9 @@ import { useTheme } from "@/context/ThemeContext";
 const AmbientBackground = () => {
   const { isDarkMode } = useTheme();
   const containerRef = useRef(null);
-  const [mounted, setMounted] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const particlesInstance = useRef(null);
   const controls = useAnimation();
 
   // Memoize particle configuration to avoid recreating on each render
@@ -26,172 +28,163 @@ const AmbientBackground = () => {
       background: {
         color: { value: "transparent" },
       },
-      fpsLimit: 60,
+      fpsLimit: 30, // Reduced from 60 to 30 for better performance
       particles: {
         number: { 
-          value: 80,
+          value: 30, // Reduced from 80 to 30
           density: { enable: true, value_area: 800 } 
         },
         color: {
           value: [primaryColor, secondaryColor, tertiaryColor],
         },
         shape: { 
-          type: ["circle", "triangle", "polygon"],
+          type: ["circle", "triangle"],
           polygon: { nb_sides: 6 },
         },
-        opacity: { 
-          value: isDarkMode ? 0.5 : 0.3,
+        opacity: {
+          value: 0.3, // Reduced for better performance
           random: true,
           anim: {
             enable: true,
-            speed: 0.2,
+            speed: 0.5, // Reduced from 1
             opacity_min: 0.1,
-            sync: false
-          }
+            sync: false,
+          },
         },
-        size: { 
-          value: { min: 1, max: 5 },
+        size: {
+          value: 5,
           random: true,
           anim: {
-            enable: true,
-            speed: 1,
-            size_min: 0.5,
-            sync: false
-          }
+            enable: false,
+          },
         },
-        links: {
+        line_linked: {
           enable: true,
           distance: 150,
           color: isDarkMode ? "#a855f7" : "#4f46e5",
-          opacity: isDarkMode ? 0.3 : 0.2,
-          width: 1.5
+          opacity: 0.2,
+          width: 1,
         },
         move: {
           enable: true,
-          speed: 1.2,
+          speed: 1, // Reduced from 2
           direction: "none",
           random: true,
           straight: false,
-          out_mode: "bounce",
-          bounce: true,
+          out_mode: "out",
+          bounce: false,
           attract: {
-            enable: true,
-            rotateX: 600,
-            rotateY: 1200
-          }
-        },
-        twinkle: {
-          particles: {
-            enable: true,
-            frequency: 0.05,
-            opacity: 1
-          }
+            enable: false,
+          },
         },
       },
       interactivity: {
-        detect_on: "canvas",
+        detectsOn: "canvas",
         events: {
-          onhover: {
+          onHover: {
             enable: true,
-            mode: ["grab", "bubble"]
+            mode: "grab",
           },
-          onclick: {
+          onClick: {
             enable: true,
-            mode: "push"
+            mode: "push",
           },
-          resize: true
+          resize: true,
         },
         modes: {
           grab: {
-            distance: 180,
-            links: {
-              opacity: isDarkMode ? 0.8 : 0.5,
-              color: isDarkMode ? "#ec4899" : "#8b5cf6"
-            }
-          },
-          bubble: {
-            distance: 200,
-            size: 12,
-            duration: 2,
-            opacity: 0.8,
-            speed: 3
+            distance: 140,
+            line_linked: {
+              opacity: 0.8, 
+            },
           },
           push: {
-            particles_nb: 4
-          }
-        }
+            particles_nb: 2, // Reduced from 4 to 2
+          },
+        },
       },
-      retina_detect: true
+      retina_detect: false, // Disable for better performance
+      detectRetina: false, // Disable for better performance
     };
   }, []);
 
-  // Initialize particles only once
-  useEffect(() => {
-    const initParticles = async () => {
+  // Initialize particles
+  const initParticles = useCallback(async () => {
+    if (!containerRef.current || isLoaded) return;
+    
+    try {
       await loadFull(tsParticles);
       
-      containerRef.current = await tsParticles.load(
-        "tsparticles", 
+      particlesInstance.current = await tsParticles.load(
+        containerRef.current.id,
         getParticleConfig(isDarkMode)
       );
       
-      setMounted(true);
-    };
-
-    initParticles();
-
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.destroy();
-      }
-    };
-  }, [getParticleConfig, isDarkMode]);
+      setIsLoaded(true);
+    } catch (error) {
+      console.error("Failed to initialize particles:", error);
+    }
+  }, [getParticleConfig, isDarkMode, isLoaded]);
 
   // Update particles when theme changes
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    if (!particlesInstance.current || !isLoaded) return;
+    
+    const updateParticles = async () => {
+      try {
+        await particlesInstance.current.destroy();
+        particlesInstance.current = await tsParticles.load(
+          containerRef.current.id,
+          getParticleConfig(isDarkMode)
+        );
+      } catch (error) {
+        console.error("Failed to update particles:", error);
+      }
+    };
+    
+    updateParticles();
+  }, [isDarkMode, getParticleConfig, isLoaded]);
 
-    try {
-      const primaryColor = isDarkMode ? "#a855f7" : "#4f46e5";
-      const secondaryColor = isDarkMode ? "#ec4899" : "#8b5cf6";
-      const tertiaryColor = isDarkMode ? "#8b5cf6" : "#6366f1";
-      
-      // Safely update options with null checks
-      if (container.options.particles?.color) {
-        container.options.particles.color.value = [primaryColor, secondaryColor, tertiaryColor];
-      }
-      
-      if (container.options.particles?.links) {
-        container.options.particles.links.color = isDarkMode ? "#a855f7" : "#4f46e5";
-        container.options.particles.links.opacity = isDarkMode ? 0.3 : 0.2;
-      }
-      
-      if (container.options.particles?.opacity) {
-        container.options.particles.opacity.value = isDarkMode ? 0.5 : 0.3;
-      }
-
-      if (container.options.interactivity?.modes?.grab?.links) {
-        container.options.interactivity.modes.grab.links.opacity = isDarkMode ? 0.8 : 0.5;
-        container.options.interactivity.modes.grab.links.color = isDarkMode ? "#ec4899" : "#8b5cf6";
-      }
-
-      // Force refresh the particles
-      container.refresh();
-    } catch (error) {
-      console.error("Error updating particles:", error);
+  // Lazy load particles only when component is in viewport
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
     }
-  }, [isDarkMode]);
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          initParticles();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+      if (particlesInstance.current) {
+        particlesInstance.current.destroy();
+      }
+    };
+  }, [isMounted, initParticles]);
 
   // Start animated elements with a staggered delay
   useEffect(() => {
-    if (mounted) {
+    if (isMounted) {
       controls.start({
         opacity: 1,
         transition: { duration: 1.5 }
       });
     }
-  }, [mounted, controls]);
+  }, [isMounted, controls]);
 
   return (
     <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
@@ -219,7 +212,7 @@ const AmbientBackground = () => {
       )}
       
       {/* 3D Geometric shapes */}
-      {mounted && (
+      {isMounted && (
         <div className="absolute inset-0 overflow-hidden">
           {/* Top-right geometric shape */}
           <motion.div 
@@ -358,7 +351,12 @@ const AmbientBackground = () => {
       )}
 
       {/* Container for particles */}
-      <div id="tsparticles" className="absolute inset-0 pointer-events-auto" />
+      <div 
+        ref={containerRef}
+        id="tsparticles"
+        className="absolute inset-0 z-0"
+        aria-hidden="true"
+      />
     </div>
   );
 };
@@ -384,4 +382,4 @@ const styles = `
   }
 `;
 
-export default React.memo(AmbientBackground);
+export default memo(AmbientBackground);

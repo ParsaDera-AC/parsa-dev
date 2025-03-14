@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import {
   FaGithub,
   FaLinkedin,
@@ -18,7 +18,29 @@ import AmbientBackground from "@/components/AmbientBackground";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
-export default function Header() {
+// Memoized navigation item component
+const NavItem = memo(({ id, icon, label, activeSection, isDarkMode, onClick }) => (
+  <motion.a
+    href={`#${id}`}
+    className={`px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-300
+      ${activeSection === id
+        ? isDarkMode 
+          ? "text-purple-400 bg-white/10"
+          : "text-purple-600 bg-gray-100"
+        : isDarkMode
+          ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+          : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
+      }`}
+    onClick={onClick}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    {icon}
+    <span>{label}</span>
+  </motion.a>
+));
+
+const Header = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,35 +50,54 @@ export default function Header() {
 
   // Navigation items
   const navItems = [
-    { id: "about", label: "About", icon: <FaUser size={16} /> },
-    { id: "skills", label: "Skills", icon: <FaCode size={16} /> },
-    { id: "softskills", label: "Soft Skills", icon: <FaBrain size={16} /> },
-    { id: "projects", label: "Projects", icon: <FaFolder size={16} /> },
-    { id: "resume", label: "Resume", icon: <FaFileAlt size={16} /> },
-    { id: "contact", label: "Contact", icon: <FaEnvelope size={16} /> },
+    { id: "about", label: messages?.nav?.about || "About", icon: <FaUser size={16} /> },
+    { id: "skills", label: messages?.nav?.skills || "Skills", icon: <FaCode size={16} /> },
+    { id: "softskills", label: messages?.nav?.softskills || "Soft Skills", icon: <FaBrain size={16} /> },
+    { id: "projects", label: messages?.nav?.projects || "Projects", icon: <FaFolder size={16} /> },
+    { id: "resume", label: messages?.nav?.resume || "Resume", icon: <FaFileAlt size={16} /> },
+    { id: "contact", label: messages?.nav?.contact || "Contact", icon: <FaEnvelope size={16} /> },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
-
-      sections.forEach(section => {
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            setActiveSection(section.id);
-          }
-        }
-      });
-
+  // Optimized scroll handler with throttling
+  const handleScroll = useCallback(() => {
+    if (!window.requestAnimationFrame) {
+      checkVisibleSections();
       setIsScrolled(window.scrollY > 50);
-    };
+      return;
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.requestAnimationFrame(() => {
+      checkVisibleSections();
+      setIsScrolled(window.scrollY > 50);
+    });
   }, []);
+
+  // Optimized section visibility detection
+  const checkVisibleSections = useCallback(() => {
+    const sections = navItems.map(item => document.getElementById(item.id));
+    const scrollPosition = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      if (section) {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(section.id);
+        }
+      }
+    });
+
+    // Check if we're at the top/home section
+    if (scrollPosition < (sections[0]?.offsetTop || 500)) {
+      setActiveSection("home");
+    }
+  }, [navItems]);
+
+  // Attach scroll listener with passive option for better performance
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   return (
     <>
@@ -67,7 +108,7 @@ export default function Header() {
         }`}
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-20">
@@ -78,14 +119,14 @@ export default function Header() {
               whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
               <div className="relative flex items-center">
                 <motion.div
                   className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg blur-sm"
                   animate={{
                     scale: [1, 1.1, 1],
-                    opacity: [0.5, 0.8, 0.5]
+                    opacity: [0.5, 0.7, 0.5]
                   }}
                   transition={{
                     duration: 4,
@@ -129,27 +170,26 @@ export default function Header() {
               </div>
             </motion.a>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - Using memoized components for better performance */}
             <nav className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => (
-                <motion.a
+                <NavItem
                   key={item.id}
-                  href={`#${item.id}`}
-                  className={`px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-300
-                    ${activeSection === item.id
-                      ? isDarkMode 
-                        ? "text-purple-400 bg-white/10"
-                        : "text-purple-600 bg-gray-100"
-                      : isDarkMode
-                        ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
-                        : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
-                    }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {item.icon}
-                  <span>{messages?.nav?.[item.id] || item.label}</span>
-                </motion.a>
+                  id={item.id}
+                  icon={item.icon}
+                  label={item.label}
+                  activeSection={activeSection}
+                  isDarkMode={isDarkMode}
+                  onClick={() => {
+                    const section = document.getElementById(item.id);
+                    if (section) {
+                      window.scrollTo({
+                        top: section.offsetTop - 100,
+                        behavior: "smooth"
+                      });
+                    }
+                  }}
+                />
               ))}
             </nav>
 
@@ -160,7 +200,7 @@ export default function Header() {
                 <motion.button
                   onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
                   className={`p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
-                    isDarkMode 
+                    isDarkMode
                       ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
                       : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
                   }`}
@@ -172,39 +212,40 @@ export default function Header() {
                 </motion.button>
 
                 <AnimatePresence>
-                  {isLangMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className={`absolute right-0 mt-2 w-32 rounded-lg backdrop-blur-md border shadow-lg overflow-hidden ${
-                        isDarkMode 
-                          ? 'bg-black/90 border-gray-800'
-                          : 'bg-white/90 border-gray-200'
-                      }`}
-                    >
-                      {["en", "fr"].map((lang) => (
-                        <button
-                          key={lang}
-                          onClick={() => {
-                            toggleLanguage();
-                            setIsLangMenuOpen(false);
-                          }}
-                          className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200
-                            ${language === lang 
-                              ? isDarkMode
-                                ? "text-purple-400 bg-white/10"
-                                : "text-purple-600 bg-gray-50"
-                              : isDarkMode
-                                ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
-                                : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
-                            }`}
-                        >
-                          {lang === "en" ? "English" : "Français"}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
+                {isLangMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className={`absolute right-0 mt-2 w-32 rounded-lg backdrop-blur-md border shadow-lg overflow-hidden ${
+                      isDarkMode 
+                        ? 'bg-black/90 border-gray-800'
+                        : 'bg-white/90 border-gray-200'
+                    }`}
+                  >
+                    {["en", "fr"].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          toggleLanguage(lang);
+                          setIsLangMenuOpen(false);
+                        }}
+                        className={`w-full px-4 py-2 text-left text-sm transition-colors duration-200
+                          ${language === lang 
+                            ? isDarkMode
+                              ? "text-purple-400 bg-white/10"
+                              : "text-purple-600 bg-gray-50"
+                            : isDarkMode
+                              ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
+                              : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
+                          }`}
+                      >
+                        {lang === "en" ? "English" : "Français"}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
                 </AnimatePresence>
               </div>
 
@@ -214,7 +255,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`transition-colors duration-300 ${
-                  isDarkMode 
+                  isDarkMode
                     ? 'text-gray-300 hover:text-purple-400'
                     : 'text-gray-600 hover:text-purple-600'
                 }`}
@@ -227,7 +268,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`transition-colors duration-300 ${
-                  isDarkMode 
+                  isDarkMode
                     ? 'text-gray-300 hover:text-purple-400'
                     : 'text-gray-600 hover:text-purple-600'
                 }`}
@@ -286,8 +327,9 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
               className={`md:hidden backdrop-blur-md border-t ${
-                isDarkMode 
+                isDarkMode
                   ? 'bg-black/90 border-gray-800'
                   : 'bg-white/90 border-gray-200'
               }`}
@@ -311,7 +353,7 @@ export default function Header() {
                       whileHover={{ x: 10 }}
                     >
                       {item.icon}
-                      <span>{messages?.nav?.[item.id] || item.label}</span>
+                      <span>{item.label}</span>
                     </motion.a>
                   ))}
                 </nav>
@@ -322,4 +364,6 @@ export default function Header() {
       </motion.header>
     </>
   );
-}
+};
+
+export default memo(Header);
