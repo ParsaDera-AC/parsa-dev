@@ -31,7 +31,7 @@ A modern, responsive portfolio website built with Next.js, React, and TailwindCS
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/ParsaDera-AC/portfolio.git
 ```
 
 2. Change the working directory
@@ -116,12 +116,12 @@ portfolio/
 To run this project, you might need to add the following environment variables to your .env file:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=your_site_url
+NEXT_PUBLIC_SITE_URL=https://parsadera.netlify.app/
 ```
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/yourusername/portfolio/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/ParsaDera-AC/portfolio/issues).
 
 ## 📝 License
 
@@ -129,10 +129,11 @@ This project is [MIT](./LICENSE) licensed.
 
 ## 👨‍💻 Author
 
-**Your Name**
-- Website: [your-website.com](https://your-website.com)
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
+**Parsa Derakhshan**
+- Website: [parsadera.netlify.app](https://parsadera.netlify.app/)
+- Email: [parsa.derakhshan20@gmail.com](mailto:parsa.derakhshan20@gmail.com)
+- GitHub: [@ParsaDera-AC](https://github.com/ParsaDera-AC)
+- LinkedIn: [Parsa Dera](https://www.linkedin.com/in/parsa-dera-1360a11b3)
 
 ## 💖 Support
 
