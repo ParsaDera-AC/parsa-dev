@@ -3,6 +3,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { DocumentProvider } from '@/context/DocumentContext';
+import Script from 'next/script';
 
 // Optimize font loading with better display strategy
 const inter = Inter({ 
@@ -61,6 +62,11 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         {/* Preload critical resources */}
         <link rel="preload" as="image" href="/images/profile.jpg" />
+        
+        {/* Mobile-specific meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={`${inter.className} min-h-screen transition-colors duration-300 dark:bg-black dark:text-white bg-white text-black antialiased`}>
         <DocumentProvider>
@@ -70,6 +76,30 @@ export default function RootLayout({ children }) {
             </LanguageProvider>
           </ThemeProvider>
         </DocumentProvider>
+        
+        {/* Move scripts to end of body to avoid hydration issues */}
+        <Script id="mobile-viewport-height-fix" strategy="afterInteractive">
+          {`
+            // Mobile viewport height fix - runs after hydration
+            function setVhProperty() {
+              let vh = window.innerHeight * 0.01;
+              document.documentElement.style.setProperty('--vh', \`\${vh}px\`);
+            }
+            
+            // Initial set
+            setVhProperty();
+            
+            // Reset on resize
+            window.addEventListener('resize', setVhProperty, { passive: true });
+            
+            // Add passive listeners for better performance
+            document.addEventListener('touchstart', function(){}, { passive: true });
+            
+            // Add utility for testing mobile devices
+            window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            document.documentElement.classList.toggle('is-mobile-device', window.isMobile);
+          `}
+        </Script>
       </body>
     </html>
   );

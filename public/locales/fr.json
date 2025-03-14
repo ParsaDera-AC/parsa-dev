@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Accueil",
     "about": "À propos",
     "skills": "Compétences",
     "softskills": "Compétences douces",
@@ -168,5 +169,12 @@
         "technologies": ["React", "Next.js", "Tailwind CSS", "Design Responsive"]
       }
     }
+  },
+  "footer": {
+    "tagline": "Création d'expériences web innovantes avec des technologies modernes et des solutions créatives.",
+    "quickLinks": "Liens Rapides",
+    "connect": "Connecter",
+    "emailLabel": "Email:",
+    "rights": "Tous droits réservés."
   }
 } 

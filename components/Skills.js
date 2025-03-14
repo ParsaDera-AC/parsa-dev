@@ -48,73 +48,97 @@ const skills = [
   { category: "Frameworks", skill: "Nuxt.js", icon: <SiNuxtdotjs size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: ".NET", icon: <SiDotnet size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: "Blazor", icon: <SiDotnet size={24} color="#FFFFFF" /> },
-  { category: "Frameworks", skill: "Razor", icon: <SiDotnet size={24} color="#FFFFFF" /> },
   { category: "Frameworks", skill: "Bootstrap", icon: <SiBootstrap size={24} color="#FFFFFF" /> },
-  
-  { category: "Languages", skill: "C#", icon: <SiDotnet size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "JavaScript", icon: <FaJs size={24} color="#FFFFFF" /> },
+  { category: "Languages", skill: "HTML/CSS", icon: <FaHtml5 size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "Python", icon: <FaPython size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "R", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "Java", icon: <FaJava size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "C/C++", icon: <FaCode size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "SQL", icon: <FaDatabase size={24} color="#FFFFFF" /> },
   { category: "Languages", skill: "PHP", icon: <FaPhp size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "CSS", icon: <FaCss3 size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "HTML", icon: <FaHtml5 size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "TypeScript", icon: <FaTerminal size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "Bash", icon: <FaTerminal size={24} color="#FFFFFF" /> },
-  { category: "Languages", skill: "Unix Shell", icon: <FaTerminal size={24} color="#FFFFFF" /> },
-
-  { category: "Technologies", skill: "Git", icon: <FaGitAlt size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "REST API", icon: <FaEnvelope size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "CQRS", icon: <FaCogs size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "Pandas", icon: <SiPandas size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "NumPy", icon: <SiNumpy size={24} color="#FFFFFF" /> },
-  { category: "Technologies", skill: "ggplot2", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
-
-  { category: "Tools", skill: "Docker", icon: <FaDocker size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "MongoDB", icon: <FaDatabase size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "MySQL", icon: <SiMysql size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "PostgreSQL", icon: <FaDatabase size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Azure DevOps", icon: <VscAzureDevops size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Azure Cloud", icon: <FaCloud size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Visual Studio Code", icon: <DiVisualstudio size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Microsoft Visual Studio", icon: <DiVisualstudio size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Jupyter Notebook", icon: <SiJupyter size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "RStudio", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "GitBash", icon: <FaGitAlt size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Cisco Packet Tracer", icon: <SiCisco size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Wireshark", icon: <SiWireshark size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "VMware", icon: <SiVmware size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Ubuntu", icon: <SiUbuntu size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Linux", icon: <SiLinux size={24} color="#FFFFFF" /> },
+  { category: "Languages", skill: "SQL", icon: <SiMysql size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Git/GitHub", icon: <FaGitAlt size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Linux", icon: <SiLinux size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Ubuntu", icon: <SiUbuntu size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "DevOps", icon: <VscAzureDevops size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Docker", icon: <FaDocker size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Wireshark", icon: <SiWireshark size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "VMware", icon: <SiVmware size={24} color="#FFFFFF" /> },
+  { category: "Technologies", skill: "Cisco Technologies", icon: <SiCisco size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Visual Studio", icon: <DiVisualstudio size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "VS Code", icon: <FaCode size={24} color="#FFFFFF" /> },
   { category: "Tools", skill: "NetBeans", icon: <DiNetbeans size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Postman", icon: <FaEnvelope size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Electron", icon: <FaTerminal size={24} color="#FFFFFF" /> },
-  { category: "Tools", skill: "Beaver", icon: <FaTerminal size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Terminal", icon: <FaTerminal size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "Jupyter", icon: <SiJupyter size={24} color="#FFFFFF" /> },
+  { category: "Tools", skill: "RStudio", icon: <SiRstudioide size={24} color="#FFFFFF" /> },
+  { category: "Libraries", skill: "Pandas", icon: <SiPandas size={24} color="#FFFFFF" /> },
+  { category: "Libraries", skill: "NumPy", icon: <SiNumpy size={24} color="#FFFFFF" /> },
 ];
 
-// Update category colors to use gradients matching the site theme
+// Lookup object for skill details
+const skillDetails = {
+  "React.js": {
+    description: "I use React.js for building interactive user interfaces with a component-based architecture. Experienced with hooks, context API, and state management libraries.",
+    experience: 90,
+    projects: ["Enterprise dashboards", "E-commerce sites", "Portfolio websites"],
+    related: ["JavaScript", "Redux", "Next.js"],
+  },
+  "Vue.js": {
+    description: "Vue.js is my go-to framework for rapid development of reactive web interfaces. Proficient with Vue CLI, Vuex state management, and building single-page applications.",
+    experience: 80,
+    projects: ["Admin dashboards", "Interactive websites", "Progressive Web Apps"],
+    related: ["JavaScript", "Nuxt.js", "Vuex"],
+  },
+  "Node.js": {
+    description: "I'm experienced with server-side JavaScript using Node.js, including building REST APIs, microservices, and real-time applications with WebSockets.",
+    experience: 85,
+    projects: ["API servers", "Microservices", "Real-time chat applications"],
+    related: ["Express.js", "MongoDB", "WebSockets"],
+  },
+  "Nuxt.js": {
+    description: "I leverage Nuxt.js for creating Vue.js applications with server-side rendering, automatic routing, and enhanced SEO capabilities.",
+    experience: 75,
+    projects: ["E-commerce platforms", "Company websites", "Content-driven sites"],
+    related: ["Vue.js", "JavaScript", "Vuex"],
+  },
+  ".NET": {
+    description: "I develop robust, scalable applications using .NET Core and the .NET Framework, with a focus on microservices architecture and clean code practices.",
+    experience: 80,
+    projects: ["Enterprise applications", "Web APIs", "Government systems"],
+    related: ["C#", "SQL Server", "Entity Framework"],
+  },
+  "Python": {
+    description: "Python is my language of choice for data analysis, scripting, and backend development. I'm proficient with various frameworks and libraries including Django, Flask, and data science toolkits.",
+    experience: 85,
+    projects: ["Data processing pipelines", "Automation scripts", "Web scrapers"],
+    related: ["Django", "Flask", "Pandas", "NumPy"],
+  },
+};
+
+// Mapping skills to categories
+const getUniqueCategoriesFromSkills = () => {
+  return [...new Set(skills.map(skill => skill.category))];
+};
+
+// Colors for skill categories
 const categoryColors = {
-  All: "bg-gradient-to-r from-gray-500 via-slate-500 to-zinc-500",
   Frameworks: "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500",
   Languages: "bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500",
   Technologies: "bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500",
   Tools: "bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500",
+  Libraries: "bg-gradient-to-r from-blue-500 via-teal-500 to-emerald-500",
 };
 
 // Memoized Skill Card Component
 const SkillCard = memo(({ skill, onClick, categoryColor }) => (
   <div
     onClick={() => onClick(skill)}
-    className={`group cursor-pointer rounded-xl ${categoryColor} shadow-lg hover:shadow-xl transition-transform duration-200 border border-white/20 hover:border-white/30 relative overflow-hidden h-[120px] hover:scale-105`}
+    className={`group cursor-pointer rounded-xl ${categoryColor} shadow-lg hover:shadow-xl transition-transform duration-200 border border-white/20 hover:border-white/30 relative overflow-hidden h-[120px] hover:scale-105 mobile-touch-target`}
   >
     <div className="flex flex-col h-full p-4 relative z-10">
       <div className="flex items-center gap-3">
         <div className="p-2 rounded-lg bg-white/10 group-hover:bg-white/20">
           {skill.icon}
         </div>
-        <span className="text-base font-medium text-white/90 group-hover:text-white">
+        <span className="text-base font-medium text-white/90 group-hover:text-white mobile-text-base">
           {skill.skill}
         </span>
       </div>
@@ -134,9 +158,9 @@ const SkillCard = memo(({ skill, onClick, categoryColor }) => (
 const CategoryButton = memo(({ category, isSelected, onClick, color }) => (
   <button
     onClick={() => onClick(category)}
-    className={`px-6 py-2 rounded-full text-white transition-transform duration-200 ${
-      isSelected ? color : 'bg-gray-700 hover:bg-gray-600'
-    } hover:scale-105 active:scale-95`}
+    className={`px-4 sm:px-6 py-2 rounded-full text-white transition-transform duration-200 mobile-touch-target
+      ${isSelected ? color : 'bg-gray-700 hover:bg-gray-600'}
+      text-sm sm:text-base mobile-text-sm hover:scale-105 active:scale-95`}
   >
     {category}
   </button>
@@ -148,61 +172,77 @@ const Skills = () => {
   const [isSkillDetailsOpen, setIsSkillDetailsOpen] = useState(false);
   const { isDarkMode } = useTheme();
 
-  // Memoize grouped skills
-  const skillsByCategory = useMemo(() => {
-    return skills.reduce((acc, skill) => {
-      acc[skill.category] = [...(acc[skill.category] || []), skill];
-      return acc;
-    }, {});
-  }, []);
+  const uniqueCategories = useMemo(() => getUniqueCategoriesFromSkills(), []);
 
-  // Memoize filtered skills
+  useEffect(() => {
+    if (uniqueCategories.length > 0 && !selectedCategory) {
+      setSelectedCategory(uniqueCategories[0]);
+    }
+  }, [uniqueCategories, selectedCategory]);
+
   const filteredSkills = useMemo(() => {
-    return selectedCategory ? skillsByCategory[selectedCategory] : skills;
-  }, [selectedCategory, skillsByCategory]);
+    return selectedCategory
+      ? skills.filter(skill => skill.category === selectedCategory)
+      : skills;
+  }, [selectedCategory]);
 
   const handleCategoryClick = (category) => {
-    if (category === 'All') {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(selectedCategory === category ? null : category);
-    }
-    setSelectedSkill(null);
-    setIsSkillDetailsOpen(false);
+    setSelectedCategory(category);
   };
 
   const handleSkillClick = (skill) => {
     setSelectedSkill(skill);
     setIsSkillDetailsOpen(true);
+    // Disable body scroll when modal is open
+    document.body.style.overflow = 'hidden';
   };
 
   const closeSkillDetails = () => {
     setIsSkillDetailsOpen(false);
-    setSelectedSkill(null);
+    // Re-enable body scroll when modal is closed
+    document.body.style.overflow = 'auto';
   };
 
   return (
-    <section id="skills" className="relative min-h-screen py-24 overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="skills" className="relative min-h-screen py-20 sm:py-24 overflow-hidden">
+      
+      
+     
+      
+      <div className="container mx-auto px-6 sm:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+        <div className="text-center mb-12 sm:mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl font-bold mb-4 mobile-text-3xl text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500"
+          >
             Technical Skills
-          </h2>
-          <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'} max-w-2xl mx-auto`}>
-            A comprehensive overview of my technical expertise and proficiency levels
-          </p>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className={`max-w-3xl mx-auto text-base sm:text-lg mobile-text-base ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-700'
+            }`}
+          >
+            A comprehensive overview of my technical skillset across various domains.
+            Click on any skill to see more details about my experience with it.
+          </motion.p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* Category Filter - Scrollable on mobile */}
+        <div className="mb-8 overflow-x-auto pb-4 -mx-6 px-6 flex flex-nowrap sm:flex-wrap sm:justify-center gap-3 mobile-smooth-scroll">
           <CategoryButton
-            category="All"
+            key="all"
+            category="All Skills"
             isSelected={selectedCategory === null}
-            onClick={handleCategoryClick}
-            color={categoryColors.All}
+            onClick={() => setSelectedCategory(null)}
+            color="bg-gradient-to-r from-purple-600 to-indigo-600"
           />
-          {Object.keys(skillsByCategory).map((category) => (
+          {uniqueCategories.map((category) => (
             <CategoryButton
               key={category}
               category={category}
@@ -213,8 +253,8 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {/* Skills Grid - Responsive for mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredSkills.map((skill) => (
             <SkillCard
               key={skill.skill}
@@ -225,104 +265,148 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Skill Details Modal */}
-        {isSkillDetailsOpen && selectedSkill && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm"
-            onClick={closeSkillDetails}
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={`relative w-full max-w-2xl rounded-2xl p-8 ${
-                isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
-              } shadow-2xl`}
+        {/* Skill Detail Modal - Optimized for mobile */}
+        <AnimatePresence>
+          {isSkillDetailsOpen && selectedSkill && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0"
+              onClick={closeSkillDetails}
             >
-              {/* Close Button */}
-              <button
-                onClick={closeSkillDetails}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${
-                  isDarkMode
-                    ? 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
+              {/* Backdrop with blur effect */}
+              <motion.div 
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+
+              {/* Modal Content */}
+              <motion.div
+                className={`relative max-w-3xl w-full rounded-2xl shadow-2xl overflow-hidden p-0 m-4 z-10 
+                  ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              {/* Skill Header */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500">
-                  {selectedSkill.icon}
-                </div>
-                <div>
-                  <h3 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {selectedSkill.skill}
-                  </h3>
-                  <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
-                    {selectedSkill.category}
-                  </p>
-                </div>
-              </div>
-
-              {/* Mastery Level */}
-              <div className="mb-6">
-                <h4 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Mastery Level
-                </h4>
-                <div className="relative h-4 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${65 + (selectedSkill.skill.charCodeAt(0) % 35)}%` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="absolute h-full bg-gradient-to-r from-purple-500 to-pink-500"
-                  />
-                </div>
-                <p className={`text-right mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {65 + (selectedSkill.skill.charCodeAt(0) % 35)}% Mastery
-                </p>
-              </div>
-
-              {/* Rest of the modal content */}
-              <div className="space-y-6">
-                <div>
-                  <h4 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    Experience
-                  </h4>
-                  <p className={isDarkMode ? 'text-gray-300' : 'text-gray-700'}>
-                    {selectedSkill.description || `I have extensive experience with ${selectedSkill.skill}, having used it in multiple professional projects and personal endeavors.`}
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    Related Skills
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {skills
-                      .filter(s => 
-                        s.category === selectedSkill.category && 
-                        s.skill !== selectedSkill.skill
-                      )
-                      .slice(0, 5)
-                      .map(relatedSkill => (
-                        <span 
-                          key={relatedSkill.skill}
-                          className={`px-3 py-1 rounded-full text-sm ${
-                            isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {relatedSkill.skill}
-                        </span>
-                      ))
-                    }
+                {/* Header with skill name and icon */}
+                <div className={`${categoryColors[selectedSkill.category]} p-6 flex items-center relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+                  
+                  <div className="bg-white/20 p-3 rounded-xl mr-4 backdrop-blur-sm relative z-10">
+                    {selectedSkill.icon}
                   </div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mobile-text-2xl">
+                      {selectedSkill.skill}
+                    </h3>
+                    <div className="text-sm text-white/70 mobile-text-sm">
+                      {selectedSkill.category}
+                    </div>
+                  </div>
+
+                  {/* Close button */}
+                  <button
+                    onClick={closeSkillDetails}
+                    className="absolute top-4 right-4 bg-white/20 text-white rounded-full p-2 hover:bg-white/30 transition-colors duration-200 z-20"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
+
+                {/* Skill details content */}
+                <div className="p-6 max-h-[60vh] overflow-y-auto mobile-smooth-scroll">
+                  {skillDetails[selectedSkill.skill] ? (
+                    <>
+                      <div className="mb-6">
+                        <h4 className={`text-lg font-semibold mb-2 mobile-text-lg ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          About
+                        </h4>
+                        <p className={`mobile-text-base ${
+                          isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                        }`}>
+                          {skillDetails[selectedSkill.skill].description}
+                        </p>
+                      </div>
+                      
+                      <div className="mb-6">
+                        <h4 className={`text-lg font-semibold mb-2 mobile-text-lg ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          Proficiency Level
+                        </h4>
+                        <div className="bg-gray-200 dark:bg-gray-700 h-4 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: "0%" }}
+                            animate={{ width: `${skillDetails[selectedSkill.skill].experience}%` }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            className={`h-full ${categoryColors[selectedSkill.category]}`}
+                          />
+                        </div>
+                        <div className="text-right text-sm mt-1 mobile-text-sm text-gray-500 dark:text-gray-400">
+                          {skillDetails[selectedSkill.skill].experience}% proficiency
+                        </div>
+                      </div>
+                      
+                      <div className="mb-6">
+                        <h4 className={`text-lg font-semibold mb-2 mobile-text-lg ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          Projects Using This Skill
+                        </h4>
+                        <ul className={`list-disc pl-5 space-y-1 mobile-text-base ${
+                          isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                        }`}>
+                          {skillDetails[selectedSkill.skill].projects.map((project, index) => (
+                            <li key={index}>{project}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div>
+                        <h4 className={`text-lg font-semibold mb-2 mobile-text-lg ${
+                          isDarkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          Related Skills
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {skillDetails[selectedSkill.skill].related.map((relatedSkill, index) => (
+                            <span
+                              key={index}
+                              className={`px-3 py-1.5 text-sm rounded-lg mobile-text-sm mobile-touch-target ${
+                                isDarkMode
+                                  ? 'bg-gray-800 text-gray-300 border border-gray-700'
+                                  : 'bg-gray-100 text-gray-800 border border-gray-200'
+                              }`}
+                            >
+                              {relatedSkill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={`text-center py-12 ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      <p>Detailed information for {selectedSkill.skill} will be coming soon.</p>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

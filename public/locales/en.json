@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Home",
     "about": "About",
     "skills": "Skills",
     "softskills": "Soft Skills",
@@ -168,5 +169,12 @@
         "technologies": ["React", "Next.js", "Tailwind CSS", "Responsive Design"]
       }
     }
+  },
+  "footer": {
+    "tagline": "Building innovative web experiences with modern technologies and creative solutions.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "emailLabel": "Email:",
+    "rights": "All rights reserved."
   }
 } 

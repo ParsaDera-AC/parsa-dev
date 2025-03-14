@@ -10,6 +10,8 @@ import {
   FaCode,
   FaFileAlt,
   FaBrain,
+  FaBars,
+  FaTimes
 } from "react-icons/fa";
 import { FiMoon, FiSun, FiGlobe } from "react-icons/fi";
 import { PiCodeSimpleFill } from "react-icons/pi";
@@ -50,9 +52,10 @@ const Header = () => {
 
   // Navigation items
   const navItems = [
+    { id: "home", label: messages?.nav?.home || "Home", icon: <PiCodeSimpleFill size={16} /> },
     { id: "about", label: messages?.nav?.about || "About", icon: <FaUser size={16} /> },
-    { id: "skills", label: messages?.nav?.skills || "Skills", icon: <FaCode size={16} /> },
     { id: "softskills", label: messages?.nav?.softskills || "Soft Skills", icon: <FaBrain size={16} /> },
+    { id: "skills", label: messages?.nav?.skills || "Skills", icon: <FaCode size={16} /> },
     { id: "projects", label: messages?.nav?.projects || "Projects", icon: <FaFolder size={16} /> },
     { id: "resume", label: messages?.nav?.resume || "Resume", icon: <FaFileAlt size={16} /> },
     { id: "contact", label: messages?.nav?.contact || "Contact", icon: <FaEnvelope size={16} /> },
@@ -93,6 +96,30 @@ const Header = () => {
     }
   }, [navItems]);
 
+  // Handle navigation item click
+  const handleNavClick = useCallback((e, id) => {
+    e.preventDefault();
+    const section = document.getElementById(id);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 100,
+        behavior: "smooth"
+      });
+      setActiveSection(id);
+      setIsMenuOpen(false);
+    }
+  }, []);
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsLangMenuOpen(false);
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   // Attach scroll listener with passive option for better performance
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -120,6 +147,7 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
+              onClick={(e) => handleNavClick(e, "home")}
             >
               <div className="relative flex items-center">
                 <motion.div
@@ -180,15 +208,7 @@ const Header = () => {
                   label={item.label}
                   activeSection={activeSection}
                   isDarkMode={isDarkMode}
-                  onClick={() => {
-                    const section = document.getElementById(item.id);
-                    if (section) {
-                      window.scrollTo({
-                        top: section.offsetTop - 100,
-                        behavior: "smooth"
-                      });
-                    }
-                  }}
+                  onClick={(e) => handleNavClick(e, item.id)}
                 />
               ))}
             </nav>
@@ -198,7 +218,10 @@ const Header = () => {
               {/* Language Toggle */}
               <div className="relative">
                 <motion.button
-                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsLangMenuOpen(!isLangMenuOpen);
+                  }}
                   className={`p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
                     isDarkMode
                       ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
@@ -218,11 +241,12 @@ const Header = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className={`absolute right-0 mt-2 w-32 rounded-lg backdrop-blur-md border shadow-lg overflow-hidden ${
+                    className={`absolute right-0 mt-2 w-32 rounded-lg backdrop-blur-md border shadow-lg overflow-hidden z-50 ${
                       isDarkMode 
                         ? 'bg-black/90 border-gray-800'
                         : 'bg-white/90 border-gray-200'
                     }`}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {["en", "fr"].map((lang) => (
                       <button
@@ -291,69 +315,78 @@ const Header = () => {
                 {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
               </motion.button>
 
-              {/* Mobile Menu Button */}
-              <motion.button
-                className={`md:hidden p-2 rounded-lg ${
-                  isDarkMode 
-                    ? 'text-gray-300 hover:text-purple-400 hover:bg-white/5'
-                    : 'text-gray-600 hover:text-purple-600 hover:bg-gray-50'
-                }`}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              {/* Mobile Menu Button - HIGHLY VISIBLE VERSION */}
+              <div className="block md:hidden">
+                <motion.button
+                  className={`flex items-center justify-center p-2 rounded-lg shadow-md
+                    ${isDarkMode 
+                      ? 'bg-gradient-to-r from-purple-700 to-pink-700 text-white shadow-purple-700/20'
+                      : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/20'
+                    } border ${isDarkMode ? 'border-purple-600' : 'border-pink-400'}`}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ scale: 1 }}
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    transition: { 
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }
+                  }}
+                  aria-label="Toggle menu"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                  />
-                </svg>
-              </motion.button>
+                  {isMenuOpen ? (
+                    <FaTimes size={24} className="text-white" />
+                  ) : (
+                    <FaBars size={24} className="text-white" />
+                  )}
+                </motion.button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - MUCH MORE VISIBLE VERSION */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className={`md:hidden backdrop-blur-md border-t ${
+              className={`fixed inset-x-0 top-20 z-50 border-t shadow-lg ${
                 isDarkMode
-                  ? 'bg-black/90 border-gray-800'
-                  : 'bg-white/90 border-gray-200'
+                  ? 'bg-gray-900/95 backdrop-blur-md border-gray-800 shadow-black/30'
+                  : 'bg-white/95 backdrop-blur-md border-gray-200 shadow-gray-200/30'
               }`}
             >
-              <div className="container mx-auto px-6 py-4">
-                <nav className="flex flex-col space-y-2">
+              <div className="container mx-auto px-6 py-6">
+                <nav className="flex flex-col space-y-3">
                   {navItems.map((item) => (
                     <motion.a
                       key={item.id}
                       href={`#${item.id}`}
-                      className={`px-4 py-3 rounded-lg flex items-center space-x-2 transition-all duration-300
+                      className={`px-4 py-4 rounded-lg flex items-center space-x-3 transition-all duration-300
                         ${activeSection === item.id
                           ? isDarkMode 
-                            ? "text-purple-400 bg-white/10"
-                            : "text-purple-600 bg-gray-100"
+                            ? "bg-gradient-to-r from-purple-900/70 to-pink-900/70 text-white"
+                            : "bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700"
                           : isDarkMode
-                            ? "text-gray-300 hover:text-purple-400 hover:bg-white/5"
-                            : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
+                            ? "text-gray-300 hover:text-white hover:bg-white/5"
+                            : "text-gray-700 hover:text-purple-700 hover:bg-gray-100/70"
                         }`}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => handleNavClick(e, item.id)}
                       whileHover={{ x: 10 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      {item.icon}
-                      <span>{item.label}</span>
+                      <span className={`p-2 rounded-lg ${
+                        isDarkMode ? 'bg-purple-800/50' : 'bg-purple-100'
+                      }`}>
+                        {item.icon}
+                      </span>
+                      <span className="font-medium text-base">{item.label}</span>
                     </motion.a>
                   ))}
                 </nav>

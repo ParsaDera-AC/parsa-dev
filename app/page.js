@@ -6,6 +6,8 @@ import Contact from "/components/Contact";
 import Skills from "@/components/Skills";
 import Resume from "@/components/Resume";
 import SoftSkills from "@/components/SoftSkills";
+import Footer from "@/components/Footer";
+import MobileNav from "@/components/MobileNav";
 
 export default function Page() {
   return (
@@ -18,6 +20,8 @@ export default function Page() {
       <Projects />
       <Contact />
       <Resume/>
+      <Footer />
+      <MobileNav />
     </>
   );
 }
