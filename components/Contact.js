@@ -170,7 +170,7 @@ export default function Contact() {
                       {/* Image Container */}
                       <div className="relative aspect-square overflow-hidden rounded-xl">
                         <img
-                          src="/profile.jpg"
+                          src="/Avatar5.jpg"
                           alt="Parsa Derakhshan"
                           className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
                           loading="lazy" // Add lazy loading for better performance
