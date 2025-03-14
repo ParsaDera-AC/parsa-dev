@@ -100,6 +100,17 @@ export default function RootLayout({ children }) {
             document.documentElement.classList.toggle('is-mobile-device', window.isMobile);
           `}
         </Script>
+        
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-JCGR7BYY2B" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JCGR7BYY2B');
+          `}
+        </Script>
       </body>
     </html>
   );
