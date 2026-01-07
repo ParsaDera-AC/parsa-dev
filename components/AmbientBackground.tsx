@@ -1,26 +1,26 @@
 "use client";
 
 import React, { useRef, useEffect, useCallback, useState, memo } from "react";
-import { tsParticles } from "tsparticles-engine";
+import { tsParticles, Container, ISourceOptions } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { motion, useAnimation } from "framer-motion";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "@/context";
 
-const AmbientBackground = () => {
+const AmbientBackground: React.FC = () => {
   const { isDarkMode } = useTheme();
-  const containerRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const particlesInstance = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const particlesInstance = useRef<Container | null>(null);
   const controls = useAnimation();
 
   // Memoize particle configuration to avoid recreating on each render
-  const getParticleConfig = useCallback((isDarkMode) => {
+  const getParticleConfig = useCallback((isDark: boolean): ISourceOptions => {
     // Enhanced color palette with RGB values for easier manipulation
-    const primaryColor = isDarkMode ? "#a855f7" : "#4f46e5"; // Brighter purple for dark, indigo for light
-    const secondaryColor = isDarkMode ? "#ec4899" : "#8b5cf6"; // Pink for dark, purple for light
-    const tertiaryColor = isDarkMode ? "#8b5cf6" : "#6366f1"; // Purple for dark, indigo for light
-    
+    const primaryColor = isDark ? "#a855f7" : "#4f46e5"; // Brighter purple for dark, indigo for light
+    const secondaryColor = isDark ? "#ec4899" : "#8b5cf6"; // Pink for dark, purple for light
+    const tertiaryColor = isDark ? "#8b5cf6" : "#6366f1"; // Purple for dark, indigo for light
+
     return {
       fullScreen: {
         enable: false,
@@ -30,14 +30,14 @@ const AmbientBackground = () => {
       },
       fpsLimit: 30, // Reduced from 60 to 30 for better performance
       particles: {
-        number: { 
+        number: {
           value: 30, // Reduced from 80 to 30
-          density: { enable: true, value_area: 800 } 
+          density: { enable: true, value_area: 800 }
         },
         color: {
           value: [primaryColor, secondaryColor, tertiaryColor],
         },
-        shape: { 
+        shape: {
           type: ["circle", "triangle"],
           polygon: { nb_sides: 6 },
         },
@@ -61,7 +61,7 @@ const AmbientBackground = () => {
         line_linked: {
           enable: true,
           distance: 150,
-          color: isDarkMode ? "#a855f7" : "#4f46e5",
+          color: isDark ? "#a855f7" : "#4f46e5",
           opacity: 0.2,
           width: 1,
         },
@@ -95,7 +95,7 @@ const AmbientBackground = () => {
           grab: {
             distance: 140,
             line_linked: {
-              opacity: 0.8, 
+              opacity: 0.8,
             },
           },
           push: {
@@ -109,17 +109,17 @@ const AmbientBackground = () => {
   }, []);
 
   // Initialize particles
-  const initParticles = useCallback(async () => {
+  const initParticles = useCallback(async (): Promise<void> => {
     if (!containerRef.current || isLoaded) return;
-    
+
     try {
       await loadFull(tsParticles);
-      
+
       particlesInstance.current = await tsParticles.load(
         containerRef.current.id,
         getParticleConfig(isDarkMode)
-      );
-      
+      ) ?? null;
+
       setIsLoaded(true);
     } catch (error) {
       console.error("Failed to initialize particles:", error);
@@ -129,19 +129,21 @@ const AmbientBackground = () => {
   // Update particles when theme changes
   useEffect(() => {
     if (!particlesInstance.current || !isLoaded) return;
-    
-    const updateParticles = async () => {
+
+    const updateParticles = async (): Promise<void> => {
       try {
-        await particlesInstance.current.destroy();
-        particlesInstance.current = await tsParticles.load(
-          containerRef.current.id,
-          getParticleConfig(isDarkMode)
-        );
+        await particlesInstance.current?.destroy();
+        if (containerRef.current) {
+          particlesInstance.current = await tsParticles.load(
+            containerRef.current.id,
+            getParticleConfig(isDarkMode)
+          ) ?? null;
+        }
       } catch (error) {
         console.error("Failed to update particles:", error);
       }
     };
-    
+
     updateParticles();
   }, [isDarkMode, getParticleConfig, isLoaded]);
 
@@ -151,21 +153,23 @@ const AmbientBackground = () => {
       setIsMounted(true);
       return;
     }
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          initParticles();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
+
+    const observerCallback: IntersectionObserverCallback = (
+      entries: IntersectionObserverEntry[]
+    ): void => {
+      const entry = entries[0];
+      if (entry?.isIntersecting) {
+        initParticles();
+        observer.disconnect();
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, { threshold: 0.1 });
+
     if (containerRef.current) {
       observer.observe(containerRef.current);
     }
-    
+
     return () => {
       if (observer) {
         observer.disconnect();
@@ -189,33 +193,33 @@ const AmbientBackground = () => {
   return (
     <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
       {/* Enhanced gradient background */}
-      <div 
+      <div
         className={`absolute inset-0 bg-gradient-to-b transition-colors duration-700 ${
-          isDarkMode 
+          isDarkMode
             ? 'from-black via-purple-950/5 to-black/90'
             : 'from-indigo-50 via-white to-purple-50/30'
-        }`} 
+        }`}
       />
-      
+
       {/* Animated gradient overlay */}
       <div className={`absolute inset-0 transition-opacity duration-700 ${isDarkMode ? 'opacity-30' : 'opacity-10'}`}>
         <div className="absolute inset-0 bg-gradient-radial from-purple-500/10 via-transparent to-transparent animate-pulse-slow" />
         <div className="absolute inset-0 bg-gradient-radial from-indigo-500/5 via-transparent to-transparent animate-pulse-slower" style={{ animationDelay: '2s' }} />
       </div>
-      
+
       {/* Subtle noise texture */}
       <div className="absolute inset-0 bg-noise opacity-5" />
-      
+
       {/* Animated mesh grid (only in dark mode) */}
       {isDarkMode && (
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       )}
-      
+
       {/* 3D Geometric shapes */}
       {isMounted && (
         <div className="absolute inset-0 overflow-hidden">
           {/* Top-right geometric shape */}
-          <motion.div 
+          <motion.div
             className={`absolute top-[5%] right-[5%] w-64 h-64 rounded-3xl bg-gradient-to-br ${
               isDarkMode ? 'from-purple-700/20 to-pink-700/5' : 'from-indigo-300/20 to-purple-300/5'
             } backdrop-blur-sm`}
@@ -233,14 +237,14 @@ const AmbientBackground = () => {
             style={{
               transformStyle: "preserve-3d",
               transform: "rotateX(45deg) rotateZ(-10deg)",
-              boxShadow: isDarkMode 
-                ? "0 10px 30px -10px rgba(168, 85, 247, 0.3)" 
+              boxShadow: isDarkMode
+                ? "0 10px 30px -10px rgba(168, 85, 247, 0.3)"
                 : "0 10px 30px -10px rgba(79, 70, 229, 0.2)"
             }}
           />
 
           {/* Bottom-left geometric shape */}
-          <motion.div 
+          <motion.div
             className={`absolute bottom-[15%] left-[10%] w-40 h-40 rounded-full bg-gradient-to-tr ${
               isDarkMode ? 'from-pink-600/10 to-purple-600/5' : 'from-purple-300/10 to-indigo-300/5'
             } backdrop-blur-xs`}
@@ -255,17 +259,17 @@ const AmbientBackground = () => {
               delay: 0.5,
             }}
             style={{
-              boxShadow: isDarkMode 
+              boxShadow: isDarkMode
                 ? "0 20px 40px -20px rgba(236, 72, 153, 0.3)"
                 : "0 20px 40px -20px rgba(139, 92, 246, 0.15)"
             }}
           />
 
           {/* Center geometric shape */}
-          <motion.div 
+          <motion.div
             className={`absolute top-[45%] left-[40%] w-72 h-72 rounded-full bg-gradient-conic ${
-              isDarkMode 
-                ? 'from-indigo-600/5 via-purple-600/10 to-pink-600/5' 
+              isDarkMode
+                ? 'from-indigo-600/5 via-purple-600/10 to-pink-600/5'
                 : 'from-blue-300/5 via-indigo-300/10 to-purple-300/5'
             }`}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -284,12 +288,12 @@ const AmbientBackground = () => {
               filter: "blur(40px)"
             }}
           />
-          
+
           {/* Floating orbs */}
-          <motion.div 
+          <motion.div
             className={`absolute w-64 h-64 rounded-full ${
-              isDarkMode 
-                ? 'bg-gradient-to-r from-purple-600/10 to-pink-600/5' 
+              isDarkMode
+                ? 'bg-gradient-to-r from-purple-600/10 to-pink-600/5'
                 : 'bg-gradient-to-r from-indigo-300/10 to-purple-300/5'
             } blur-3xl`}
             animate={{
@@ -303,11 +307,11 @@ const AmbientBackground = () => {
             }}
             style={{ top: '20%', left: '15%' }}
           />
-          
-          <motion.div 
+
+          <motion.div
             className={`absolute w-96 h-96 rounded-full ${
-              isDarkMode 
-                ? 'bg-gradient-to-r from-indigo-600/10 to-purple-600/5' 
+              isDarkMode
+                ? 'bg-gradient-to-r from-indigo-600/10 to-purple-600/5'
                 : 'bg-gradient-to-r from-blue-300/10 to-indigo-300/5'
             } blur-3xl`}
             animate={{
@@ -351,7 +355,7 @@ const AmbientBackground = () => {
       )}
 
       {/* Container for particles */}
-      <div 
+      <div
         ref={containerRef}
         id="tsparticles"
         className="absolute inset-0 z-0"
@@ -361,25 +365,7 @@ const AmbientBackground = () => {
   );
 };
 
-// CSS for scrolling lines (inlined for simplicity, or add to a global CSS file)
-const styles = `
-  @keyframes scroll-lines {
-    0% { transform: translateY(-100vh); opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { transform: translateY(100vh); opacity: 0.5; }
-  }
+const MemoizedAmbientBackground = memo(AmbientBackground);
+MemoizedAmbientBackground.displayName = "AmbientBackground";
 
-  .animate-scroll-lines {
-    animation: scroll-lines 10s linear infinite;
-  }
-
-  .delay-1000 {
-    animation-delay: 1s;
-  }
-
-  .delay-2000 {
-    animation-delay: 2s;
-  }
-`;
-
-export default memo(AmbientBackground);
+export default MemoizedAmbientBackground;

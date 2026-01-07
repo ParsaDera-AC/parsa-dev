@@ -1,25 +1,52 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 /**
- * ScrollReveal - Animate elements when they enter the viewport
- * @param {Object} props - Component props
- * @param {React.ReactNode} props.children - Child elements to animate
- * @param {string} props.className - Additional CSS classes
- * @param {string} props.direction - Direction of animation ("up", "down", "left", "right")
- * @param {number} props.distance - Distance to animate from (pixels)
- * @param {number} props.delay - Delay before animation starts (seconds)
- * @param {number} props.duration - Duration of animation (seconds)
- * @param {boolean} props.once - Whether to animate only once or every time the element enters viewport
- * @param {number} props.threshold - Threshold of element visibility required (0-1)
- * @param {"spring"|"tween"|"inertia"} props.type - Type of animation
- * @param {boolean} props.cascade - Whether to cascade animation to children
- * @param {number} props.staggerChildren - Delay between children animations (seconds)
- * @param {boolean} props.disabled - Disable animations
+ * Direction of the scroll reveal animation
  */
-const ScrollReveal = ({
+type ScrollRevealDirection = "up" | "down" | "left" | "right" | "scale" | "fade";
+
+/**
+ * Type of animation easing
+ */
+type ScrollRevealAnimationType = "spring" | "tween" | "inertia";
+
+/**
+ * Props for the ScrollReveal component
+ */
+interface ScrollRevealProps {
+  /** Child elements to animate */
+  children: React.ReactNode;
+  /** Additional CSS classes */
+  className?: string;
+  /** Direction of animation */
+  direction?: ScrollRevealDirection;
+  /** Distance to animate from (pixels) */
+  distance?: number;
+  /** Delay before animation starts (seconds) */
+  delay?: number;
+  /** Duration of animation (seconds) */
+  duration?: number;
+  /** Whether to animate only once or every time the element enters viewport */
+  once?: boolean;
+  /** Threshold of element visibility required (0-1) */
+  threshold?: number;
+  /** Type of animation */
+  type?: ScrollRevealAnimationType;
+  /** Whether to cascade animation to children */
+  cascade?: boolean;
+  /** Delay between children animations (seconds) */
+  staggerChildren?: number;
+  /** Disable animations */
+  disabled?: boolean;
+}
+
+/**
+ * ScrollReveal - Animate elements when they enter the viewport
+ */
+const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   className = "",
   direction = "up",
@@ -34,16 +61,15 @@ const ScrollReveal = ({
   disabled = false,
 }) => {
   const controls = useAnimation();
-  const ref = useRef(null);
-  const inView = useInView(ref, { 
-    threshold: threshold,
-    // If once is false, we need to reset when out of view
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount: threshold,
     once: once
   });
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState<boolean>(false);
 
   // Determine the initial and animate values based on direction
-  const getDirectionalValues = () => {
+  const getDirectionalValues = (): { x?: number; y?: number; scale?: number; opacity: number } => {
     switch (direction) {
       case "up":
         return { y: distance, opacity: 0 };
@@ -65,10 +91,10 @@ const ScrollReveal = ({
   // Animation variants
   const variants = {
     hidden: getDirectionalValues(),
-    visible: { 
-      y: 0, 
-      x: 0, 
-      scale: 1, 
+    visible: {
+      y: 0,
+      x: 0,
+      scale: 1,
       opacity: 1,
       transition: {
         type: type,
@@ -93,7 +119,7 @@ const ScrollReveal = ({
   }, [controls, inView, once, hasAnimated, disabled]);
 
   // Server-side rendering check
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -116,4 +142,4 @@ const ScrollReveal = ({
   );
 };
 
-export default ScrollReveal; 
+export default ScrollReveal;

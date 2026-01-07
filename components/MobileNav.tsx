@@ -1,15 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaHome, FaUser, FaCode, FaBriefcase, FaEnvelope, FaTimes, FaBars } from "react-icons/fa";
-import { useTheme } from "@/context/ThemeContext";
-import { useLanguage } from "@/context/LanguageContext";
+import { useTheme, useLanguage } from "@/context";
 
-const MobileNav = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+interface NavItem {
+  id: string;
+  icon: ReactNode;
+  label: string;
+}
+
+const MobileNav: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
   const { isDarkMode } = useTheme();
   const { messages } = useLanguage();
 
@@ -22,7 +29,7 @@ const MobileNav = () => {
   useEffect(() => {
     if (!isMounted) return;
 
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
@@ -35,14 +42,14 @@ const MobileNav = () => {
     window.addEventListener("scroll", handleScroll);
     // Check initial scroll position
     handleScroll();
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMounted]);
 
   // Close menu when clicking a link
-  const handleNavClick = (id) => {
+  const handleNavClick = (id: string): void => {
     setIsOpen(false);
-    
+
     // Smooth scroll to the section
     const element = document.getElementById(id);
     if (element) {
@@ -51,14 +58,13 @@ const MobileNav = () => {
   };
 
   // Only show on mobile devices
-  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     if (!isMounted) return;
 
-    const checkMobile = () => {
+    const checkMobile = (): void => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -66,11 +72,11 @@ const MobileNav = () => {
 
   // Don't render anything on server or until mounted
   if (!isMounted) return null;
-  
+
   // Don't render on desktop
   if (!isMobile) return null;
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { id: "home", icon: <FaHome size={18} />, label: messages?.nav?.home || "Home" },
     { id: "about", icon: <FaUser size={18} />, label: messages?.nav?.about || "About" },
     { id: "skills", icon: <FaCode size={18} />, label: messages?.nav?.skills || "Skills" },
@@ -90,8 +96,8 @@ const MobileNav = () => {
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
             className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center mobile-touch-target ${
-              isDarkMode 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' 
+              isDarkMode
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
                 : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
             }`}
             aria-label={isOpen ? "Close navigation" : "Open navigation"}
@@ -102,7 +108,7 @@ const MobileNav = () => {
           {/* Navigation items */}
           <AnimatePresence>
             {isOpen && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -118,15 +124,15 @@ const MobileNav = () => {
                       transition={{ delay: index * 0.05 }}
                       onClick={() => handleNavClick(item.id)}
                       className={`flex items-center space-x-2 px-4 py-2 rounded-full shadow-md mobile-touch-target ${
-                        isDarkMode 
-                          ? 'bg-gray-800 text-white' 
+                        isDarkMode
+                          ? 'bg-gray-800 text-white'
                           : 'bg-white text-gray-800'
                       }`}
                     >
                       <span className="text-sm whitespace-nowrap">{item.label}</span>
                       <span className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        isDarkMode 
-                          ? 'bg-gray-700' 
+                        isDarkMode
+                          ? 'bg-gray-700'
                           : 'bg-gray-100'
                       }`}>
                         {item.icon}
@@ -143,4 +149,4 @@ const MobileNav = () => {
   );
 };
 
-export default MobileNav; 
+export default MobileNav;

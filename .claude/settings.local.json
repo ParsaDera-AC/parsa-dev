@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(npm install:*)",
+      "Bash(del \"C:\\\\Users\\\\parsa\\\\Desktop\\\\parsa-dev\\\\components\\\\Footer.js\")",
+      "Bash(del \"C:\\\\Users\\\\parsa\\\\Desktop\\\\parsa-dev\\\\components\\\\Hero.js\")",
+      "Bash(del \"C:\\\\Users\\\\parsa\\\\Desktop\\\\parsa-dev\\\\components\\\\MobileNav.js\")",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
