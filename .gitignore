@@ -43,6 +43,8 @@ next-env.d.ts
 
 # PDF files and sensitive content
 *.pdf
+# The resume is intentionally public and served from /public
+!public/Resume.pdf
 /public/assets/pdf/
 /public/assets/documents/
 /public/assets/private/

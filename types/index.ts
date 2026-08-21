@@ -1,234 +1,91 @@
+import type { ReactNode } from 'react';
+import enMessages from '@/locales/en.json';
+
 // ===========================================
-// Shared Type Definitions
+// i18n
 // ===========================================
 
-// i18n Messages Structure
-export interface Messages {
-  nav: {
-    home: string;
-    about: string;
-    skills: string;
-    softskills: string;
-    projects: string;
-    contact: string;
-    resume: string;
-  };
-  hero: {
-    greeting: string;
-    role: string;
-    title: string;
-    description: string;
-    viewWork: string;
-    contact: string;
-    subtitle?: string;
-    cta?: string;
-    downloadCv?: string;
-    typedText1?: string;
-    typedText2?: string;
-    typedText3?: string;
-    typedText4?: string;
-    titleHighlight?: string;
-    iAm?: string;
-    projectsButton?: string;
-    scrollText?: string;
-  };
-  about: {
-    title: string;
-    description: string;
-    skills: {
-      frontend: string;
-      backend: string;
-      database: string;
-      cloud: string;
-    };
-    cards: {
-      education: {
-        title: string;
-        description: string;
-        stats: string[];
-      };
-      experience: {
-        title: string;
-        description: string;
-        stats: string[];
-      };
-      expertise: {
-        title: string;
-        description: string;
-        stats: string[];
-      };
-      achievements: {
-        title: string;
-        description: string;
-        stats: string[];
-      };
-    };
-  };
-  softSkills: {
-    title: string;
-    subtitle?: string;
-    highlightTitle?: string;
-    highlightDescription?: string;
-    leadership: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    problemSolving: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    communication: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    projectManagement: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    dataAnalysis?: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    analytics?: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-    adaptability: {
-      title: string;
-      description: string;
-      skills: string[];
-    };
-  };
-  projects: {
-    title: string;
-    subtitle: string;
-    viewCode?: string;
-    privateRepo?: string;
-    liveDemo?: string;
-    moreOnGithub?: string;
-    categories: {
-      all: string;
-      fullStack: string;
-      frontend: string;
-      dataScience: string;
-      gamedev: string;
-    };
-    types?: Record<string, string>;
-    items: Record<string, {
-      title: string;
-      description: string;
-      tags: string[];
-      technologies: string[];
-    }>;
-  };
-  contact: {
-    title: string;
-    subtitle: string;
-    connectTitle: string;
-    description: string;
-    quickResponse: string;
-    responseMessage: string;
-    form: {
-      name: string;
-      email: string;
-      message: string;
-      submit: string;
-    };
-  };
-  resume: {
-    title: string;
-    subtitle: string;
-    placeholder: string;
-    submit: string;
-    noCode: string;
-    contactMe: string;
-    download?: string;
-    invalidCode?: string;
-  };
-  footer: {
-    tagline: string;
-    quickLinks: string;
-    connect: string;
-    emailLabel: string;
-    rights: string;
-  };
+/* The message shape is derived from the English locale rather than
+   hand-maintained. Adding a key to en.json makes it immediately available
+   (and required in fr.json) with no type edits — and any drift between the
+   two files becomes a compile error instead of a runtime `undefined`. */
+export type Messages = typeof enMessages;
+
+export type SupportedLanguage = 'en' | 'fr';
+
+export interface LanguageContextType {
+  language: SupportedLanguage;
+  messages: Messages;
+  setLanguage: (lang: SupportedLanguage) => void;
+  toggleLanguage: () => void;
 }
 
-// Theme Context Types
+// ===========================================
+// Theme
+// ===========================================
+
 export interface ThemeContextType {
   isDarkMode: boolean;
   toggleTheme: () => void;
-  isLoaded: boolean;
 }
 
-// Language Context Types
-export interface LanguageContextType {
-  language: 'en' | 'fr';
-  messages: Messages | null;
-  toggleLanguage: () => void;
-  setLanguage: (lang: 'en' | 'fr') => void;
-}
+// ===========================================
+// Documents
+// ===========================================
 
-// Document Context Types
 export type DocumentType = 'resume' | 'cv';
-export type SupportedLanguage = 'en' | 'fr';
 
 export interface DocumentContextType {
   getSecureDocumentUrl: (documentType: DocumentType, language?: SupportedLanguage) => string;
 }
 
-// Component Props Types
-export interface SectionProps {
-  id?: string;
-  className?: string;
+// ===========================================
+// Projects
+// ===========================================
+
+/* Categories match the keys under projects.categories in the locale files. */
+export type ProjectCategory = 'fullStack' | 'frontend' | 'dataScience' | 'gamedev';
+
+/* Presentation metadata lives in code; all copy lives in the locales.
+   Tying `id` to the locale keys means a mistyped project id fails to
+   compile rather than rendering blank text. */
+export interface ProjectMeta {
+  id: keyof Messages['projects']['items'];
+  image: string;
+  category: ProjectCategory;
+  github?: string;
+  demo?: string;
 }
 
-// Social Links
-export interface SocialLink {
+// ===========================================
+// Skills
+// ===========================================
+
+export type SkillCategory = 'frontend' | 'backend' | 'database' | 'devops';
+
+export interface SkillMeta {
   name: string;
-  icon: React.ReactNode;
-  url: string;
-  color: string;
+  icon: ReactNode;
+  category: SkillCategory;
 }
 
-// Form Data
+export interface LanguageBar {
+  name: string;
+  level: number;
+}
+
+// ===========================================
+// Shared
+// ===========================================
+
+export interface SocialLink {
+  label: string;
+  icon: ReactNode;
+  url: string;
+}
+
 export interface ContactFormData {
   name: string;
   email: string;
   message: string;
-}
-
-// Skill Types
-export interface Skill {
-  name: string;
-  icon: React.ReactNode;
-  level: number;
-  category: string;
-  description?: string;
-  relatedTech?: string[];
-}
-
-// Project Types
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  github?: string;
-  demo?: string;
-  type: 'web' | 'mobile' | 'desktop' | 'other';
-}
-
-// Animation Variants
-export interface AnimationVariants {
-  initial: Record<string, unknown>;
-  animate: Record<string, unknown>;
-  exit?: Record<string, unknown>;
 }

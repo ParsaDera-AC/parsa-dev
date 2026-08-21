@@ -3,28 +3,23 @@
 import { Suspense, lazy } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import AmbientBackground from '@/components/AmbientBackground';
 import Loading from './loading';
 
-// Lazy load heavy components for better performance
+/* Sections below the fold lazy-load; the shell (Header + Hero) is eager so
+   the page has a painted, legible first viewport immediately. */
 const AboutMe = lazy(() => import('@/components/AboutMe'));
-const SoftSkills = lazy(() => import('@/components/SoftSkills'));
-const Skills = lazy(() => import('@/components/Skills'));
 const Projects = lazy(() => import('@/components/Projects'));
+const Skills = lazy(() => import('@/components/Skills'));
+const SoftSkills = lazy(() => import('@/components/SoftSkills'));
 const Contact = lazy(() => import('@/components/Contact'));
 const Resume = lazy(() => import('@/components/Resume'));
 const Footer = lazy(() => import('@/components/Footer'));
-const MobileNav = lazy(() => import('@/components/MobileNav'));
 
 export default function Page() {
   return (
-    <div className="relative min-h-screen">
-      {/* Global particle background */}
-      <AmbientBackground />
-
-      {/* Main content */}
-      <div className="relative z-10">
-        <Header />
+    <>
+      <Header />
+      <main>
         <Hero />
         <Suspense fallback={<Loading />}>
           <AboutMe />
@@ -33,10 +28,11 @@ export default function Page() {
           <SoftSkills />
           <Contact />
           <Resume />
-          <Footer />
-          <MobileNav />
         </Suspense>
-      </div>
-    </div>
+      </main>
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+    </>
   );
 }

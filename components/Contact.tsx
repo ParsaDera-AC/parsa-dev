@@ -1,271 +1,256 @@
 "use client";
 
-import React, { useState, useCallback, memo } from "react";
-import { motion } from "framer-motion";
-import { FaPaperPlane, FaGithub, FaLinkedin, FaEnvelope, FaCheck, FaArrowRight } from "react-icons/fa";
-import { useTheme } from "@/context";
+import React, { memo, useCallback, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { FiArrowUpRight, FiCheck, FiAlertCircle } from "react-icons/fi";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
+import { useLanguage } from "@/context";
+import type { ContactFormData } from "@/types";
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
+const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/ParsaDera-AC";
+const LINKEDIN_URL =
+  process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "https://linkedin.com/in/parsa-dera-1360a11b3";
+const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? "contact@parsaderakhshan.com";
 
-const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
-const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL ?? 'https://linkedin.com/in/parsa-dera-1360a11b3';
-const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? 'contact@parsaderakhshan.com';
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "";
+
+/* If any credential is missing the form must not pretend to send. It says so
+   and points at the mailto: fallback instead. */
+const IS_CONFIGURED = Boolean(SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY);
+
+type Status = "idle" | "sending" | "sent" | "error" | "unconfigured";
+
+const EMPTY: ContactFormData = { name: "", email: "", message: "" };
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({ name: "", email: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const { isDarkMode } = useTheme();
+  const { messages } = useLanguage();
+  const reduce = useReducedMotion();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [form, setForm] = useState<ContactFormData>(EMPTY);
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 3000);
-  }, []);
+  const socials = useMemo(
+    () => [
+      { label: "GitHub", icon: <FaGithub size={17} />, url: GITHUB_URL },
+      { label: "LinkedIn", icon: <FaLinkedin size={17} />, url: LINKEDIN_URL },
+      { label: messages.footer.emailLabel, icon: <FaEnvelope size={17} />, url: `mailto:${EMAIL}` },
+    ],
+    [messages.footer.emailLabel]
+  );
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }, []);
+  const onChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setForm((prev) => ({ ...prev, [name]: value }));
+      setStatus((prev) => (prev === "error" || prev === "unconfigured" ? "idle" : prev));
+    },
+    []
+  );
 
-  const socialLinks = [
-    { icon: <FaGithub size={22} />, url: GITHUB_URL, label: "GitHub", color: "group-hover:text-white" },
-    { icon: <FaLinkedin size={22} />, url: LINKEDIN_URL, label: "LinkedIn", color: "group-hover:text-blue-400" },
-    { icon: <FaEnvelope size={22} />, url: `mailto:${EMAIL}`, label: "Email", color: "group-hover:text-indigo-400" },
-  ];
+  const onSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (!IS_CONFIGURED) {
+        setStatus("unconfigured");
+        return;
+      }
+
+      setStatus("sending");
+      try {
+        await emailjs.send(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          {
+            from_name: form.name,
+            from_email: form.email,
+            reply_to: form.email,
+            message: form.message,
+          },
+          { publicKey: PUBLIC_KEY }
+        );
+        setStatus("sent");
+        setForm(EMPTY);
+      } catch (error) {
+        console.error("Contact form submission failed:", error);
+        setStatus("error");
+      }
+    },
+    [form]
+  );
+
+  const isBusy = status === "sending";
+  const field =
+    "w-full border border-rule bg-paper-sunk px-4 py-3 text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-clay disabled:opacity-60";
+  const label = "block text-[0.6875rem] uppercase tracking-[0.14em] text-ink-faint";
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
-      {/* Decorative shapes */}
-      <motion.div
-        className={`absolute -top-20 left-[15%] w-64 h-64 rounded-full border ${
-          isDarkMode ? 'border-emerald-500/10' : 'border-emerald-300/20'
-        }`}
-        animate={{ rotate: -360 }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className={`absolute bottom-32 -right-24 w-80 h-80 rounded-full border-2 border-dashed ${
-          isDarkMode ? 'border-indigo-500/10' : 'border-indigo-300/15'
-        }`}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className={`absolute top-[25%] right-[8%] w-5 h-5 ${
-          isDarkMode ? 'bg-emerald-500/20' : 'bg-emerald-400/30'
-        }`}
-        style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}
-        animate={{ rotate: [0, -180, -360], y: [-10, 10, -10] }}
-        transition={{ duration: 7, repeat: Infinity }}
-      />
-      <motion.div
-        className={`absolute bottom-[35%] left-[5%] w-3 h-3 rounded-full ${
-          isDarkMode ? 'bg-purple-500/25' : 'bg-purple-400/35'
-        }`}
-        animate={{ y: [10, -10, 10], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      />
-      <motion.div
-        className={`absolute top-[50%] left-[20%] w-2 h-2 rounded-full ${
-          isDarkMode ? 'bg-indigo-500/30' : 'bg-indigo-400/40'
-        }`}
-        animate={{ x: [-8, 8, -8], y: [5, -5, 5] }}
-        transition={{ duration: 5, repeat: Infinity }}
-      />
-
-      <div className="container mx-auto px-6 lg:px-12 relative">
-        {/* Section Header */}
+    <section id="contact" className="relative py-section">
+      <div className="shell">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: reduce ? 0 : 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className={`inline-flex items-center gap-3 text-sm font-medium tracking-wide uppercase mb-4
-            ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
-            <span className="w-8 h-px bg-current" />
-            Let's Talk
-            <span className="w-8 h-px bg-current" />
-          </span>
-          <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-4
-            ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            Get In
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500"> Touch</span>
-          </h2>
-          <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            Have a project in mind? I'd love to hear about it. Let's create something amazing together.
+          <p className="eyebrow">{messages.contact.eyebrow}</p>
+          <h2 className="mt-6 text-display-sm">{messages.contact.title}</h2>
+          <p className="mt-5 max-w-measure leading-relaxed text-ink-muted">
+            {messages.contact.subtitle}
           </p>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Contact Info - Left Side */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="lg:col-span-2 space-y-8"
-          >
-            <div>
-              <h3 className={`text-2xl font-bold mb-4
-                ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                Let's Connect
-              </h3>
-              <p className={`leading-relaxed mb-6
-                ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                I'm always open to discussing new opportunities, creative ideas,
-                or partnerships. Drop me a message and I'll get back to you promptly.
+        <div className="mt-14 grid gap-px border border-rule bg-rule lg:grid-cols-12">
+          {/* Left: connect */}
+          <div className="bg-paper p-6 lg:col-span-5 lg:p-10">
+            <h3 className="font-display text-xl">{messages.contact.connectTitle}</h3>
+            <p className="mt-4 leading-relaxed text-ink-muted">{messages.contact.description}</p>
+
+            <ul className="mt-8 border-t border-rule">
+              {socials.map((s) => (
+                <li key={s.label} className="border-b border-rule">
+                  <a
+                    href={s.url}
+                    target={s.url.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={s.url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                    className="group flex items-center gap-4 py-4 text-sm transition-colors hover:text-clay"
+                  >
+                    <span className="text-ink-faint transition-colors group-hover:text-clay">
+                      {s.icon}
+                    </span>
+                    <span className="flex-1">{s.label}</span>
+                    <FiArrowUpRight
+                      size={15}
+                      className="text-ink-faint transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-clay"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 border border-rule bg-paper-sunk p-5">
+              <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-clay">
+                {messages.contact.quickResponse}
+              </p>
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                {messages.contact.responseMessage}
               </p>
             </div>
+          </div>
 
-            {/* Social Links */}
-            <div className="space-y-4">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 4 }}
-                  className={`group flex items-center gap-4 p-4 rounded-xl transition-colors
-                    ${isDarkMode
-                      ? 'bg-gray-900/50 hover:bg-gray-800/50 border border-gray-800'
-                      : 'bg-white hover:bg-gray-50 border border-gray-200'}`}
-                >
-                  <div className={`p-3 rounded-lg transition-colors
-                    ${isDarkMode
-                      ? 'bg-gray-800 text-gray-400 group-hover:bg-indigo-500/20'
-                      : 'bg-gray-100 text-gray-600 group-hover:bg-indigo-100'}`}>
-                    {link.icon}
-                  </div>
-                  <div className="flex-1">
-                    <span className={`text-sm font-medium block
-                      ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                      {link.label}
-                    </span>
-                    <span className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                      Click to connect
-                    </span>
-                  </div>
-                  <FaArrowRight className={`text-sm transition-colors
-                    ${isDarkMode ? 'text-gray-600 group-hover:text-indigo-400' : 'text-gray-400 group-hover:text-indigo-600'}`} />
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Contact Form - Right Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="lg:col-span-3"
-          >
-            <div className={`p-8 rounded-3xl border
-              ${isDarkMode ? 'bg-gray-900/30 border-gray-800' : 'bg-white border-gray-200'}`}>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className={`block text-sm font-medium mb-2
-                      ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      required
-                      className={`w-full px-4 py-3.5 rounded-xl transition-all outline-none
-                        ${isDarkMode
-                          ? 'bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
-                          : 'bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}`}
-                    />
-                  </div>
-                  <div>
-                    <label className={`block text-sm font-medium mb-2
-                      ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      required
-                      className={`w-full px-4 py-3.5 rounded-xl transition-all outline-none
-                        ${isDarkMode
-                          ? 'bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
-                          : 'bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}`}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className={`block text-sm font-medium mb-2
-                    ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    Message
+          {/* Right: form */}
+          <div className="bg-paper p-6 lg:col-span-7 lg:p-10">
+            <form ref={formRef} onSubmit={onSubmit} noValidate={false} className="space-y-6">
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className={label} htmlFor="contact-name">
+                    {messages.contact.form.name}
                   </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell me about your project..."
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
                     required
-                    rows={5}
-                    className={`w-full px-4 py-3.5 rounded-xl transition-all outline-none resize-none
-                      ${isDarkMode
-                        ? 'bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
-                        : 'bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}`}
+                    autoComplete="name"
+                    value={form.name}
+                    onChange={onChange}
+                    disabled={isBusy}
+                    placeholder={messages.contact.form.namePlaceholder}
+                    className={field}
                   />
                 </div>
-                <motion.button
+                <div className="space-y-2">
+                  <label className={label} htmlFor="contact-email">
+                    {messages.contact.form.email}
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    value={form.email}
+                    onChange={onChange}
+                    disabled={isBusy}
+                    placeholder={messages.contact.form.emailPlaceholder}
+                    className={field}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className={label} htmlFor="contact-message">
+                  {messages.contact.form.message}
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  rows={6}
+                  value={form.message}
+                  onChange={onChange}
+                  disabled={isBusy}
+                  placeholder={messages.contact.form.messagePlaceholder}
+                  className={`${field} resize-none`}
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <button
                   type="submit"
-                  disabled={isSubmitting || isSubmitted}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all
-                    ${isSubmitted
-                      ? 'bg-emerald-500 text-white'
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-500/25'}`}
+                  disabled={isBusy || status === "sent"}
+                  className="inline-flex items-center gap-2 bg-clay px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-clay-deep disabled:opacity-60"
                 >
-                  {isSubmitted ? (
+                  {status === "sent" ? (
                     <>
-                      <FaCheck size={18} />
-                      Message Sent!
+                      <FiCheck size={16} />
+                      {messages.ui.sent}
                     </>
-                  ) : isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Sending...
-                    </span>
+                  ) : isBusy ? (
+                    <>
+                      <span
+                        className="h-3.5 w-3.5 animate-spin border border-white/40 border-t-white"
+                        aria-hidden="true"
+                      />
+                      {messages.ui.sending}
+                    </>
                   ) : (
                     <>
-                      <FaPaperPlane size={16} />
-                      Send Message
+                      {messages.contact.form.submit}
+                      <FiArrowUpRight size={16} />
                     </>
                   )}
-                </motion.button>
-              </form>
-            </div>
-          </motion.div>
+                </button>
+
+                {/* Status is announced, never silently swallowed */}
+                <p aria-live="polite" className="text-sm">
+                  {status === "error" && (
+                    <span className="inline-flex items-center gap-2 text-clay">
+                      <FiAlertCircle size={15} />
+                      {messages.ui.errorGeneric}
+                    </span>
+                  )}
+                  {status === "unconfigured" && (
+                    <span className="inline-flex items-center gap-2 text-clay">
+                      <FiAlertCircle size={15} />
+                      {messages.ui.notConfigured}
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {(status === "error" || status === "unconfigured") && (
+                <p className="text-sm text-ink-muted">
+                  <a href={`mailto:${EMAIL}`} className="link-draw">
+                    {EMAIL}
+                  </a>
+                </p>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </section>

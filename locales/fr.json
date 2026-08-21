@@ -2,21 +2,46 @@
   "nav": {
     "home": "Accueil",
     "about": "À propos",
+    "projects": "Projets",
     "skills": "Compétences",
     "softskills": "Compétences douces",
-    "projects": "Projets",
     "resume": "CV",
     "contact": "Contact"
   },
+  "ui": {
+    "menu": "Menu",
+    "close": "Fermer",
+    "backToTop": "Retour en haut",
+    "viewCode": "Voir le code",
+    "liveDemo": "Démo en ligne",
+    "privateRepo": "Dépôt privé",
+    "readMore": "En savoir plus",
+    "sending": "Envoi en cours",
+    "sent": "Message envoyé",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer ou m'écrire directement.",
+    "notConfigured": "Le formulaire n'est pas encore configuré — écrivez-moi directement.",
+    "selectLanguage": "Choisir la langue"
+  },
   "hero": {
-    "greeting": "Bonjour, je suis Parsa Derakhshan",
-    "role": "Un développeur",
-    "title": "Full-Stack",
-    "description": "passionné créant de belles expériences numériques",
+    "eyebrow": "Ingénieur logiciel",
+    "name": "Parsa Derakhshan",
+    "title": "Développeur Full-Stack",
+    "description": "Je suis un développeur full-stack spécialisé dans la création d'expériences numériques exceptionnelles, à la rencontre du design et de la technologie.",
     "viewWork": "Voir mes projets",
-    "contact": "Me contacter"
+    "contact": "Me contacter",
+    "scroll": "Défiler",
+    "location": "Ottawa, Canada"
+  },
+  "stats": {
+    "eyebrow": "En chiffres",
+    "items": [
+      { "value": "3+", "label": "Années d'expérience" },
+      { "value": "20+", "label": "Projets livrés" },
+      { "value": "10+", "label": "Technologies" }
+    ]
   },
   "about": {
+    "eyebrow": "À propos",
     "title": "À Propos de Moi",
     "description": "En tant que développeur Full-Stack expérimenté, je combine expertise technique et résolution créative de problèmes pour créer des applications robustes et évolutives. Mon parcours dans le développement logiciel est motivé par une passion pour la création de solutions élégantes qui ont un impact réel.",
     "skills": {
@@ -48,88 +73,59 @@
       }
     }
   },
+  "skills": {
+    "eyebrow": "Compétences",
+    "title": "Compétences Techniques",
+    "subtitle": "Les langages, cadriciels et plateformes que j'utilise au quotidien.",
+    "languagesTitle": "Langages principaux",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de données",
+      "devops": "DevOps & Cloud"
+    },
+    "learningTitle": "Toujours en apprentissage",
+    "learningDescription": "La technologie évolue vite. Je réserve du temps chaque semaine pour approfondir les outils que j'utilise déjà et évaluer sérieusement ceux que je ne connais pas encore."
+  },
   "softSkills": {
+    "eyebrow": "Méthodes de travail",
     "title": "Compétences Douces",
+    "subtitle": "Les habitudes et pratiques qui façonnent ma façon de travailler en équipe.",
     "leadership": {
       "title": "Leadership & Collaboration",
       "description": "Expérience prouvée dans la direction d'initiatives techniques et la collaboration entre agences gouvernementales",
-      "skills": [
-        "Coaching Technique",
-        "Collaboration Inter-agences",
-        "Leadership d'Équipe"
-      ]
+      "skills": ["Coaching Technique", "Collaboration Inter-agences", "Leadership d'Équipe"]
     },
     "problemSolving": {
       "title": "Résolution de Problèmes",
       "description": "Esprit analytique démontré à travers le développement d'applications complexes et l'automatisation",
-      "skills": [
-        "Analyse Technique",
-        "Automatisation des Processus",
-        "Innovation"
-      ]
+      "skills": ["Analyse Technique", "Automatisation des Processus", "Innovation"]
     },
     "communication": {
       "title": "Communication Technique",
       "description": "Expert dans la traduction de concepts techniques complexes et la rédaction de documentation complète",
-      "skills": [
-        "Documentation Technique",
-        "Relations Clients",
-        "Transfert de Connaissances"
-      ]
+      "skills": ["Documentation Technique", "Relations Clients", "Transfert de Connaissances"]
     },
     "projectManagement": {
       "title": "Gestion de Projet",
       "description": "Expérimenté dans les méthodologies Agile et la gestion de multiples applications critiques",
-      "skills": [
-        "Agile/Scrum",
-        "Planification des Ressources",
-        "Gestion des Délais"
-      ]
+      "skills": ["Agile/Scrum", "Planification des Ressources", "Gestion des Délais"]
     },
     "dataAnalysis": {
       "title": "Analyse de Données",
       "description": "Compétences analytiques solides en visualisation de données et analyse statistique",
-      "skills": [
-        "Analyse des Risques",
-        "Visualisation des Données",
-        "Modélisation Statistique"
-      ]
+      "skills": ["Analyse des Risques", "Visualisation des Données", "Modélisation Statistique"]
     },
     "adaptability": {
       "title": "Adaptabilité Technique",
       "description": "Capacité prouvée à maîtriser rapidement les nouvelles technologies et frameworks",
-      "skills": [
-        "Multi-plateforme",
-        "Apprentissage Rapide",
-        "Intégration Technologique"
-      ]
-    }
-  },
-  "resume": {
-    "title": "Débloquer mon CV",
-    "subtitle": "Entrez le code d'accès spécial pour télécharger mon CV instantanément !",
-    "placeholder": "Entrer le code d'accès",
-    "submit": "Soumettre le code",
-    "noCode": "Vous n'avez pas le code d'accès ?",
-    "contactMe": "Contactez-moi"
-  },
-  "contact": {
-    "title": "Connectons-nous",
-    "subtitle": "Vous avez une question ou vous souhaitez collaborer ? J'aimerais avoir de vos nouvelles !",
-    "connectTitle": "Me Contacter",
-    "description": "Je suis toujours ouvert à la discussion de nouveaux projets, d'idées créatives ou d'opportunités de faire partie de vos visions.",
-    "quickResponse": "Réponse Rapide",
-    "responseMessage": "Je réponds généralement dans les 24 heures pendant les jours ouvrables. Au plaisir d'échanger avec vous !",
-    "form": {
-      "name": "Votre Nom",
-      "email": "Votre Email",
-      "message": "Votre Message",
-      "submit": "Envoyer le Message"
+      "skills": ["Multi-plateforme", "Apprentissage Rapide", "Intégration Technologique"]
     }
   },
   "projects": {
+    "eyebrow": "Travaux sélectionnés",
     "title": "Projets",
-    "subtitle": "Voici quelques-uns de mes projets récents",
+    "subtitle": "Un aperçu de mon expertise technique : applications d'entreprise, outils d'analyse de données et solutions innovantes.",
     "categories": {
       "all": "Tous",
       "fullStack": "Full Stack",
@@ -137,6 +133,7 @@
       "dataScience": "Science des Données",
       "gamedev": "Dév. de Jeux"
     },
+    "moreOnGithub": "Plus sur GitHub",
     "items": {
       "erms": {
         "title": "Système de Gestion des Ressources d'Entreprise",
@@ -170,11 +167,43 @@
       }
     }
   },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Connectons-nous",
+    "subtitle": "Vous avez une question ou vous souhaitez collaborer ? J'aimerais avoir de vos nouvelles !",
+    "connectTitle": "Me Contacter",
+    "description": "Je suis toujours ouvert à la discussion de nouveaux projets, d'idées créatives ou d'opportunités de faire partie de vos visions.",
+    "quickResponse": "Réponse Rapide",
+    "responseMessage": "Je réponds généralement dans les 24 heures pendant les jours ouvrables. Au plaisir d'échanger avec vous !",
+    "form": {
+      "name": "Votre Nom",
+      "email": "Votre Email",
+      "message": "Votre Message",
+      "submit": "Envoyer le Message",
+      "namePlaceholder": "Jeanne Dupont",
+      "emailPlaceholder": "jeanne@exemple.com",
+      "messagePlaceholder": "Parlez-moi de votre projet…"
+    }
+  },
+  "resume": {
+    "eyebrow": "Accès exclusif",
+    "title": "Débloquer mon CV",
+    "subtitle": "Entrez le code d'accès spécial pour télécharger mon CV instantanément !",
+    "accessCodeLabel": "Code d'accès",
+    "placeholder": "Entrer le code d'accès",
+    "submit": "Débloquer le CV",
+    "verifying": "Vérification",
+    "unlocked": "Débloqué",
+    "download": "Télécharger le CV",
+    "invalidCode": "Ce code n'est pas valide. Veuillez réessayer.",
+    "noCode": "Vous n'avez pas le code d'accès ?",
+    "contactMe": "Contactez-moi"
+  },
   "footer": {
     "tagline": "Création d'expériences web innovantes avec des technologies modernes et des solutions créatives.",
     "quickLinks": "Liens Rapides",
     "connect": "Connecter",
-    "emailLabel": "Email:",
+    "emailLabel": "Courriel",
     "rights": "Tous droits réservés."
   }
-} 
+}

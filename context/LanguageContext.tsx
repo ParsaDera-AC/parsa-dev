@@ -9,7 +9,17 @@ import {
   useMemo,
   type ReactNode,
 } from 'react';
-import type { LanguageContextType, Messages } from '@/types';
+import en from '@/locales/en.json';
+import fr from '@/locales/fr.json';
+import type { LanguageContextType, Messages, SupportedLanguage } from '@/types';
+
+/* Both dictionaries are bundled statically (~16 KB combined). This removes
+   the runtime fetch the previous implementation used, which meant `messages`
+   was null on first paint and every consumer needed a `messages?.` guard or
+   an early `return null`. */
+const dictionaries: Record<SupportedLanguage, Messages> = { en, fr };
+
+const STORAGE_KEY = 'language';
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
@@ -18,61 +28,54 @@ interface LanguageProviderProps {
 }
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<'en' | 'fr'>('en');
-  const [messages, setMessages] = useState<Messages | null>(null);
+  const [language, setLanguageState] = useState<SupportedLanguage>('en');
 
+  // Restore the saved preference after mount. Server and first client render
+  // both use 'en', so hydration stays consistent.
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as 'en' | 'fr' | null;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr')) {
-      setLanguageState(savedLanguage);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'en' || saved === 'fr') {
+      setLanguageState(saved);
     }
   }, []);
 
+  // Keep the document language in sync for screen readers and search engines.
   useEffect(() => {
-    const loadMessages = async () => {
-      try {
-        const response = await fetch(`/locales/${language}.json`);
-        if (!response.ok) {
-          throw new Error(`Failed to load messages for ${language}`);
-        }
-        const data = (await response.json()) as Messages;
-        setMessages(data);
-      } catch (error) {
-        console.error('Error loading messages:', error);
-        setMessages(null);
-      }
-    };
-    void loadMessages();
+    document.documentElement.lang = language;
   }, [language]);
 
-  const setLanguage = useCallback((lang: 'en' | 'fr') => {
+  const setLanguage = useCallback((lang: SupportedLanguage) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      /* private browsing / storage disabled — preference just won't persist */
+    }
   }, []);
 
   const toggleLanguage = useCallback(() => {
     setLanguageState((prev) => {
-      const newLang = prev === 'en' ? 'fr' : 'en';
-      localStorage.setItem('language', newLang);
-      return newLang;
+      const next: SupportedLanguage = prev === 'en' ? 'fr' : 'en';
+      try {
+        localStorage.setItem(STORAGE_KEY, next);
+      } catch {
+        /* ignore */
+      }
+      return next;
     });
   }, []);
 
-  const contextValue = useMemo<LanguageContextType>(
+  const value = useMemo<LanguageContextType>(
     () => ({
       language,
-      messages,
-      toggleLanguage,
+      messages: dictionaries[language],
       setLanguage,
+      toggleLanguage,
     }),
-    [language, messages, toggleLanguage, setLanguage]
+    [language, setLanguage, toggleLanguage]
   );
 
-  return (
-    <LanguageContext.Provider value={contextValue}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage(): LanguageContextType {

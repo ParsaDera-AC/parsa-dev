@@ -1,285 +1,240 @@
 "use client";
 
-import React, { memo } from "react";
-import { motion } from "framer-motion";
+import React, { memo, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
-  FaReact, FaNodeJs, FaVuejs, FaPython, FaDocker, FaGitAlt,
-  FaJs, FaJava, FaCloud
+  FaReact,
+  FaNodeJs,
+  FaVuejs,
+  FaPython,
+  FaDocker,
+  FaGitAlt,
+  FaJs,
+  FaJava,
+  FaCloud,
 } from "react-icons/fa";
 import {
-  SiTypescript, SiDotnet, SiMysql, SiMongodb, SiPostgresql,
-  SiTailwindcss, SiNextdotjs
+  SiTypescript,
+  SiDotnet,
+  SiMysql,
+  SiMongodb,
+  SiPostgresql,
+  SiTailwindcss,
+  SiNextdotjs,
 } from "react-icons/si";
-import { useTheme } from "@/context";
+import { useLanguage } from "@/context";
+import type { SkillMeta, SkillCategory, LanguageBar } from "@/types";
 
-interface SkillCategory {
-  name: string;
-  description: string;
-  skills: { name: string; icon: React.ReactNode }[];
-}
+/* Technology names and marks are proper nouns — they stay in code, only
+   the surrounding copy comes from the locale files. */
+const categoryOrder: SkillCategory[] = ["frontend", "backend", "database", "devops"];
+
+const skills: SkillMeta[] = [
+  { name: "React", icon: <FaReact />, category: "frontend" },
+  { name: "Next.js", icon: <SiNextdotjs />, category: "frontend" },
+  { name: "Vue.js", icon: <FaVuejs />, category: "frontend" },
+  { name: "Tailwind", icon: <SiTailwindcss />, category: "frontend" },
+  { name: "Node.js", icon: <FaNodeJs />, category: "backend" },
+  { name: ".NET Core", icon: <SiDotnet />, category: "backend" },
+  { name: "Python", icon: <FaPython />, category: "backend" },
+  { name: "Java", icon: <FaJava />, category: "backend" },
+  { name: "PostgreSQL", icon: <SiPostgresql />, category: "database" },
+  { name: "MySQL", icon: <SiMysql />, category: "database" },
+  { name: "MongoDB", icon: <SiMongodb />, category: "database" },
+  { name: "Docker", icon: <FaDocker />, category: "devops" },
+  { name: "Azure", icon: <FaCloud />, category: "devops" },
+  { name: "Git", icon: <FaGitAlt />, category: "devops" },
+];
+
+const languages: Array<LanguageBar & { icon: ReactNode }> = [
+  { name: "TypeScript", level: 95, icon: <SiTypescript /> },
+  { name: "JavaScript", level: 95, icon: <FaJs /> },
+  { name: "Python", level: 90, icon: <FaPython /> },
+  { name: "C#", level: 85, icon: <SiDotnet /> },
+  { name: "Java", level: 80, icon: <FaJava /> },
+];
 
 const Skills: React.FC = () => {
-  const { isDarkMode } = useTheme();
+  const { messages } = useLanguage();
+  const reduce = useReducedMotion();
 
-  const categories: SkillCategory[] = [
-    {
-      name: "Frontend",
-      description: "Building beautiful, responsive interfaces",
-      skills: [
-        { name: "React", icon: <FaReact size={24} /> },
-        { name: "Next.js", icon: <SiNextdotjs size={24} /> },
-        { name: "Vue.js", icon: <FaVuejs size={24} /> },
-        { name: "Tailwind", icon: <SiTailwindcss size={24} /> },
-      ]
-    },
-    {
-      name: "Backend",
-      description: "Scalable server-side solutions",
-      skills: [
-        { name: "Node.js", icon: <FaNodeJs size={24} /> },
-        { name: ".NET Core", icon: <SiDotnet size={24} /> },
-        { name: "Python", icon: <FaPython size={24} /> },
-        { name: "Java", icon: <FaJava size={24} /> },
-      ]
-    },
-    {
-      name: "Database",
-      description: "Data storage & management",
-      skills: [
-        { name: "PostgreSQL", icon: <SiPostgresql size={24} /> },
-        { name: "MySQL", icon: <SiMysql size={24} /> },
-        { name: "MongoDB", icon: <SiMongodb size={24} /> },
-      ]
-    },
-    {
-      name: "DevOps & Cloud",
-      description: "Infrastructure & deployment",
-      skills: [
-        { name: "Docker", icon: <FaDocker size={24} /> },
-        { name: "Azure", icon: <FaCloud size={24} /> },
-        { name: "Git", icon: <FaGitAlt size={24} /> },
-      ]
-    },
-  ];
+  /* One shared reveal — additive motion only; content stays legible. */
+  const reveal = {
+    duration: 0.7,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
 
-  const languages = [
-    { name: "TypeScript", icon: <SiTypescript size={20} /> },
-    { name: "JavaScript", icon: <FaJs size={20} /> },
-    { name: "Python", icon: <FaPython size={20} /> },
-    { name: "C#", icon: <SiDotnet size={20} /> },
-    { name: "Java", icon: <FaJava size={20} /> },
-  ];
+  const offset = reduce ? 0 : 16;
+
+  const index = (i: number) => String(i + 1).padStart(2, "0");
+
+  /* Four techs read best on a 4-across row; three techs on 3-across.
+     Class names are static literals so Tailwind's scanner keeps them. */
+  const cols = (count: number) =>
+    count >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3";
 
   return (
-    <section id="skills" className="relative py-32 overflow-hidden">
-      {/* Decorative shapes */}
-      <motion.div
-        className={`absolute -top-32 left-[20%] w-72 h-72 rounded-full border ${
-          isDarkMode ? 'border-cyan-500/10' : 'border-cyan-300/20'
-        }`}
-        animate={{ rotate: -360 }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className={`absolute bottom-10 -right-20 w-60 h-60 rounded-full border-2 border-dashed ${
-          isDarkMode ? 'border-indigo-500/10' : 'border-indigo-300/15'
-        }`}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className={`absolute top-[40%] left-[8%] w-5 h-5 ${
-          isDarkMode ? 'bg-cyan-500/20' : 'bg-cyan-400/30'
-        }`}
-        style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}
-        animate={{ rotate: [0, 180, 360], y: [-8, 8, -8] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.div
-        className={`absolute bottom-[25%] right-[12%] w-3 h-3 rounded-full ${
-          isDarkMode ? 'bg-purple-500/25' : 'bg-purple-400/35'
-        }`}
-        animate={{ scale: [1, 1.5, 1], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-      <motion.div
-        className={`absolute top-[15%] right-[25%] w-2 h-2 rounded-full ${
-          isDarkMode ? 'bg-indigo-500/30' : 'bg-indigo-400/40'
-        }`}
-        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      />
-      {/* Grid pattern */}
-      <div className={`absolute top-20 right-10 w-24 h-24 opacity-20 ${
-        isDarkMode ? 'opacity-10' : 'opacity-15'
-      }`}>
-        <div className="grid grid-cols-4 gap-2">
-          {[...Array(16)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={`w-2 h-2 rounded-full ${isDarkMode ? 'bg-indigo-400' : 'bg-indigo-500'}`}
-              animate={{ opacity: [0.3, 0.8, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="container mx-auto px-6 lg:px-12 relative">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+    <section id="skills" className="relative isolate grain py-section">
+      <div className="shell">
+        {/* Heading block */}
+        <motion.p
+          initial={{ opacity: 0, y: offset }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-20"
+          transition={reveal}
+          className="eyebrow"
         >
-          <span className={`inline-flex items-center gap-3 text-sm font-medium tracking-wide uppercase mb-4
-            ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
-            <span className="w-12 h-px bg-current" />
-            Expertise
-          </span>
-          <div className="grid lg:grid-cols-2 gap-8 items-end">
-            <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold
-              ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-              Technical
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500"> Skills</span>
-            </h2>
-            <p className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              A comprehensive toolkit built through years of hands-on experience
-              with modern technologies and best practices.
-            </p>
-          </div>
-        </motion.div>
+          {messages.skills.eyebrow}
+        </motion.p>
 
-        {/* Languages Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <motion.h2
+          initial={{ opacity: 0, y: offset }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mb-16"
+          transition={{ ...reveal, delay: 0.06 }}
+          className="mt-6 text-display-sm lg:text-display"
         >
-          <div className={`p-6 rounded-2xl border
-            ${isDarkMode ? 'bg-gray-900/50 border-gray-800' : 'bg-white border-gray-200'}`}>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-              <span className={`text-sm font-medium shrink-0 ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                Primary Languages:
-              </span>
-              <div className="flex flex-wrap gap-3">
-                {languages.map((lang, index) => (
-                  <motion.div
-                    key={lang.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full
-                      ${isDarkMode
-                        ? 'bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-white border border-gray-700'
-                        : 'bg-gradient-to-r from-indigo-50 to-purple-50 text-gray-900 border border-gray-200'}`}
-                  >
-                    <span className={isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}>{lang.icon}</span>
-                    <span className="text-sm font-medium">{lang.name}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          {messages.skills.title}
+        </motion.h2>
 
-        {/* Skill Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {categories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className={`h-full p-8 rounded-3xl border transition-colors
-                ${isDarkMode
-                  ? 'bg-gray-900/30 border-gray-800 hover:border-gray-700'
-                  : 'bg-white border-gray-200 hover:border-gray-300'}`}>
-                {/* Category Header */}
-                <div className="mb-6">
-                  <h3 className={`text-xl font-bold mb-1
-                    ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {category.name}
+        <motion.p
+          initial={{ opacity: 0, y: offset }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...reveal, delay: 0.12 }}
+          className="mt-6 max-w-measure text-ink-muted"
+        >
+          {messages.skills.subtitle}
+        </motion.p>
+
+        {/* Technology directory — four indexed category blocks in sequence */}
+        <div className="mt-16 space-y-12 lg:mt-20 lg:space-y-16">
+          {categoryOrder.map((category, blockIndex) => {
+            const items = skills.filter((skill) => skill.category === category);
+            return (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: offset }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...reveal, delay: blockIndex * 0.04 }}
+              >
+                <div className="flex items-baseline gap-4">
+                  <span className="index">{index(blockIndex)}</span>
+                  <h3 className="text-xl lg:text-2xl">
+                    {messages.skills.categories[category]}
                   </h3>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                    {category.description}
-                  </p>
                 </div>
 
-                {/* Skills */}
-                <div className="grid grid-cols-2 gap-3">
-                  {category.skills.map((skill, skillIndex) => (
+                <div
+                  className={`mt-5 grid grid-cols-2 gap-3 ${cols(items.length)}`}
+                >
+                  {items.map((skill, cellIndex) => (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
+                      initial={{ opacity: 0, y: offset }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      whileHover={{ y: -2 }}
-                      className={`flex items-center gap-3 p-4 rounded-xl transition-colors
-                        ${isDarkMode
-                          ? 'bg-gray-800/50 hover:bg-gray-800'
-                          : 'bg-gray-50 hover:bg-gray-100'}`}
+                      transition={{ ...reveal, delay: cellIndex * 0.04 }}
+                      className="flex flex-col items-center justify-center gap-3 border border-rule p-4 text-center transition-colors hover:border-ink sm:p-5"
                     >
-                      <div className={`shrink-0 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
-                        {skill.icon}
-                      </div>
-                      <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                        {skill.name}
-                      </span>
+                      <span className="text-2xl text-ink-muted">{skill.icon}</span>
+                      <span className="text-sm font-medium">{skill.name}</span>
                     </motion.div>
                   ))}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Additional Info Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-12"
-        >
-          <div className={`relative p-8 rounded-2xl overflow-hidden
-            ${isDarkMode ? 'bg-gradient-to-r from-indigo-900/30 to-purple-900/30' : 'bg-gradient-to-r from-indigo-50 to-purple-50'}
-            border ${isDarkMode ? 'border-indigo-500/20' : 'border-indigo-200'}`}>
-            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <h4 className={`text-lg font-semibold mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Always Learning
-                </h4>
-                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Currently exploring AI/ML technologies and advanced cloud architecture patterns.
-                </p>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  {[...Array(4)].map((_, i) => (
+        {/* Primary languages — thin hairline measures, clay fill */}
+        <div className="mt-16 lg:mt-24">
+          <motion.h3
+            initial={{ opacity: 0, y: offset }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={reveal}
+            className="text-xl lg:text-2xl"
+          >
+            {messages.skills.languagesTitle}
+          </motion.h3>
+
+          <div className="mt-8 space-y-5">
+            {languages.map((lang, i) => (
+              <div
+                key={lang.name}
+                className="flex items-center gap-4 sm:gap-6"
+              >
+                <span className="flex w-24 shrink-0 items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] sm:w-32">
+                  <span className="text-ink-faint">{lang.icon}</span>
+                  {lang.name}
+                </span>
+
+                <div className="h-0.5 flex-1 bg-rule">
+                  {reduce ? (
                     <div
-                      key={i}
-                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold
-                        ${isDarkMode ? 'border-gray-900 bg-gray-800 text-gray-400' : 'border-white bg-gray-100 text-gray-600'}`}
-                    >
-                      {['AI', 'ML', 'K8', 'TF'][i]}
-                    </div>
-                  ))}
+                      className="h-full bg-clay"
+                      style={{ width: `${lang.level}%` }}
+                    />
+                  ) : (
+                    <motion.div
+                      className="h-full bg-clay"
+                      style={{ width: `${lang.level}%`, transformOrigin: "left" }}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ ...reveal, delay: 0.1 + i * 0.04 }}
+                    />
+                  )}
                 </div>
-                <span className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                  & more
+
+                <span className="w-10 shrink-0 text-right text-xs tnum text-ink-muted">
+                  {lang.level}%
                 </span>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Technology-mark strip — the institutional partner-logo pattern,
+            rendered with the tool marks themselves. Names appear above,
+            so this row is purely decorative. */}
+        <motion.div
+          initial={{ opacity: 0, y: offset }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...reveal, delay: 0.15 }}
+          className="mt-16 lg:mt-24"
+        >
+          <div
+            aria-hidden="true"
+            className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6 border-t border-rule pt-8"
+          >
+            {skills.map((skill) => (
+              <span
+                key={skill.name}
+                className="text-2xl text-ink-faint transition-colors hover:text-ink"
+              >
+                {skill.icon}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Always Learning — recessed panel, no icon circus */}
+        <motion.div
+          initial={{ opacity: 0, y: offset }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...reveal, delay: 0.1 }}
+          className="mt-16 lg:mt-24"
+        >
+          <div className="border border-rule bg-paper-sunk p-6 sm:p-10">
+            <h3 className="text-xl lg:text-2xl">{messages.skills.learningTitle}</h3>
+            <p className="mt-3 max-w-measure text-sm text-ink-muted">
+              {messages.skills.learningDescription}
+            </p>
           </div>
         </motion.div>
       </div>

@@ -1,229 +1,228 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, memo } from "react";
-import { FaGithub, FaLinkedin, FaBars, FaTimes } from "react-icons/fa";
-import { FiMoon, FiSun } from "react-icons/fi";
-import { PiCodeSimpleFill } from "react-icons/pi";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/context";
+import { AnimatePresence, motion } from "framer-motion";
+import { FiMoon, FiSun, FiMenu, FiX } from "react-icons/fi";
+import { useLanguage, useTheme } from "@/context";
+import type { SupportedLanguage } from "@/types";
 
-const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
-const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL ?? 'https://linkedin.com/in/parsa-dera-1360a11b3';
+const NAV_IDS = ["about", "projects", "skills", "softskills", "resume", "contact"] as const;
+type NavId = (typeof NAV_IDS)[number];
 
-interface NavItem {
-  id: string;
-  label: string;
-}
+/* Section ids in document order, used for the scroll spy. */
+const SPY_IDS: readonly string[] = ["home", ...NAV_IDS];
+
+const LANGUAGES: readonly SupportedLanguage[] = ["en", "fr"];
 
 const Header: React.FC = () => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const { messages, language, setLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-
-  const navItems: NavItem[] = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "skills", label: "Skills" },
-    { id: "contact", label: "Contact" },
-  ];
-
-  const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 50);
-
-    const sections = navItems.map(item => document.getElementById(item.id));
-    const scrollPosition = window.scrollY + 150;
-
-    sections.forEach(section => {
-      if (section) {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(section.id);
-        }
-      }
-    });
-  }, []);
+  const [active, setActive] = useState<string>("home");
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  /* Scroll spy via IntersectionObserver rather than measuring offsetTop on
+     every scroll event — no layout thrashing, and it stays correct when
+     sections resize. */
+  useEffect(() => {
+    const sections = SPY_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const top = visible[0];
+        if (top) setActive(top.target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Lock body scroll while the mobile panel is open.
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isMenuOpen]);
+
+  const go = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const section = document.getElementById(id);
-    if (section) {
-      window.scrollTo({ top: section.offsetTop - 80, behavior: "smooth" });
-      setActiveSection(id);
-      setIsMenuOpen(false);
-    }
-  };
+    setIsMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   return (
-    <motion.header
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          isScrolled
-            ? isDarkMode
-              ? 'bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/5'
-              : 'bg-white/80 backdrop-blur-xl border-b border-black/5'
-            : 'bg-transparent'
-        }`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            {/* Branded Logo */}
-            <motion.a
-              href="#home"
-              onClick={(e) => handleNavClick(e, "home")}
-              className="flex items-center gap-3 group"
-              whileHover={{ scale: 1.02 }}
-            >
-              {/* Animated code icon */}
-              <motion.div
-                className="relative"
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                <motion.div
-                  className="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-                <PiCodeSimpleFill
-                  size={32}
-                  className={`relative transition-colors duration-300 ${
-                    isDarkMode
-                      ? 'text-white group-hover:text-indigo-400'
-                      : 'text-gray-900 group-hover:text-indigo-600'
-                  }`}
-                />
-              </motion.div>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 h-header transition-colors duration-300 ${
+        isScrolled || isMenuOpen
+          ? "border-b border-rule bg-paper/90 backdrop-blur-md supports-[backdrop-filter]:bg-paper/75"
+          : "border-b border-transparent"
+      }`}
+    >
+      <div className="shell-wide flex h-full items-center justify-between gap-8">
+        {/* Wordmark */}
+        <a
+          href="#home"
+          onClick={(e) => go(e, "home")}
+          className="group flex shrink-0 items-baseline gap-2"
+        >
+          <span className="font-display text-[0.95rem] font-extrabold uppercase tracking-[0.14em] text-ink">
+            Parsa
+          </span>
+          <span className="h-3 w-px bg-clay" aria-hidden="true" />
+          <span className="font-display text-[0.95rem] font-medium uppercase tracking-[0.14em] text-ink-muted transition-colors group-hover:text-ink">
+            Derakhshan
+          </span>
+        </a>
 
-              {/* Name with gradient */}
-              <div className="flex items-center">
-                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                  Parsa
-                </span>
-                <span className={`text-xl font-light mx-1 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>/</span>
-                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">
-                  Dera
-                </span>
-              </div>
-            </motion.a>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={(e) => handleNavClick(e, item.id)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors
-                    ${activeSection === item.id
-                      ? isDarkMode ? 'text-white' : 'text-gray-900'
-                      : isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+        {/* Desktop navigation */}
+        <nav aria-label="Primary" className="hidden lg:block">
+          <ul className="flex items-center gap-1">
+            {NAV_IDS.map((id: NavId) => {
+              const isActive = active === id;
+              return (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    onClick={(e) => go(e, id)}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`relative px-3 py-2 text-sm transition-colors ${
+                      isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                     }`}
-                  whileHover={{ y: -1 }}
-                >
-                  {item.label}
-                  {activeSection === item.id && (
-                    <motion.div
-                      layoutId="activeSection"
-                      className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </motion.a>
-              ))}
-            </nav>
-
-            {/* Right Side */}
-            <div className="flex items-center gap-2">
-              {/* Social links */}
-              <motion.a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -1 }}
-                className={`p-2.5 rounded-full transition-colors
-                  ${isDarkMode ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}
-              >
-                <FaGithub size={18} />
-              </motion.a>
-              <motion.a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -1 }}
-                className={`p-2.5 rounded-full transition-colors
-                  ${isDarkMode ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}
-              >
-                <FaLinkedin size={18} />
-              </motion.a>
-
-              {/* Theme toggle */}
-              <motion.button
-                onClick={toggleTheme}
-                whileHover={{ scale: 1.1, rotate: 15 }}
-                className={`p-2.5 rounded-full transition-colors
-                  ${isDarkMode ? 'text-gray-400 hover:text-yellow-400 hover:bg-white/5' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100'}`}
-              >
-                {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
-              </motion.button>
-
-              {/* Mobile menu button */}
-              <motion.button
-                className={`md:hidden p-2.5 rounded-full transition-colors
-                  ${isDarkMode ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                whileTap={{ scale: 0.95 }}
-              >
-                {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-              </motion.button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className={`md:hidden border-t overflow-hidden
-                ${isDarkMode ? 'bg-[#0a0a0b]/95 backdrop-blur-xl border-white/5' : 'bg-white/95 backdrop-blur-xl border-black/5'}`}
-            >
-              <nav className="container mx-auto px-6 py-4 flex flex-col gap-1">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={(e) => handleNavClick(e, item.id)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`px-4 py-3 rounded-xl text-sm font-medium transition-all
-                      ${activeSection === item.id
-                        ? isDarkMode
-                          ? 'text-white bg-gradient-to-r from-indigo-500/10 to-purple-500/10'
-                          : 'text-gray-900 bg-gradient-to-r from-indigo-500/10 to-purple-500/10'
-                        : isDarkMode
-                          ? 'text-gray-400 hover:text-white hover:bg-white/5'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                      }`}
                   >
-                    {item.label}
-                  </motion.a>
-                ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+                    {messages.nav[id]}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-x-3 -bottom-px h-px bg-clay"
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          {/* Language switcher — segmented, top-right */}
+          <div
+            role="group"
+            aria-label={messages.ui.selectLanguage}
+            className="flex items-center rounded border border-rule"
+          >
+            {LANGUAGES.map((lang) => {
+              const isCurrent = language === lang;
+              return (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={isCurrent}
+                  className={`px-2.5 py-1 font-display text-[0.6875rem] font-semibold uppercase tracking-[0.12em] transition-colors ${
+                    isCurrent
+                      ? "bg-ink text-paper"
+                      : "text-ink-faint hover:text-ink"
+                  }`}
+                >
+                  {lang}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
+            className="grid h-9 w-9 place-items-center rounded border border-rule text-ink-muted transition-colors hover:border-ink hover:text-ink"
+          >
+            {isDarkMode ? <FiSun size={15} /> : <FiMoon size={15} />}
+          </button>
+
+          {/* Primary CTA — the only filled control in the header */}
+          <a
+            href="#contact"
+            onClick={(e) => go(e, "contact")}
+            className="hidden rounded bg-clay px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-clay-deep sm:inline-block"
+          >
+            {messages.hero.contact}
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((v) => !v)}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
+            aria-label={isMenuOpen ? messages.ui.close : messages.ui.menu}
+            className="grid h-9 w-9 place-items-center rounded border border-rule text-ink transition-colors hover:border-ink lg:hidden"
+          >
+            {isMenuOpen ? <FiX size={17} /> : <FiMenu size={17} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile panel */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            id="mobile-nav"
+            aria-label="Primary"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="border-b border-rule bg-paper lg:hidden"
+          >
+            <ul className="shell-wide flex flex-col py-2">
+              {NAV_IDS.map((id: NavId, i) => (
+                <li key={id} className={i > 0 ? "border-t border-rule" : undefined}>
+                  <a
+                    href={`#${id}`}
+                    onClick={(e) => go(e, id)}
+                    className="flex items-baseline gap-4 py-4"
+                  >
+                    <span className="index">{String(i + 1).padStart(2, "0")}</span>
+                    <span
+                      className={`font-display text-2xl font-bold ${
+                        active === id ? "text-clay" : "text-ink"
+                      }`}
+                    >
+                      {messages.nav[id]}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 

@@ -1,144 +1,164 @@
 "use client";
 
 import React, { memo } from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp, FaHeart } from "react-icons/fa";
-import { PiCodeSimpleFill } from "react-icons/pi";
-import { useTheme } from "@/context";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiArrowUp } from "react-icons/fi";
+import { useLanguage } from "@/context";
 
-const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
-const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL ?? 'https://linkedin.com/in/parsa-dera-1360a11b3';
-const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? 'contact@parsaderakhshan.com';
+const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/ParsaDera-AC";
+const LINKEDIN_URL =
+  process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "https://linkedin.com/in/parsa-dera-1360a11b3";
+const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? "contact@parsaderakhshan.com";
 
 const Footer: React.FC = () => {
-  const { isDarkMode } = useTheme();
+  const { messages } = useLanguage();
+  const reduce = useReducedMotion();
+
+  /* One shared reveal for the whole footer — additive motion only. */
+  const reveal = {
+    duration: 0.7,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
+
+  const offset = reduce ? 0 : 16;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const socialLinks = [
-    { icon: <FaGithub size={18} />, url: GITHUB_URL, label: "GitHub" },
-    { icon: <FaLinkedin size={18} />, url: LINKEDIN_URL, label: "LinkedIn" },
-    { icon: <FaEnvelope size={18} />, url: `mailto:${EMAIL}`, label: "Email" },
-  ];
-
-  const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Contact", href: "#contact" },
+  /* Section anchors, labelled from the locale files. */
+  const quickLinks = [
+    { href: "#about", label: messages.nav.about },
+    { href: "#projects", label: messages.nav.projects },
+    { href: "#skills", label: messages.nav.skills },
+    { href: "#softskills", label: messages.nav.softskills },
+    { href: "#resume", label: messages.nav.resume },
+    { href: "#contact", label: messages.nav.contact },
   ];
 
   return (
-    <footer className="relative py-16 overflow-hidden">
-      {/* Top gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
-
-      <div className="container mx-auto px-6 lg:px-12">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div>
-            <a href="#home" className="inline-flex items-center gap-3 mb-4 group">
-              <motion.div
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.6 }}
-              >
-                <PiCodeSimpleFill
-                  size={28}
-                  className={`transition-colors ${isDarkMode
-                    ? 'text-white group-hover:text-indigo-400'
-                    : 'text-gray-900 group-hover:text-indigo-600'}`}
-                />
-              </motion.div>
-              <div className="flex items-center">
-                <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                  Parsa
-                </span>
-                <span className={`text-lg font-light mx-1 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>/</span>
-                <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">
-                  Dera
-                </span>
-              </div>
+    /* Stays dark in both themes — a closing slab to match the hero. Values
+       are literal rather than tokenised for exactly that reason. */
+    <footer className="relative isolate grain bg-[#14110F] text-[#FAF8F5]">
+      <div className="shell-wide pt-section pb-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          {/* Wordmark + tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: offset }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={reveal}
+            className="lg:col-span-5"
+          >
+            <a href="#home" className="group inline-flex items-baseline gap-2">
+              <span className="font-display text-[0.95rem] font-extrabold uppercase tracking-[0.14em] text-[#FAF8F5]">
+                Parsa
+              </span>
+              <span className="h-3 w-px bg-[#D2603C]" aria-hidden="true" />
+              <span className="font-display text-[0.95rem] font-medium uppercase tracking-[0.14em] text-[rgba(250,248,245,0.62)] transition-colors group-hover:text-[#FAF8F5]">
+                Derakhshan
+              </span>
             </a>
-            <p className={`text-sm leading-relaxed max-w-xs
-              ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-              Full-Stack Developer crafting exceptional digital experiences with modern technologies.
+            <p className="mt-6 max-w-measure text-sm leading-relaxed text-[rgba(250,248,245,0.62)]">
+              {messages.footer.tagline}
             </p>
-          </div>
+          </motion.div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className={`text-sm font-semibold uppercase tracking-wider mb-4
-              ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              Quick Links
+          {/* Quick links */}
+          <motion.nav
+            initial={{ opacity: 0, y: offset }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ ...reveal, delay: 0.05 }}
+            aria-label={messages.footer.quickLinks}
+            className="lg:col-span-3"
+          >
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-[rgba(250,248,245,0.45)]">
+              {messages.footer.quickLinks}
             </h4>
-            <nav className="flex flex-wrap gap-x-6 gap-y-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`text-sm transition-colors
-                    ${isDarkMode
-                      ? 'text-gray-500 hover:text-white'
-                      : 'text-gray-500 hover:text-gray-900'}`}
-                >
-                  {link.label}
-                </a>
+            <ul className="mt-6 space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-[rgba(250,248,245,0.62)] transition-colors hover:text-[#FAF8F5]"
+                  >
+                    {link.label}
+                  </a>
+                </li>
               ))}
-            </nav>
-          </div>
+            </ul>
+          </motion.nav>
 
-          {/* Social */}
-          <div>
-            <h4 className={`text-sm font-semibold uppercase tracking-wider mb-4
-              ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              Connect
+          {/* Connect */}
+          <motion.div
+            initial={{ opacity: 0, y: offset }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ ...reveal, delay: 0.1 }}
+            className="lg:col-span-4"
+          >
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-[rgba(250,248,245,0.45)]">
+              {messages.footer.connect}
             </h4>
-            <div className="flex items-center gap-3">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  className={`p-3 rounded-xl transition-colors
-                    ${isDarkMode
-                      ? 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 border border-gray-800'
-                      : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-gray-200'}`}
-                >
-                  {link.icon}
-                </motion.a>
-              ))}
+
+            <div className="mt-6 flex items-center gap-2">
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="grid h-10 w-10 place-items-center rounded border border-[rgba(250,248,245,0.14)] text-[rgba(250,248,245,0.62)] transition-colors hover:border-[#FAF8F5] hover:text-[#FAF8F5]"
+              >
+                <FaGithub size={15} />
+              </a>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="grid h-10 w-10 place-items-center rounded border border-[rgba(250,248,245,0.14)] text-[rgba(250,248,245,0.62)] transition-colors hover:border-[#FAF8F5] hover:text-[#FAF8F5]"
+              >
+                <FaLinkedin size={15} />
+              </a>
             </div>
-          </div>
+
+            <div className="mt-6 flex items-center gap-3">
+              <span className="text-xs uppercase tracking-[0.18em] text-[rgba(250,248,245,0.45)]">
+                {messages.footer.emailLabel}
+              </span>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="text-sm text-[#D2603C] transition-colors hover:text-[#FAF8F5]"
+              >
+                {EMAIL}
+              </a>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className={`pt-8 flex flex-col sm:flex-row items-center justify-between gap-4
-          border-t ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
-          <p className={`text-sm flex items-center gap-1.5
-            ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-            © {new Date().getFullYear()} Parsa Derakhshan. Built with
-            <FaHeart size={12} className="text-red-500" />
-            and lots of coffee.
+        {/* Bottom bar */}
+        <motion.div
+          initial={{ opacity: 0, y: offset }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...reveal, delay: 0.15 }}
+          className="mt-16 flex flex-col gap-4 border-t border-[rgba(250,248,245,0.14)] pt-8 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <p className="text-sm text-[rgba(250,248,245,0.45)]">
+            © {new Date().getFullYear()} Parsa Derakhshan. {messages.footer.rights}
           </p>
 
-          <motion.button
+          <button
+            type="button"
             onClick={scrollToTop}
-            whileHover={{ y: -2 }}
-            className={`group flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-              ${isDarkMode
-                ? 'bg-gray-900 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
-                : 'bg-gray-50 text-gray-600 hover:text-gray-900 border border-gray-200 hover:border-gray-300'}`}
+            className="inline-flex items-center gap-2 self-start rounded border border-[rgba(250,248,245,0.14)] px-3 py-2 text-sm text-[rgba(250,248,245,0.62)] transition-colors hover:border-[#FAF8F5] hover:text-[#FAF8F5] sm:self-auto"
           >
-            Back to top
-            <FaArrowUp size={12} className="group-hover:-translate-y-0.5 transition-transform" />
-          </motion.button>
-        </div>
+            <FiArrowUp size={14} />
+            {messages.ui.backToTop}
+          </button>
+        </motion.div>
       </div>
     </footer>
   );

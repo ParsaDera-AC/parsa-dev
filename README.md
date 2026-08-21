@@ -1,140 +1,73 @@
-# Personal Portfolio Website
+# Parsa Derakhshan — Portfolio
 
-A modern, responsive portfolio website built with Next.js, React, and TailwindCSS. Features a dynamic theme switcher, interactive particle background, and multilingual support.
+A warm-tinted, editorial portfolio for **Parsa Derakhshan**, built with Next.js (App Router), React, TypeScript, and Tailwind CSS. Statically exported and deployed to Netlify.
 
-![Portfolio Preview](public/preview.png)
+## Design
 
-## ✨ Features
+The site follows an institutional/editorial direction rather than a startup aesthetic:
 
-- 🌓 Dynamic Dark/Light mode
-- 🎨 Interactive particle background with theme integration
-- 🌐 Multilingual support
-- 📱 Fully responsive design
-- ⚡ Next.js 13+ with App Router
-- 🎭 Smooth animations with Framer Motion
-- 🎯 Interactive project cards
-- 📬 Contact form with validation
-- 🔍 SEO optimized
+- **Palette** — a warm-tinted monochrome ground (bone `#FAF8F5`, warm charcoal `#1C1917`) with terracotta `#B8482B` as the single, sparing accent. No gradients, no glassmorphism, no purple.
+- **Type** — [Archivo](https://fonts.google.com/specimen/Archivo) (variable width axis) for display, [Inter](https://rsms.me/inter/) for body.
+- **Layout** — full-bleed dark hero and footer, uppercase letter-spaced eyebrows, a stats/numbers block, hairline-ruled card grids, and a filterable technology directory.
+- **Signature element** — the Projects section is a stack of sticky panels that collapse like envelopes as you scroll, leaving only each project's title edge visible.
 
-## 🚀 Tech Stack
+## Features
 
-- **Framework:** Next.js 13+
-- **Styling:** TailwindCSS
-- **Animations:** Framer Motion
-- **Particles:** tsParticles
-- **Icons:** React Icons
-- **Language Management:** Custom Context API
-- **Theme Management:** Custom Theme Context
-- **Code Quality:** ESLint, Prettier
+- Dark / light mode, applied pre-paint to avoid any flash (no render-blocking gate).
+- Full EN/FR bilingual support with a working header switcher. Locale files are statically bundled and type-checked against each other.
+- Contact form sends via EmailJS; it reports a clear error (with a `mailto:` fallback) if credentials are missing instead of silently faking success.
+- Resume section with an access-code gate that downloads the actual PDF.
+- Scroll-driven "envelope" project panels.
+- Reduced-motion support throughout.
 
-## 🛠️ Installation Steps
+## Tech stack
 
-1. Clone the repository
-```bash
-git clone https://github.com/ParsaDera-AC/portfolio.git
+- **Framework** — Next.js 16 (App Router, static export)
+- **Language** — TypeScript (strict)
+- **Styling** — Tailwind CSS 3
+- **Animation** — Framer Motion
+- **Email** — EmailJS
+- **Icons** — React Icons
+
+## Project structure
+
+```
+├── app/            # layout, page, loading/error/not-found, globals.css
+├── components/     # Header, Hero, AboutMe, Projects, Skills, SoftSkills,
+│                   # Contact, Resume, Footer
+├── context/        # Theme, Language, Document providers
+├── locales/        # en.json / fr.json (source of all user-facing copy)
+├── types/          # shared types, derived from the locale shape
+├── public/         # images and Resume.pdf
+└── scripts/        # image optimization
 ```
 
-2. Change the working directory
-```bash
-cd portfolio
-```
+## Getting started
 
-3. Install dependencies
 ```bash
 npm install
-# or
-yarn install
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out
 ```
 
-4. Run the development server
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Environment variables
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.example` to `.env.local` and fill in:
 
-## 🏗️ Project Structure
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics ID |
+| `NEXT_PUBLIC_EMAILJS_SERVICE_ID` | EmailJS service ID |
+| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` | EmailJS template ID |
+| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | EmailJS public key |
+| `NEXT_PUBLIC_RESUME_ACCESS_CODE` | Resume access code |
+| `NEXT_PUBLIC_EMAIL` / `_GITHUB_URL` / `_LINKEDIN_URL` | Contact / social links |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL |
 
-```
-portfolio/
-├── app/
-│   ├── [lang]/
-│   │   └── page.js
-│   ├── layout.js
-│   └── globals.css
-├── components/
-│   ├── AboutMe.js
-│   ├── AmbientBackground.js
-│   ├── Contact.js
-│   ├── Hero.js
-│   ├── Navbar.js
-│   └── Projects.js
-├── context/
-│   ├── LanguageContext.js
-│   └── ThemeContext.js
-├── public/
-│   └── assets/
-└── package.json
-```
+> **Note:** `NEXT_PUBLIC_*` values are inlined into the client bundle. The resume
+> access code is a courtesy gate, not real access control — treat the PDF as public.
 
-## 🎨 Color Reference
+## Deployment
 
-| Color          | Dark Mode     | Light Mode    |
-| -------------- | ------------ | ------------- |
-| Background     | #000000      | #FFFFFF      |
-| Primary        | #A855F7      | #1F2937      |
-| Secondary      | #EC4899      | #9333EA      |
-| Text           | #FFFFFF      | #1F2937      |
-| Accent         | #A855F7      | #7C3AED      |
-
-## 🌟 Key Features Explained
-
-### Dynamic Theme Switching
-- Seamless transition between dark and light modes
-- Theme-aware components and animations
-- Persistent theme preference storage
-
-### Interactive Particle Background
-- Dynamic particle system that responds to theme changes
-- Interactive hover and click effects
-- Performance optimized for smooth animations
-
-### Multilingual Support
-- Built-in language switching capability
-- Extensible language context
-- SEO-friendly URL structure with language parameters
-
-### Responsive Design
-- Mobile-first approach
-- Fluid typography and spacing
-- Optimized layouts for all screen sizes
-
-## 🔧 Environment Variables
-
-To run this project, you might need to add the following environment variables to your .env file:
-
-```bash
-NEXT_PUBLIC_SITE_URL=https://parsadera.netlify.app/
-```
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/ParsaDera-AC/portfolio/issues).
-
-## 📝 License
-
-This project is [MIT](./LICENSE) licensed.
-
-## 👨‍💻 Author
-
-**Parsa Derakhshan**
-- Website: [parsadera.netlify.app](https://parsadera.netlify.app/)
-- Email: [parsa.derakhshan20@gmail.com](mailto:parsa.derakhshan20@gmail.com)
-- GitHub: [@ParsaDera-AC](https://github.com/ParsaDera-AC)
-- LinkedIn: [Parsa Dera](https://www.linkedin.com/in/parsa-dera-1360a11b3)
-
-## 💖 Support
-
-Give a ⭐️ if you like this project!
+The site exports to `./out`. Netlify builds with `npm run build` and serves `out/`
+(see `netlify.toml`, which also sets security headers and asset caching).

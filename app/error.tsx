@@ -13,34 +13,17 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="text-center max-w-md">
-        <div className="mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
-            <svg
-              className="w-10 h-10 text-red-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            Something went wrong
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            An unexpected error occurred. Please try again.
-          </p>
-        </div>
+    <div className="shell flex min-h-dvh items-center justify-center">
+      <div className="max-w-md border-t border-rule pt-8">
+        <p className="eyebrow">Error</p>
+        <h1 className="mt-5 text-display-sm">Something went wrong</h1>
+        <p className="mt-4 leading-relaxed text-ink-muted">
+          An unexpected error occurred. Please try again.
+        </p>
         <button
+          type="button"
           onClick={reset}
-          className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          className="mt-8 bg-clay px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-clay-deep"
         >
           Try again
         </button>

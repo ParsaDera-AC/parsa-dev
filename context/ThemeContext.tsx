@@ -11,6 +11,8 @@ import {
 } from 'react';
 import type { ThemeContextType } from '@/types';
 
+const STORAGE_KEY = 'theme';
+
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 interface ThemeProviderProps {
@@ -18,80 +20,56 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
+  /* The inline script in app/layout.tsx has already applied the correct class
+     to <html> before first paint, so this provider only needs to read that
+     result and keep it in sync. It deliberately does NOT gate rendering — the
+     previous version returned a blank div until a 100ms timer elapsed, which
+     cost a visible empty frame on every single page load. */
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedMode = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(document.documentElement.classList.contains('dark'));
 
-    document.documentElement.classList.add('no-transition');
-
-    if (savedMode === 'dark' || (!savedMode && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-    }
-
-    const timeout = setTimeout(() => {
-      document.documentElement.classList.remove('no-transition');
-      setIsLoaded(true);
-    }, 100);
-
+    // Follow the OS only while the visitor has made no explicit choice.
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        setIsDarkMode(e.matches);
-        if (e.matches) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
+      if (localStorage.getItem(STORAGE_KEY)) return;
+      setIsDarkMode(e.matches);
+      document.documentElement.classList.toggle('dark', e.matches);
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    return () => {
-      clearTimeout(timeout);
-      mediaQuery.removeEventListener('change', handleChange);
-    };
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    if (!isLoaded) return;
-
     setIsDarkMode((prev) => {
-      const newValue = !prev;
-      if (newValue) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
+      const next = !prev;
+      const root = document.documentElement;
+
+      // Suppress transitions for one frame so the whole page doesn't
+      // cross-fade every colour at once.
+      root.classList.add('no-transition');
+      root.classList.toggle('dark', next);
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => root.classList.remove('no-transition'));
+      });
+
+      try {
+        localStorage.setItem(STORAGE_KEY, next ? 'dark' : 'light');
+      } catch {
+        /* storage disabled — preference just won't persist */
       }
-      localStorage.setItem('theme', newValue ? 'dark' : 'light');
-      return newValue;
+      return next;
     });
-  }, [isLoaded]);
+  }, []);
 
-  const contextValue = useMemo<ThemeContextType>(
-    () => ({
-      isDarkMode,
-      toggleTheme,
-      isLoaded,
-    }),
-    [isDarkMode, toggleTheme, isLoaded]
+  const value = useMemo<ThemeContextType>(
+    () => ({ isDarkMode, toggleTheme }),
+    [isDarkMode, toggleTheme]
   );
 
-  if (!isLoaded) {
-    return <div className="theme-loading" aria-hidden="true" />;
-  }
-
-  return (
-    <ThemeContext.Provider value={contextValue}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme(): ThemeContextType {

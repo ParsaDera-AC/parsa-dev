@@ -2,21 +2,46 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "projects": "Projects",
     "skills": "Skills",
     "softskills": "Soft Skills",
-    "projects": "Projects",
     "resume": "Resume",
     "contact": "Contact"
   },
+  "ui": {
+    "menu": "Menu",
+    "close": "Close",
+    "backToTop": "Back to top",
+    "viewCode": "View code",
+    "liveDemo": "Live demo",
+    "privateRepo": "Private repository",
+    "readMore": "Read more",
+    "sending": "Sending",
+    "sent": "Message sent",
+    "errorGeneric": "Something went wrong. Please try again, or email me directly.",
+    "notConfigured": "The form isn't configured yet — please email me directly.",
+    "selectLanguage": "Select language"
+  },
   "hero": {
-    "greeting": "Hi, I'm Parsa Derakhshan",
-    "role": "A passionate",
+    "eyebrow": "Software Engineer",
+    "name": "Parsa Derakhshan",
     "title": "Full-Stack Developer",
-    "description": "crafting beautiful digital experiences",
-    "viewWork": "View My Work",
-    "contact": "Get In Touch"
+    "description": "I'm a full-stack developer specializing in building exceptional digital experiences that live at the intersection of design and technology.",
+    "viewWork": "Explore my work",
+    "contact": "Get in touch",
+    "scroll": "Scroll",
+    "location": "Ottawa, Canada"
+  },
+  "stats": {
+    "eyebrow": "By the numbers",
+    "items": [
+      { "value": "3+", "label": "Years experience" },
+      { "value": "20+", "label": "Projects delivered" },
+      { "value": "10+", "label": "Technologies" }
+    ]
   },
   "about": {
+    "eyebrow": "About",
     "title": "About Me",
     "description": "As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving to build robust, scalable applications. My journey in software development is driven by a passion for creating elegant solutions that make a real impact.",
     "skills": {
@@ -48,86 +73,57 @@
       }
     }
   },
+  "skills": {
+    "eyebrow": "Capabilities",
+    "title": "Technical Skills",
+    "subtitle": "The languages, frameworks and platforms I work with day to day.",
+    "languagesTitle": "Primary languages",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "devops": "DevOps & Cloud"
+    },
+    "learningTitle": "Always Learning",
+    "learningDescription": "Technology moves quickly. I set aside time every week to go deeper on the tools I already use and to properly evaluate the ones I don't."
+  },
   "softSkills": {
+    "eyebrow": "Ways of working",
     "title": "Soft Skills",
+    "subtitle": "The habits and practices that shape how I work with teams.",
     "leadership": {
       "title": "Leadership & Collaboration",
       "description": "Proven track record of leading technical initiatives and collaborating across government agencies",
-      "skills": [
-        "Technical Coaching",
-        "Cross-Agency Collaboration",
-        "Team Leadership"
-      ]
+      "skills": ["Technical Coaching", "Cross-Agency Collaboration", "Team Leadership"]
     },
     "problemSolving": {
       "title": "Problem Solving",
       "description": "Strong analytical mindset demonstrated through complex application development and automation",
-      "skills": [
-        "Technical Analysis",
-        "Process Automation",
-        "Innovation"
-      ]
+      "skills": ["Technical Analysis", "Process Automation", "Innovation"]
     },
     "communication": {
       "title": "Technical Communication",
       "description": "Expert at translating complex technical concepts and writing comprehensive documentation",
-      "skills": [
-        "Technical Documentation",
-        "Client Relations",
-        "Knowledge Transfer"
-      ]
+      "skills": ["Technical Documentation", "Client Relations", "Knowledge Transfer"]
     },
     "projectManagement": {
       "title": "Project Management",
       "description": "Experienced in Agile methodologies and managing multiple critical applications",
-      "skills": [
-        "Agile/Scrum",
-        "Resource Planning",
-        "Deadline Management"
-      ]
+      "skills": ["Agile/Scrum", "Resource Planning", "Deadline Management"]
     },
     "dataAnalysis": {
       "title": "Data Analysis",
       "description": "Strong analytical skills in data visualization and statistical analysis",
-      "skills": [
-        "Risk Analysis",
-        "Data Visualization",
-        "Statistical Modeling"
-      ]
+      "skills": ["Risk Analysis", "Data Visualization", "Statistical Modeling"]
     },
     "adaptability": {
       "title": "Technical Adaptability",
       "description": "Proven ability to quickly master new technologies and frameworks",
-      "skills": [
-        "Multi-platform",
-        "Quick Learning",
-        "Technology Integration"
-      ]
-    }
-  },
-  "resume": {
-    "title": "Unlock My Resume",
-    "subtitle": "Enter the special access code to download my resume instantly!",
-    "placeholder": "Enter Access Code",
-    "submit": "Submit Code",
-    "noCode": "Don't have the access code?",
-    "contactMe": "Contact me"
-  },
-  "contact": {
-    "title": "Let's Connect",
-    "subtitle": "Have a question or want to work together? I'd love to hear from you!",
-    "connectTitle": "Connect With Me",
-    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.",
-    "quickResponse": "Quick Response",
-    "responseMessage": "I typically respond within 24 hours during business days. Looking forward to connecting with you!",
-    "form": {
-      "name": "Your Name",
-      "email": "Your Email",
-      "message": "Your Message",
-      "submit": "Send Message"
+      "skills": ["Multi-platform", "Quick Learning", "Technology Integration"]
     }
   },
   "projects": {
+    "eyebrow": "Selected work",
     "title": "Projects",
     "subtitle": "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions.",
     "categories": {
@@ -137,6 +133,7 @@
       "dataScience": "Data Science",
       "gamedev": "Game Dev"
     },
+    "moreOnGithub": "More on GitHub",
     "items": {
       "erms": {
         "title": "Enterprise Resource Management System",
@@ -170,11 +167,43 @@
       }
     }
   },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's Connect",
+    "subtitle": "Have a question or want to work together? I'd love to hear from you!",
+    "connectTitle": "Connect With Me",
+    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.",
+    "quickResponse": "Quick Response",
+    "responseMessage": "I typically respond within 24 hours during business days. Looking forward to connecting with you!",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "namePlaceholder": "Jane Doe",
+      "emailPlaceholder": "jane@example.com",
+      "messagePlaceholder": "Tell me about your project…"
+    }
+  },
+  "resume": {
+    "eyebrow": "Exclusive access",
+    "title": "Unlock My Resume",
+    "subtitle": "Enter the special access code to download my resume instantly!",
+    "accessCodeLabel": "Access code",
+    "placeholder": "Enter Access Code",
+    "submit": "Unlock resume",
+    "verifying": "Verifying",
+    "unlocked": "Unlocked",
+    "download": "Download resume",
+    "invalidCode": "That code isn't right. Please try again.",
+    "noCode": "Don't have the access code?",
+    "contactMe": "Contact me"
+  },
   "footer": {
     "tagline": "Building innovative web experiences with modern technologies and creative solutions.",
     "quickLinks": "Quick Links",
     "connect": "Connect",
-    "emailLabel": "Email:",
+    "emailLabel": "Email",
     "rights": "All rights reserved."
   }
-} 
+}
