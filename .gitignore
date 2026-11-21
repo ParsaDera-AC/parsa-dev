@@ -61,4 +61,4 @@ next-env.d.ts
 
 # Docker
 .docker
-docker-compose.override.yml!public/Parsa_Derakhshan_CV.pdf
+docker-compose.override.yml
