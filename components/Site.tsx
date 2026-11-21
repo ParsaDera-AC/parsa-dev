@@ -47,6 +47,16 @@ function Intro() {
         <p className="role">{t.role}</p>
         <p>{t.p1}</p>
         <p>{t.p2}</p>
+        <div className="try">
+          <h2>{t.tryTitle}</h2>
+          <ul>
+            {t.try.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
         <nav aria-label={n.label}>
           <ul>
             <li><a href="#experience">{n.experience}</a></li>
@@ -101,7 +111,7 @@ function Projects() {
           <p className="meta">{inkplusbot.meta}</p>
           <p>{inkplusbot.body}</p>
           <p className="links">{t.privateNote}</p>
-          <figure>
+          <figure id="bot">
             <h4 className="demo-title">{messages.bot.title}</h4>
             <BotDemo />
             <figcaption>{messages.bot.caption}</figcaption>
@@ -125,7 +135,7 @@ function Projects() {
           <h3>{picross.title}</h3>
           <p className="meta">{picross.meta}</p>
           <p>{picross.body}</p>
-          <figure>
+          <figure id="nonogram">
             <Nonogram />
             <figcaption>{picross.figureCaption}</figcaption>
           </figure>
@@ -154,9 +164,13 @@ function Experience() {
             <p className="meta">
               {job.org} · {job.dates}
             </p>
-            <p>{job.body}</p>
+            <ul className="points">
+              {job.points.map((pt) => (
+                <li key={pt}>{pt}</li>
+              ))}
+            </ul>
             {i === 0 && (
-              <figure>
+              <figure id="aton">
                 <h4 className="demo-title">{messages.aton.title}</h4>
                 <AtonMap />
                 <figcaption>{messages.aton.caption}</figcaption>
@@ -202,10 +216,14 @@ function AppliedAI() {
         <article className="entry">
           <h3>{t.rag.title}</h3>
           <p className="meta">{t.rag.meta}</p>
-          <p>{t.rag.body}</p>
-          <p>{t.rag.eval}</p>
+          <p>{t.rag.lead}</p>
+          <ul className="points">
+            {t.rag.points.map((pt) => (
+              <li key={pt}>{pt}</li>
+            ))}
+          </ul>
           <p className="links">{messages.work.privateNote}</p>
-          <figure>
+          <figure id="docsearch">
             <h4 className="demo-title">{t.rag.demoTitle}</h4>
             <DocSearch />
             <figcaption>{t.rag.caption}</figcaption>
@@ -215,7 +233,12 @@ function AppliedAI() {
         <article className="entry">
           <h3>{t.scout.title}</h3>
           <p className="meta">{t.scout.meta}</p>
-          <p>{t.scout.body}</p>
+          <p>{t.scout.lead}</p>
+          <ul className="points">
+            {t.scout.points.map((pt) => (
+              <li key={pt}>{pt}</li>
+            ))}
+          </ul>
           <p className="links">{messages.work.privateNote}</p>
           <figure>
             <pre className="tree">{READER_EXCERPT}</pre>

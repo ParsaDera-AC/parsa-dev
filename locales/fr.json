@@ -22,10 +22,29 @@
   },
   "intro": {
     "role": "Développeur full-stack à Ottawa",
-    "p1": "Depuis janvier 2022, je suis analyste-programmeur à la Garde côtière canadienne, qui est passée de Pêches et Océans Canada à la Défense nationale en septembre 2025. Je développe les applications web internes qu'utilise son personnel, surtout en C#/.NET et Vue, sur SQL Server et Oracle.",
-    "p2": "Avant cela, j'ai fait un stage d'analyste de données à l'Agence canadienne d'inspection des aliments, et j'ai étudié la technologie du génie informatique au Collège Algonquin.",
+    "p1": "Je suis analyste-programmeur à la Garde côtière canadienne. Je développe le système qui suit les bouées et autres aides à la navigation du Canada, et les applications internes que le personnel utilise pour la paye, la formation et les budgets, en C#/.NET et Vue.",
+    "p2": "Dans mes temps libres, je mets les modèles de langage au travail sur des données réelles et désordonnées : un moteur de recherche privé pour mes propres documents d'immigration, et un lecteur qui transforme les annonces d'ordinateurs usagés en prix.",
     "photoAlt": "Parsa assis au bord de la rivière des Outaouais, avec la colline du Parlement de l'autre côté de l'eau",
-    "photoCaption": "Au bord de la rivière des Outaouais, la colline du Parlement derrière moi."
+    "photoCaption": "Au bord de la rivière des Outaouais, la colline du Parlement derrière moi.",
+    "tryTitle": "À essayer sur cette page",
+    "try": [
+      {
+        "href": "#aton",
+        "text": "Interroger une carte marine comme le fait ATONIS, à la Garde côtière"
+      },
+      {
+        "href": "#docsearch",
+        "text": "Chercher des documents dans deux calendriers"
+      },
+      {
+        "href": "#bot",
+        "text": "Parler au bot de la boutique INK+ en anglais, français ou persan"
+      },
+      {
+        "href": "#nonogram",
+        "text": "Résoudre un nonogramme de 7 × 7"
+      }
+    ]
   },
   "work": {
     "title": "Projets",
@@ -77,19 +96,32 @@
         "org": "Garde côtière canadienne (Pêches et Océans Canada, maintenant Défense nationale)",
         "role": "Analyste-programmeur",
         "dates": "Janvier 2022 à aujourd'hui",
-        "body": "J'ai conçu le serveur d'ATONIS, le système qui suit les bouées et autres aides à la navigation du Canada : une API .NET 8 en CQRS, un modèle Entity Framework conforme à la norme S-201 de l'OHI, et une API GraphQL qui répond aux questions cartographiques (ce qui se trouve dans une zone, près d'un point) et exporte en GeoJSON. Côté client, j'ai construit sa carte Vue et Leaflet, où le personnel dessine et modifie les zones directement. J'ai aussi migré FS3 vers un nouveau projet Azure DevOps avec des pipelines refaits, commencé à moderniser le Fleet Safety System de 2007 avec Razor Pages, et je travaille sur iPlan, le Portail des problèmes de paye, le NTTT, le SIGP et la Budgétisation par activités. Les tests vont des tests unitaires xUnit aux tests d'intégration sur un vrai SQL Server, jusqu'à Selenium."
+        "points": [
+          "J'ai conçu le serveur d'ATONIS, qui suit les bouées et autres aides à la navigation du Canada : une API .NET 8 en CQRS, sur un modèle Entity Framework conforme à la norme S-201 de l'OHI.",
+          "J'ai construit son API GraphQL pour les questions cartographiques (ce qui est dans une zone, près d'un point) avec export GeoJSON, et corrigé un bogue d'orientation d'anneau qui faisait renvoyer à SQL Server tout ce qui était hors de la zone.",
+          "J'ai construit sa carte Vue et Leaflet, où le personnel dessine et modifie les zones directement.",
+          "J'ai migré FS3 vers un nouveau projet Azure DevOps avec des pipelines refaits, et commencé à moderniser le Fleet Safety System de 2007 avec Razor Pages.",
+          "Je travaille aussi sur iPlan, le Portail des problèmes de paye, le NTTT, le SIGP et la Budgétisation par activités, testés des tests unitaires xUnit aux tests d'intégration sur un vrai SQL Server, jusqu'à Selenium."
+        ]
       },
       {
         "org": "Agence canadienne d'inspection des aliments",
         "role": "Analyste de données, stage coop",
         "dates": "Mai à décembre 2021",
-        "body": "J'ai écrit et testé des scripts Python qui automatisent la mise à jour annuelle des données de l'Agence, créé des tableaux de bord Power BI et des outils d'analyse pour les chercheurs, et participé à la mise à jour du Modèle de risque comparatif avec des données recueillies avec Statistique Canada et d'autres organismes."
+        "points": [
+          "J'ai écrit et testé des scripts Python qui automatisent la mise à jour annuelle des données de l'Agence.",
+          "J'ai créé des tableaux de bord Power BI et des outils d'analyse pour les chercheurs.",
+          "J'ai participé à la mise à jour du Modèle de risque comparatif avec des données recueillies avec Statistique Canada et d'autres organismes."
+        ]
       },
       {
         "org": "Groupe SQO, Université d'Ottawa",
         "role": "Développeur de site web",
         "dates": "Décembre 2019 à mai 2020",
-        "body": "J'ai créé le site du groupe de recherche à partir de la première maquette, selon ce qu'ils demandaient, puis j'ai entretenu le site et sa base de données et ajouté des pages au besoin, chaque changement suivi dans Git."
+        "points": [
+          "J'ai créé le site du groupe de recherche à partir de la première maquette, selon ce qu'ils demandaient.",
+          "J'ai entretenu le site et sa base de données et ajouté des pages au besoin, chaque changement suivi dans Git."
+        ]
       }
     ],
     "sqoAlt": "Le site du groupe SQO : une barre de navigation rouge foncé au-dessus d'une photo de l'équipe de recherche dans son laboratoire",
@@ -194,10 +226,15 @@
     "rag": {
       "title": "Recherche privée dans mes documents d'immigration",
       "meta": "2026 · Swift (Apple Vision), Python, SQLite FTS5, pikepdf",
-      "body": "La partie recherche d'un système RAG sur mes propres dossiers d'IRCC : 745 numérisations, photos, tampons de passeport, lettres et formulaires remplissables du gouvernement, en anglais et en persan. Chaque fichier est lu de la meilleure façon possible : texte du PDF, OCR avec Apple Vision, ou réponses saisies dans les formulaires d'IRCC. Chaque page entre ensuite dans un index plein texte SQLite. Les chiffres et l'orthographe persans sont normalisés, et une date dans n'importe quel format retrouve aussi ses autres formes, y compris le calendrier persan. Une reconstruction ne relit que les fichiers modifiés.",
-      "eval": "Pour savoir s'il fonctionne, un jeu de tests vérifie 31 faits clés, comme des numéros de permis, des dates et des tampons, et un fait ne compte que s'il est trouvé dans le fichier d'où il doit venir. Il en trouve 30. Tout tourne sur mon Mac et rien n'est envoyé ailleurs. La prochaine étape est la couche de réponse, qui citera la page exacte derrière chaque affirmation.",
       "demoTitle": "Essayez : la même correspondance, sur des documents inventés",
-      "caption": "Huit documents inventés pour une personne inventée. Le vrai index contient mes propres fichiers et reste sur mon Mac."
+      "caption": "Huit documents inventés pour une personne inventée. Le vrai index contient mes propres fichiers et reste sur mon Mac.",
+      "lead": "La partie recherche d'un système RAG sur mes propres documents d'immigration (IRCC).",
+      "points": [
+        "Lit 745 fichiers (numérisations, photos, tampons de passeport, lettres et formulaires remplissables d'IRCC, en anglais et en persan) de la meilleure façon possible : texte du PDF, OCR Apple Vision, ou réponses saisies dans les formulaires.",
+        "Indexe chaque page dans une recherche plein texte SQLite et normalise les chiffres et l'orthographe persans. Une date dans n'importe quel format retrouve aussi ses autres formes, calendrier persan compris.",
+        "Mesuré, pas deviné : un jeu de 31 faits clés ne compte un fait que s'il est trouvé dans le fichier d'où il doit venir. Il en trouve 30.",
+        "Tourne entièrement sur mon Mac. La prochaine étape est la couche de réponse, qui citera la page exacte derrière chaque affirmation."
+      ]
     },
     "search": {
       "label": "Chercher dans les documents d'exemple",
@@ -216,8 +253,14 @@
     "scout": {
       "title": "Scout : lire les annonces d'ordinateurs usagés avec Claude",
       "meta": "2026 · C#, .NET 10, SDK Anthropic, Claude Haiku, PostgreSQL",
-      "body": "Scout calcule ce que valent vraiment les portables, tablettes et ordinateurs de bureau usagés dans la région d'Ottawa. Claude Haiku lit chaque annonce de Marketplace, Kijiji, eBay et des magasins une seule fois, puis de nouveau seulement si son texte change, et répond en JSON selon un schéma fixe : le type d'annonce, puis la marque, la famille, le modèle exact, la configuration et l'état. Le prompt liste les produits déjà connus pour qu'une même machine reçoive toujours le même nom, et cette partie est mise en cache d'une requête à l'autre. Les annonces partent par 20, 4 requêtes à la fois, et la page d'état suit le coût : environ dix cents par mille annonces. Le prompt et l'analyse des réponses sont de simples fonctions avec des tests unitaires, testées sans appeler le modèle.",
-      "caption": "Extrait de ReaderPrompt.cs : une partie des instructions qui gardent les noms de modèles cohérents."
+      "caption": "Extrait de ReaderPrompt.cs : une partie des instructions qui gardent les noms de modèles cohérents.",
+      "lead": "Scout calcule ce que valent vraiment les portables, tablettes et ordinateurs de bureau usagés dans la région d'Ottawa.",
+      "points": [
+        "Claude Haiku lit chaque annonce de Marketplace, Kijiji, eBay et des magasins une seule fois, puis de nouveau seulement si son texte change, et répond en JSON selon un schéma fixe : type d'annonce, marque, famille, modèle exact, configuration et état.",
+        "Le prompt contient les produits déjà connus, pour qu'une même machine reçoive toujours le même nom. Cette partie est mise en cache d'une requête à l'autre.",
+        "20 annonces par requête, 4 requêtes à la fois, avec le coût suivi sur la page d'état : environ dix cents par mille annonces.",
+        "Le prompt et l'analyse des réponses sont de simples fonctions avec des tests unitaires, testées sans appeler le modèle."
+      ]
     },
     "tools": {
       "title": "Travailler avec Claude Code",

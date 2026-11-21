@@ -22,10 +22,29 @@
   },
   "intro": {
     "role": "Full-stack developer in Ottawa",
-    "p1": "Since January 2022 I've been a programmer analyst at the Canadian Coast Guard, which moved from Fisheries and Oceans Canada to National Defence in September 2025. I build the internal web applications its staff rely on, mostly in C#/.NET and Vue, on SQL Server and Oracle.",
-    "p2": "Before that I was a data analyst intern at the Canadian Food Inspection Agency, and I studied Computer Engineering Technology at Algonquin College.",
+    "p1": "I'm a programmer analyst at the Canadian Coast Guard. I build the system that tracks Canada's buoys and other aids to navigation, and the internal apps staff use for pay, training and budgets, in C#/.NET and Vue.",
+    "p2": "On my own time I put language models to work on messy real data: a private search engine for my own immigration paperwork, and a reader that turns used-computer ads into prices.",
     "photoAlt": "Parsa sitting by the Ottawa River with Parliament Hill across the water",
-    "photoCaption": "On the Ottawa River, Parliament Hill behind me."
+    "photoCaption": "On the Ottawa River, Parliament Hill behind me.",
+    "tryTitle": "Things to try on this page",
+    "try": [
+      {
+        "href": "#aton",
+        "text": "Query a nautical chart the way the Coast Guard's ATONIS does"
+      },
+      {
+        "href": "#docsearch",
+        "text": "Search documents across two calendars"
+      },
+      {
+        "href": "#bot",
+        "text": "Talk to the INK+ shop bot in English, French or Persian"
+      },
+      {
+        "href": "#nonogram",
+        "text": "Solve a 7 × 7 nonogram"
+      }
+    ]
   },
   "work": {
     "title": "Projects",
@@ -77,19 +96,32 @@
         "org": "Canadian Coast Guard (Fisheries and Oceans Canada, now National Defence)",
         "role": "Programmer analyst",
         "dates": "January 2022 to now",
-        "body": "I designed the back end of ATONIS, the system that tracks Canada's buoys and other aids to navigation: a .NET 8 API using CQRS, an Entity Framework model that follows the IHO S-201 standard, and a GraphQL API that answers map questions (what is inside this area, what is near this point) and exports GeoJSON. On the front end I built its Vue and Leaflet map, where staff draw and edit areas directly. I also moved FS3 to a new Azure DevOps project with rebuilt pipelines, started bringing the 2007-era Fleet Safety System onto Razor Pages, and work on iPlan, the Pay Issue Portal, NTTT, PMIS and Activity Based Budgeting. Tests run from xUnit unit tests through integration tests against a real SQL Server to Selenium."
+        "points": [
+          "Designed the back end of ATONIS, which tracks Canada's buoys and other aids to navigation: a .NET 8 API using CQRS, on an Entity Framework model that follows the IHO S-201 standard.",
+          "Built its GraphQL API for map questions (what is inside this area, what is near this point) with GeoJSON export, and fixed a ring-orientation bug that made SQL Server return everything outside an area.",
+          "Built its Vue and Leaflet map, where staff draw and edit areas directly.",
+          "Moved FS3 to a new Azure DevOps project with rebuilt pipelines, and started bringing the 2007-era Fleet Safety System onto Razor Pages.",
+          "Also work on iPlan, the Pay Issue Portal, NTTT, PMIS and Activity Based Budgeting, tested from xUnit through integration tests on a real SQL Server to Selenium."
+        ]
       },
       {
         "org": "Canadian Food Inspection Agency",
         "role": "Data analyst, co-op",
         "dates": "May to December 2021",
-        "body": "Wrote and tested Python scripts that automate the agency's yearly data update, built Power BI dashboards and analysis tools for researchers, and helped update the Comparative Risk Model with data gathered alongside Statistics Canada and other agencies."
+        "points": [
+          "Wrote and tested Python scripts that automate the agency's yearly data update.",
+          "Built Power BI dashboards and analysis tools for researchers.",
+          "Helped update the Comparative Risk Model with data gathered alongside Statistics Canada and other agencies."
+        ]
       },
       {
         "org": "SQO group, University of Ottawa",
         "role": "Website developer",
         "dates": "December 2019 to May 2020",
-        "body": "Built the research group's website from the first design, working from what they asked for, then maintained the site and its database and added pages as needed, with every change tracked in Git."
+        "points": [
+          "Built the research group's website from the first design, working from what they asked for.",
+          "Maintained the site and its database and added pages as needed, with every change tracked in Git."
+        ]
       }
     ],
     "sqoAlt": "The SQO group website: a dark red navigation bar above a photo of the research team in their lab",
@@ -194,10 +226,15 @@
     "rag": {
       "title": "Private search over my immigration paperwork",
       "meta": "2026 · Swift (Apple Vision), Python, SQLite FTS5, pikepdf",
-      "body": "The retrieval half of a RAG system over my own IRCC files: 745 scans, photos, passport stamps, letters and fillable government forms, in English and Persian. Each file is read the best way it can be: PDF text, OCR through Apple Vision, or the typed answers inside IRCC's fillable forms. Every page then goes into a SQLite full-text index. Persian digits and spellings are normalized, and a date in any format also finds its other forms, including the Persian calendar. Rebuilds only re-read files that changed.",
-      "eval": "To know whether it works, a test set checks 31 key facts, such as permit numbers, dates and stamps, and a fact only counts when it is found in the file it should come from. It finds 30. Everything runs on my Mac and nothing is sent anywhere. Next is the answer layer, which will cite the exact page behind every claim.",
       "demoTitle": "Try it: the same matching, on made-up documents",
-      "caption": "Eight invented documents for an invented applicant. The real index holds my own files and stays on my Mac."
+      "caption": "Eight invented documents for an invented applicant. The real index holds my own files and stays on my Mac.",
+      "lead": "The retrieval half of a RAG system over my own immigration (IRCC) paperwork.",
+      "points": [
+        "Reads 745 files (scans, photos, passport stamps, letters and fillable IRCC forms, in English and Persian) the best way each allows: PDF text, Apple Vision OCR, or the typed answers inside the forms.",
+        "Indexes every page in SQLite full-text search and normalizes Persian digits and spellings. A date in any format also finds its other forms, Persian calendar included.",
+        "Measured, not guessed: a test set of 31 key facts only counts a fact when it is found in the file it should come from. It finds 30.",
+        "Runs entirely on my Mac. Next is the answer layer, which will cite the exact page behind every claim."
+      ]
     },
     "search": {
       "label": "Search the sample documents",
@@ -216,8 +253,14 @@
     "scout": {
       "title": "Scout: reading used-computer ads with Claude",
       "meta": "2026 · C#, .NET 10, Anthropic SDK, Claude Haiku, PostgreSQL",
-      "body": "Scout works out what used laptops, tablets and desktops really sell for around Ottawa. Claude Haiku reads every Marketplace, Kijiji, eBay and store listing once, and again only if its text changes, and answers in JSON against a fixed schema: what kind of ad it is, then brand, family, exact model, configuration and condition. The prompt lists the products already known so the same machine always gets the same name, and that part is cached across requests. Ads go 20 to a request, 4 requests at a time, and the status page tracks the cost: about ten cents per thousand listings. The prompt and the parsing of answers are plain functions with unit tests, so they are tested without calling the model.",
-      "caption": "From ReaderPrompt.cs: part of the instructions that keep model names consistent."
+      "caption": "From ReaderPrompt.cs: part of the instructions that keep model names consistent.",
+      "lead": "Scout works out what used laptops, tablets and desktops really sell for around Ottawa.",
+      "points": [
+        "Claude Haiku reads every Marketplace, Kijiji, eBay and store listing once, again only if its text changes, and answers in JSON against a fixed schema: ad type, brand, family, exact model, configuration and condition.",
+        "The prompt carries the products already known, so the same machine always gets the same name. That part is cached across requests.",
+        "20 ads per request, 4 requests at a time, with the cost tracked on the status page: about ten cents per thousand listings.",
+        "The prompt and the parsing of answers are plain functions with unit tests, so they are tested without calling the model."
+      ]
     },
     "tools": {
       "title": "Working with Claude Code",

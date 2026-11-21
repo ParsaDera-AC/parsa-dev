@@ -52,9 +52,11 @@ export const metadata: Metadata = {
     title: 'Parsa Derakhshan, full-stack developer in Ottawa',
     description: DESCRIPTION,
     siteName: 'Parsa Derakhshan',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Parsa Derakhshan, full-stack developer at the Canadian Coast Guard' }],
   },
   twitter: {
     card: 'summary_large_image',
+    images: ['/og.png'],
     title: 'Parsa Derakhshan, full-stack developer in Ottawa',
     description: DESCRIPTION,
   },
