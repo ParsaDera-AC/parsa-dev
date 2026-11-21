@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useLanguage, useTheme } from '@/context';
 import Nonogram from './Nonogram';
+import AtonMap from './AtonMap';
+import BotDemo from './BotDemo';
 
 const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? 'parsa.derakhshan20@gmail.com';
 const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
@@ -46,8 +48,8 @@ function Intro() {
         <p>{t.p2}</p>
         <nav aria-label={n.label}>
           <ul>
-            <li><a href="#projects">{n.work}</a></li>
             <li><a href="#experience">{n.experience}</a></li>
+            <li><a href="#projects">{n.work}</a></li>
             <li><a href="#education">{n.education}</a></li>
             <li><a href="#tools">{n.tools}</a></li>
             <li><a href="#contact">{n.contact}</a></li>
@@ -97,6 +99,11 @@ function Projects() {
           <p className="meta">{inkplusbot.meta}</p>
           <p>{inkplusbot.body}</p>
           <p className="links">{t.privateNote}</p>
+          <figure>
+            <h4 className="demo-title">{messages.bot.title}</h4>
+            <BotDemo />
+            <figcaption>{messages.bot.caption}</figcaption>
+          </figure>
         </article>
 
         <article className="entry">
@@ -146,6 +153,13 @@ function Experience() {
               {job.org} · {job.dates}
             </p>
             <p>{job.body}</p>
+            {i === 0 && (
+              <figure>
+                <h4 className="demo-title">{messages.aton.title}</h4>
+                <AtonMap />
+                <figcaption>{messages.aton.caption}</figcaption>
+              </figure>
+            )}
             {i === t.items.length - 1 && (
               <figure>
                 <a href={SQO_URL} className="block">
@@ -238,8 +252,8 @@ export default function Site() {
       <TopBar />
       <Intro />
       <main id="main">
-        <Projects />
         <Experience />
+        <Projects />
         <Education />
         <Tools />
         <Contact />

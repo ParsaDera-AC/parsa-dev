@@ -34,7 +34,7 @@
       "inkplusbot": {
         "title": "InkPlusBot",
         "meta": "2024 to now · C#, EF Core, PostgreSQL, Redis, Docker",
-        "body": "A Telegram bot for INK+, an Ottawa electronics repair shop with three locations. It looks up live inventory and repair tickets in the store's Lightspeed Retail system. It runs in Docker on Linux, with a WireGuard tunnel between the bot and the store's back end."
+        "body": "A customer-facing Telegram bot for INK+, an Ottawa electronics repair and printing shop with three locations. It speaks English, French and Persian, finds ink and toner, gives repair estimates, lists refurbished devices and hands people over to staff. Product data comes from the INK+ website, which syncs from Lightspeed Retail. It runs in Docker on Linux, with Redis for conversation state and PostgreSQL for requests."
       },
       "skiPatrol": {
         "title": "Canadian Ski Patrol member system",
@@ -141,5 +141,51 @@
   },
   "footer": {
     "source": "This site's code is on GitHub."
+  },
+  "aton": {
+    "title": "Try it: the kind of query ATONIS answers",
+    "caption": "A made-up channel with made-up buoys, drawn with real Canadian chart symbols (red cones to starboard going upstream). The three shapes are the ones the ATONIS GraphQL API takes. The request is simplified.",
+    "chartLabel": "Nautical chart of a sample channel with buoys",
+    "modesLabel": "Query shape",
+    "modes": {
+      "box": "Box",
+      "near": "Near a point",
+      "area": "Area"
+    },
+    "help": {
+      "box": "Drag across the chart to draw a bounding box.",
+      "near": "Click the chart to drop a point, then change the radius.",
+      "area": "Click to add corners, then click the first corner to close the shape."
+    },
+    "radius": "Radius",
+    "close": "Close the shape",
+    "clear": "Clear",
+    "exampleRing": "Use an example drawn clockwise",
+    "matched": "aids to navigation match.",
+    "windingBug": "This ring is clockwise, so SQL Server's geography type read it as everything outside it. That was a real bug.",
+    "windingFixed": "This ring was drawn clockwise; ATONIS reverses it before querying, which is the fix. Untick the box to see the bug.",
+    "drawFirst": "Draw a shape on the chart first.",
+    "request": "GraphQL request",
+    "response": "GeoJSON response",
+    "more": "more features",
+    "northShore": "North shore",
+    "southShore": "South shore",
+    "upstream": "Upstream",
+    "kinds": {
+      "starboard": "Starboard-hand buoy",
+      "port": "Port-hand buoy",
+      "southCardinal": "South cardinal",
+      "isolatedDanger": "Isolated danger",
+      "special": "Special mark",
+      "light": "Light"
+    }
+  },
+  "bot": {
+    "title": "Try it: a replay of the bot",
+    "caption": "Every bot message here is copied from InkPlusBot's source, in all three of its languages. The stock answer for TN-730 is an example; the live bot checks the INK+ website.",
+    "restart": "Start over",
+    "typing": "InkPlusBot is typing",
+    "endCallback": "The demo stops here. The real bot saves the number and alerts INK+ staff on Telegram.",
+    "endHuman": "The demo stops here. The real bot sends staff the conversation so far."
   }
 }

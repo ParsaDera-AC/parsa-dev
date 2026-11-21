@@ -34,7 +34,7 @@
       "inkplusbot": {
         "title": "InkPlusBot",
         "meta": "2024 à aujourd'hui · C#, EF Core, PostgreSQL, Redis, Docker",
-        "body": "Un bot Telegram pour INK+, un atelier de réparation électronique d'Ottawa avec trois emplacements. Il consulte en direct l'inventaire et les billets de réparation dans le système Lightspeed Retail du magasin. Il tourne dans Docker sous Linux, avec un tunnel WireGuard entre le bot et le serveur du magasin."
+        "body": "Un bot Telegram pour les clients d'INK+, un atelier de réparation électronique et d'impression d'Ottawa avec trois emplacements. Il parle anglais, français et persan, trouve l'encre et le toner, donne des estimations de réparation, liste les appareils remis à neuf et transfère les gens au personnel. Les données produits viennent du site d'INK+, synchronisé avec Lightspeed Retail. Il tourne dans Docker sous Linux, avec Redis pour l'état des conversations et PostgreSQL pour les demandes."
       },
       "skiPatrol": {
         "title": "Système des membres de la Patrouille canadienne de ski",
@@ -141,5 +141,51 @@
   },
   "footer": {
     "source": "Le code de ce site est sur GitHub."
+  },
+  "aton": {
+    "title": "Essayez : le genre de requête qu'ATONIS traite",
+    "caption": "Un chenal inventé avec des bouées inventées, dessiné avec les vrais symboles des cartes canadiennes (cônes rouges à tribord en remontant). Les trois formes sont celles que prend l'API GraphQL d'ATONIS. La requête est simplifiée.",
+    "chartLabel": "Carte marine d'un chenal d'exemple avec des bouées",
+    "modesLabel": "Forme de la requête",
+    "modes": {
+      "box": "Rectangle",
+      "near": "Près d'un point",
+      "area": "Zone"
+    },
+    "help": {
+      "box": "Faites glisser sur la carte pour tracer un rectangle.",
+      "near": "Cliquez sur la carte pour placer un point, puis changez le rayon.",
+      "area": "Cliquez pour ajouter des sommets, puis cliquez sur le premier pour fermer la forme."
+    },
+    "radius": "Rayon",
+    "close": "Fermer la forme",
+    "clear": "Effacer",
+    "exampleRing": "Utiliser un exemple tracé dans le sens horaire",
+    "matched": "aides à la navigation correspondent.",
+    "windingBug": "Cet anneau est dans le sens horaire, donc le type geography de SQL Server l'a lu comme tout ce qui est à l'extérieur. C'était un vrai bogue.",
+    "windingFixed": "Cet anneau a été tracé dans le sens horaire ; ATONIS l'inverse avant la requête, c'est la correction. Décochez la case pour voir le bogue.",
+    "drawFirst": "Tracez d'abord une forme sur la carte.",
+    "request": "Requête GraphQL",
+    "response": "Réponse GeoJSON",
+    "more": "autres entités",
+    "northShore": "Rive nord",
+    "southShore": "Rive sud",
+    "upstream": "Amont",
+    "kinds": {
+      "starboard": "Bouée de tribord",
+      "port": "Bouée de bâbord",
+      "southCardinal": "Cardinale sud",
+      "isolatedDanger": "Danger isolé",
+      "special": "Marque spéciale",
+      "light": "Feu"
+    }
+  },
+  "bot": {
+    "title": "Essayez : une reprise du bot",
+    "caption": "Chaque message du bot est copié du code d'InkPlusBot, dans ses trois langues. La réponse de stock pour TN-730 est un exemple ; le vrai bot consulte le site d'INK+.",
+    "restart": "Recommencer",
+    "typing": "InkPlusBot écrit",
+    "endCallback": "La démo s'arrête ici. Le vrai bot enregistre le numéro et alerte le personnel d'INK+ sur Telegram.",
+    "endHuman": "La démo s'arrête ici. Le vrai bot envoie au personnel la conversation jusqu'ici."
   }
 }
