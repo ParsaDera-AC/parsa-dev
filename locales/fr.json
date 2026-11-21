@@ -17,7 +17,8 @@
     "education": "Formation",
     "tools": "Outils",
     "contact": "Contact",
-    "resume": "CV (PDF)"
+    "resume": "CV (PDF)",
+    "ai": "IA appliquée"
   },
   "intro": {
     "role": "Développeur full-stack à Ottawa",
@@ -187,5 +188,41 @@
     "typing": "InkPlusBot écrit",
     "endCallback": "La démo s'arrête ici. Le vrai bot enregistre le numéro et alerte le personnel d'INK+ sur Telegram.",
     "endHuman": "La démo s'arrête ici. Le vrai bot envoie au personnel la conversation jusqu'ici."
+  },
+  "ai": {
+    "title": "IA appliquée",
+    "rag": {
+      "title": "Recherche privée dans mes documents d'immigration",
+      "meta": "2026 · Swift (Apple Vision), Python, SQLite FTS5, pikepdf",
+      "body": "La partie recherche d'un système RAG sur mes propres dossiers d'IRCC : 745 numérisations, photos, tampons de passeport, lettres et formulaires remplissables du gouvernement, en anglais et en persan. Chaque fichier est lu de la meilleure façon possible : texte du PDF, OCR avec Apple Vision, ou réponses saisies dans les formulaires d'IRCC. Chaque page entre ensuite dans un index plein texte SQLite. Les chiffres et l'orthographe persans sont normalisés, et une date dans n'importe quel format retrouve aussi ses autres formes, y compris le calendrier persan. Une reconstruction ne relit que les fichiers modifiés.",
+      "eval": "Pour savoir s'il fonctionne, un jeu de tests vérifie 31 faits clés, comme des numéros de permis, des dates et des tampons, et un fait ne compte que s'il est trouvé dans le fichier d'où il doit venir. Il en trouve 30. Tout tourne sur mon Mac et rien n'est envoyé ailleurs. La prochaine étape est la couche de réponse, qui citera la page exacte derrière chaque affirmation.",
+      "demoTitle": "Essayez : la même correspondance, sur des documents inventés",
+      "caption": "Huit documents inventés pour une personne inventée. Le vrai index contient mes propres fichiers et reste sur mon Mac."
+    },
+    "search": {
+      "label": "Chercher dans les documents d'exemple",
+      "try": "Essayez",
+      "readAs": "Lu comme une date :",
+      "files": "documents correspondent",
+      "confidence": "Confiance OCR",
+      "checkOriginal": "vérifier l'original",
+      "sources": {
+        "ocr": "Lu par OCR",
+        "ocrFa": "Lu par OCR (persan, avec le modèle arabe)",
+        "pdf": "Texte du PDF",
+        "form": "Réponse saisie dans un formulaire d'IRCC"
+      }
+    },
+    "scout": {
+      "title": "Scout : lire les annonces d'ordinateurs usagés avec Claude",
+      "meta": "2026 · C#, .NET 10, SDK Anthropic, Claude Haiku, PostgreSQL",
+      "body": "Scout calcule ce que valent vraiment les portables, tablettes et ordinateurs de bureau usagés dans la région d'Ottawa. Claude Haiku lit chaque annonce de Marketplace, Kijiji, eBay et des magasins une seule fois, puis de nouveau seulement si son texte change, et répond en JSON selon un schéma fixe : le type d'annonce, puis la marque, la famille, le modèle exact, la configuration et l'état. Le prompt liste les produits déjà connus pour qu'une même machine reçoive toujours le même nom, et cette partie est mise en cache d'une requête à l'autre. Les annonces partent par 20, 4 requêtes à la fois, et la page d'état suit le coût : environ dix cents par mille annonces. Le prompt et l'analyse des réponses sont de simples fonctions avec des tests unitaires, testées sans appeler le modèle.",
+      "caption": "Extrait de ReaderPrompt.cs : une partie des instructions qui gardent les noms de modèles cohérents."
+    },
+    "tools": {
+      "title": "Travailler avec Claude Code",
+      "meta": "Skills et hooks",
+      "body": "Je développe avec Claude Code et je lui donne des règles de projet qu'il ne peut pas ignorer. Pour le site d'INK+, j'ai écrit un skill /vibe-check qui fait des captures d'une page en taille téléphone et ordinateur et la vérifie selon nos règles de design, ainsi que des hooks qui vérifient chaque modification selon les règles de design et de rédaction et bloquent tout commit qui contient un fichier secret. Ce site est passé par la même liste."
+    }
   }
 }

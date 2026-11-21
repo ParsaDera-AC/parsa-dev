@@ -17,7 +17,8 @@
     "education": "Education",
     "tools": "Tools",
     "contact": "Contact",
-    "resume": "Résumé (PDF)"
+    "resume": "Résumé (PDF)",
+    "ai": "Applied AI"
   },
   "intro": {
     "role": "Full-stack developer in Ottawa",
@@ -187,5 +188,41 @@
     "typing": "InkPlusBot is typing",
     "endCallback": "The demo stops here. The real bot saves the number and alerts INK+ staff on Telegram.",
     "endHuman": "The demo stops here. The real bot sends staff the conversation so far."
+  },
+  "ai": {
+    "title": "Applied AI",
+    "rag": {
+      "title": "Private search over my immigration paperwork",
+      "meta": "2026 · Swift (Apple Vision), Python, SQLite FTS5, pikepdf",
+      "body": "The retrieval half of a RAG system over my own IRCC files: 745 scans, photos, passport stamps, letters and fillable government forms, in English and Persian. Each file is read the best way it can be: PDF text, OCR through Apple Vision, or the typed answers inside IRCC's fillable forms. Every page then goes into a SQLite full-text index. Persian digits and spellings are normalized, and a date in any format also finds its other forms, including the Persian calendar. Rebuilds only re-read files that changed.",
+      "eval": "To know whether it works, a test set checks 31 key facts, such as permit numbers, dates and stamps, and a fact only counts when it is found in the file it should come from. It finds 30. Everything runs on my Mac and nothing is sent anywhere. Next is the answer layer, which will cite the exact page behind every claim.",
+      "demoTitle": "Try it: the same matching, on made-up documents",
+      "caption": "Eight invented documents for an invented applicant. The real index holds my own files and stays on my Mac."
+    },
+    "search": {
+      "label": "Search the sample documents",
+      "try": "Try",
+      "readAs": "Read as a date:",
+      "files": "documents match",
+      "confidence": "OCR confidence",
+      "checkOriginal": "check the original",
+      "sources": {
+        "ocr": "Read by OCR",
+        "ocrFa": "Read by OCR (Persian, through the Arabic model)",
+        "pdf": "PDF text",
+        "form": "Typed answer inside an IRCC form"
+      }
+    },
+    "scout": {
+      "title": "Scout: reading used-computer ads with Claude",
+      "meta": "2026 · C#, .NET 10, Anthropic SDK, Claude Haiku, PostgreSQL",
+      "body": "Scout works out what used laptops, tablets and desktops really sell for around Ottawa. Claude Haiku reads every Marketplace, Kijiji, eBay and store listing once, and again only if its text changes, and answers in JSON against a fixed schema: what kind of ad it is, then brand, family, exact model, configuration and condition. The prompt lists the products already known so the same machine always gets the same name, and that part is cached across requests. Ads go 20 to a request, 4 requests at a time, and the status page tracks the cost: about ten cents per thousand listings. The prompt and the parsing of answers are plain functions with unit tests, so they are tested without calling the model.",
+      "caption": "From ReaderPrompt.cs: part of the instructions that keep model names consistent."
+    },
+    "tools": {
+      "title": "Working with Claude Code",
+      "meta": "Skills and hooks",
+      "body": "I build with Claude Code and give it project rules it can't skip. For the INK+ website I wrote a /vibe-check skill that screenshots a page at phone and desktop sizes and audits it against our design rules, plus hooks that check every edit against the design and copy rules and block any commit that stages a secret file. This site went through the same checklist."
+    }
   }
 }

@@ -741,3 +741,85 @@ figcaption {
   .aton .chart-label { font-size: 18px; }
   .aton-check code { font-size: 0.75rem; }
 }
+
+/* Document search demo */
+.dsearch {
+  max-width: 40rem;
+}
+
+.dsearch-label {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  margin-bottom: 0.375rem;
+}
+
+.dsearch-input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--ink-2);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.125rem;
+}
+
+.dsearch-try,
+.dsearch-as {
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+}
+
+.dsearch-as code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  background: var(--paper-2);
+  padding: 0.0625rem 0.3125rem;
+  white-space: nowrap;
+}
+
+.dsearch-count {
+  margin-top: 1rem;
+}
+
+.dsearch-hits {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.dsearch-hits li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.dsearch-path {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.dsearch-text {
+  margin-top: 0.25rem;
+}
+
+.dsearch-text mark {
+  background: #fde68a;
+  color: #17191d;
+  padding: 0 0.125rem;
+}
+
+.dark .dsearch-text mark {
+  background: #7a5d00;
+  color: #fff8e1;
+}
+
+.dsearch-meta {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.dsearch-meta .low {
+  color: var(--warn);
+}

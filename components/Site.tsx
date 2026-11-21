@@ -5,6 +5,7 @@ import { useLanguage, useTheme } from '@/context';
 import Nonogram from './Nonogram';
 import AtonMap from './AtonMap';
 import BotDemo from './BotDemo';
+import DocSearch from './DocSearch';
 
 const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? 'parsa.derakhshan20@gmail.com';
 const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
@@ -49,6 +50,7 @@ function Intro() {
         <nav aria-label={n.label}>
           <ul>
             <li><a href="#experience">{n.experience}</a></li>
+            <li><a href="#ai">{n.ai}</a></li>
             <li><a href="#projects">{n.work}</a></li>
             <li><a href="#education">{n.education}</a></li>
             <li><a href="#tools">{n.tools}</a></li>
@@ -181,6 +183,56 @@ function Experience() {
   );
 }
 
+/* Real lines from scout/src/MacScout.Infrastructure/Reading/ReaderPrompt.cs */
+const READER_EXCERPT = `model: the exact model without the brand, so that every unit of it
+is the same machine apart from the configuration.
+- Macs: family, screen size in whole inches, and chip:
+  "MacBook Air 13 M1", "MacBook Air 15 M3", "MacBook Pro 14 M3 Pro".
+  A 13.3-inch or 13.6-inch screen is "13", 14.2 is "14", 15.3 is "15".
+  A 2020 MacBook Air is an M1 when the ad says M1 or Apple silicon,
+  and Intel when it says Intel, Core i3, i5 or i7.`;
+
+function AppliedAI() {
+  const { messages } = useLanguage();
+  const t = messages.ai;
+  return (
+    <section className="sec" id="ai" aria-labelledby="ai-h">
+      <h2 id="ai-h">{t.title}</h2>
+      <div>
+        <article className="entry">
+          <h3>{t.rag.title}</h3>
+          <p className="meta">{t.rag.meta}</p>
+          <p>{t.rag.body}</p>
+          <p>{t.rag.eval}</p>
+          <p className="links">{messages.work.privateNote}</p>
+          <figure>
+            <h4 className="demo-title">{t.rag.demoTitle}</h4>
+            <DocSearch />
+            <figcaption>{t.rag.caption}</figcaption>
+          </figure>
+        </article>
+
+        <article className="entry">
+          <h3>{t.scout.title}</h3>
+          <p className="meta">{t.scout.meta}</p>
+          <p>{t.scout.body}</p>
+          <p className="links">{messages.work.privateNote}</p>
+          <figure>
+            <pre className="tree">{READER_EXCERPT}</pre>
+            <figcaption>{t.scout.caption}</figcaption>
+          </figure>
+        </article>
+
+        <article className="entry">
+          <h3>{t.tools.title}</h3>
+          <p className="meta">{t.tools.meta}</p>
+          <p>{t.tools.body}</p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function Education() {
   const { messages } = useLanguage();
   const t = messages.education;
@@ -253,6 +305,7 @@ export default function Site() {
       <Intro />
       <main id="main">
         <Experience />
+        <AppliedAI />
         <Projects />
         <Education />
         <Tools />
