@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Parsa Derakhshan est développeur full-stack à Ottawa. Il travaille sur les applications web internes de la Garde côtière canadienne en C#, .NET et Vue."
+    "description": "Parsa Derakhshan est développeur full-stack à Ottawa. Il développe les applications web internes de la Garde côtière canadienne en C#, .NET et Vue."
   },
   "ui": {
     "otherLanguage": "English",
@@ -16,11 +16,12 @@
     "experience": "Expérience",
     "education": "Formation",
     "tools": "Outils",
-    "contact": "Contact"
+    "contact": "Contact",
+    "resume": "CV (PDF)"
   },
   "intro": {
     "role": "Développeur full-stack à Ottawa",
-    "p1": "Depuis janvier 2022, je suis analyste-programmeur full-stack à la Garde côtière canadienne. Je développe et maintiens les applications web internes qu'utilise le personnel pour les problèmes de paye, le suivi des formations, la planification de projets et les budgets, surtout en C#/.NET et Vue.js, sur Oracle et SQL Server.",
+    "p1": "Depuis janvier 2022, je suis analyste-programmeur à la Garde côtière canadienne, qui est passée de Pêches et Océans Canada à la Défense nationale en septembre 2025. Je développe les applications web internes qu'utilise son personnel, surtout en C#/.NET et Vue, sur SQL Server et Oracle.",
     "p2": "Avant cela, j'ai fait un stage d'analyste de données à l'Agence canadienne d'inspection des aliments, et j'ai étudié la technologie du génie informatique au Collège Algonquin.",
     "photoAlt": "Parsa assis au bord de la rivière des Outaouais, avec la colline du Parlement de l'autre côté de l'eau",
     "photoCaption": "Au bord de la rivière des Outaouais, la colline du Parlement derrière moi."
@@ -30,10 +31,15 @@
     "repo": "Code sur GitHub",
     "privateNote": "Code non public",
     "items": {
+      "inkplusbot": {
+        "title": "InkPlusBot",
+        "meta": "2024 à aujourd'hui · C#, EF Core, PostgreSQL, Redis, Docker",
+        "body": "Un bot Telegram pour INK+, un atelier de réparation électronique d'Ottawa avec trois emplacements. Il consulte en direct l'inventaire et les billets de réparation dans le système Lightspeed Retail du magasin. Il tourne dans Docker sous Linux, avec un tunnel WireGuard entre le bot et le serveur du magasin."
+      },
       "skiPatrol": {
-        "title": "Application de dossiers pour la patrouille de ski",
-        "meta": "2023 · Java, Spring, Hilla, Lit, composants Vaadin",
-        "body": "Un modèle CRUD pour une application de dossiers de la Patrouille canadienne de ski. Chaque type de dossier a son entité Java, son dépôt, son point d'accès Hilla typé et sa vue Lit : événements, rapports financiers, historique RH et historique de formation. L'interface est bilingue, avec des fichiers de messages en anglais et en français.",
+        "title": "Système des membres de la Patrouille canadienne de ski",
+        "meta": "2023, projet de fin d'études · Java, Spring Boot, Hilla, Lit",
+        "body": "Un projet de fin d'études qui a remplacé l'ancien système Laravel/PHP des membres de la Patrouille canadienne de ski, réalisé pour elle comme vrai client. Il comprend des modules pour les événements, l'historique de formation, les dossiers RH et les rapports financiers, chacun avec son entité Java, son point d'accès Hilla typé et sa vue Lit, et l'interface est entièrement bilingue. Il a été remis au contact de la Patrouille, qui l'a mis en production.",
         "figureCaption": "La vraie structure des dossiers, abrégée : un paquet côté serveur et une vue par type de dossier."
       },
       "picross": {
@@ -67,10 +73,10 @@
     "title": "Expérience",
     "items": [
       {
-        "org": "Garde côtière canadienne, Pêches et Océans Canada",
-        "role": "Analyste-programmeur full-stack",
+        "org": "Garde côtière canadienne (Pêches et Océans Canada, maintenant Défense nationale)",
+        "role": "Analyste-programmeur",
         "dates": "Janvier 2022 à aujourd'hui",
-        "body": "Je travaille sur le Portail des problèmes de paye, iPlan, l'Outil national de suivi de la formation, le Système d'information de gestion de projets et la Budgétisation par activités. La pile : C#/ASP.NET avec des API REST et le patron CQRS, Vue.js côté client, et Oracle PL/SQL et T‑SQL pour les données. J'écris aussi des étapes PowerShell pour nos pipelines Azure DevOps afin d'automatiser une partie des déploiements."
+        "body": "J'ai conçu le serveur d'ATONIS, le système qui suit les bouées et autres aides à la navigation du Canada : une API .NET 8 en CQRS, un modèle Entity Framework conforme à la norme S-201 de l'OHI, et une API GraphQL qui répond aux questions cartographiques (ce qui se trouve dans une zone, près d'un point) et exporte en GeoJSON. Côté client, j'ai construit sa carte Vue et Leaflet, où le personnel dessine et modifie les zones directement. J'ai aussi migré FS3 vers un nouveau projet Azure DevOps avec des pipelines refaits, commencé à moderniser le Fleet Safety System de 2007 avec Razor Pages, et je travaille sur iPlan, le Portail des problèmes de paye, le NTTT, le SIGP et la Budgétisation par activités. Les tests vont des tests unitaires xUnit aux tests d'intégration sur un vrai SQL Server, jusqu'à Selenium."
       },
       {
         "org": "Agence canadienne d'inspection des aliments",
@@ -99,10 +105,30 @@
     "title": "Outils",
     "intro": "Ce que j'utilise au travail et dans mes projets personnels.",
     "rows": [
-      { "label": "Langages", "items": "C#, TypeScript et JavaScript, Python, Java, SQL (PL/SQL, T‑SQL), PHP" },
-      { "label": "Web", "items": "ASP.NET, Blazor, Vue.js, React et Next.js, Spring avec Hilla et Lit" },
-      { "label": "Données", "items": "Oracle, SQL Server, MySQL, MongoDB, pandas, Power BI" },
-      { "label": "Livraison", "items": "Azure DevOps, PowerShell, Git, Docker, Linux" }
+      {
+        "label": "Langages",
+        "items": "C#, TypeScript et JavaScript, SQL, Python, Java"
+      },
+      {
+        "label": "Serveur",
+        "items": ".NET 8 et ASP.NET Core, HotChocolate GraphQL, Entity Framework Core, MediatR, Spring Boot"
+      },
+      {
+        "label": "Client",
+        "items": "Vue 3, Nuxt, Vuetify, Pinia, Leaflet, React et Next.js"
+      },
+      {
+        "label": "Données",
+        "items": "SQL Server (y compris les types spatiaux), Oracle, PostgreSQL, Redis, pandas, Power BI"
+      },
+      {
+        "label": "Tests",
+        "items": "xUnit, Moq, tests d'intégration avec WebApplicationFactory, Selenium, Postman"
+      },
+      {
+        "label": "Livraison",
+        "items": "Pipelines Azure DevOps, Docker, Git, IIS, WireGuard"
+      }
     ]
   },
   "contact": {
@@ -110,7 +136,8 @@
     "body": "Le courriel est le meilleur moyen de me joindre. Je suis aussi sur GitHub et LinkedIn.",
     "email": "Courriel",
     "github": "GitHub",
-    "linkedin": "LinkedIn"
+    "linkedin": "LinkedIn",
+    "resume": "CV (PDF)"
   },
   "footer": {
     "source": "Le code de ce site est sur GitHub."

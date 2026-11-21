@@ -7,10 +7,11 @@ import Nonogram from './Nonogram';
 const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? 'parsa.derakhshan20@gmail.com';
 const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/ParsaDera-AC';
 const LINKEDIN_URL =
-  process.env.NEXT_PUBLIC_LINKEDIN_URL ?? 'https://www.linkedin.com/in/parsa-dera-1360a11b3';
+  process.env.NEXT_PUBLIC_LINKEDIN_URL ?? 'https://www.linkedin.com/in/parsa-derakhshan-1360a11b3/';
 const SKI_REPO = 'https://github.com/ParsaDera-AC/Basic-Node.js-Project';
 const SITE_REPO = 'https://github.com/ParsaDera-AC/parsa-dev';
 const SQO_URL = 'https://sqogroup.ca/';
+const RESUME = '/Parsa_Derakhshan_CV.pdf';
 
 function TopBar() {
   const { messages, toggleLanguage } = useLanguage();
@@ -50,6 +51,7 @@ function Intro() {
             <li><a href="#education">{n.education}</a></li>
             <li><a href="#tools">{n.tools}</a></li>
             <li><a href="#contact">{n.contact}</a></li>
+            <li><a href={RESUME}>{n.resume}</a></li>
           </ul>
         </nav>
       </div>
@@ -85,11 +87,18 @@ function RepoTree() {
 function Projects() {
   const { messages } = useLanguage();
   const t = messages.work;
-  const { skiPatrol, picross, telegram } = t.items;
+  const { inkplusbot, skiPatrol, picross, telegram } = t.items;
   return (
     <section className="sec" id="projects" aria-labelledby="projects-h">
       <h2 id="projects-h">{t.title}</h2>
       <div>
+        <article className="entry">
+          <h3>{inkplusbot.title}</h3>
+          <p className="meta">{inkplusbot.meta}</p>
+          <p>{inkplusbot.body}</p>
+          <p className="links">{t.privateNote}</p>
+        </article>
+
         <article className="entry">
           <h3>{skiPatrol.title}</h3>
           <p className="meta">{skiPatrol.meta}</p>
@@ -211,6 +220,8 @@ function Contact() {
           <a href={GITHUB_URL}>{t.github}</a>
           <span aria-hidden="true"> · </span>
           <a href={LINKEDIN_URL}>{t.linkedin}</a>
+          <span aria-hidden="true"> · </span>
+          <a href={RESUME}>{t.resume}</a>
         </p>
       </div>
     </section>

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Parsa Derakhshan is a full-stack developer in Ottawa, working on the Canadian Coast Guard's internal web applications in C#, .NET and Vue."
+    "description": "Parsa Derakhshan is a full-stack developer in Ottawa, building the Canadian Coast Guard's internal web applications in C#, .NET and Vue."
   },
   "ui": {
     "otherLanguage": "Français",
@@ -16,11 +16,12 @@
     "experience": "Experience",
     "education": "Education",
     "tools": "Tools",
-    "contact": "Contact"
+    "contact": "Contact",
+    "resume": "Résumé (PDF)"
   },
   "intro": {
     "role": "Full-stack developer in Ottawa",
-    "p1": "Since January 2022 I've worked at the Canadian Coast Guard as a full-stack programmer analyst. I build and maintain the internal web applications staff use for pay issues, training records, project planning and budgets, mostly in C#/.NET and Vue.js on top of Oracle and SQL Server.",
+    "p1": "Since January 2022 I've been a programmer analyst at the Canadian Coast Guard, which moved from Fisheries and Oceans Canada to National Defence in September 2025. I build the internal web applications its staff rely on, mostly in C#/.NET and Vue, on SQL Server and Oracle.",
     "p2": "Before that I was a data analyst intern at the Canadian Food Inspection Agency, and I studied Computer Engineering Technology at Algonquin College.",
     "photoAlt": "Parsa sitting by the Ottawa River with Parliament Hill across the water",
     "photoCaption": "On the Ottawa River, Parliament Hill behind me."
@@ -30,10 +31,15 @@
     "repo": "Source on GitHub",
     "privateNote": "Code not public",
     "items": {
+      "inkplusbot": {
+        "title": "InkPlusBot",
+        "meta": "2024 to now · C#, EF Core, PostgreSQL, Redis, Docker",
+        "body": "A Telegram bot for INK+, an Ottawa electronics repair shop with three locations. It looks up live inventory and repair tickets in the store's Lightspeed Retail system. It runs in Docker on Linux, with a WireGuard tunnel between the bot and the store's back end."
+      },
       "skiPatrol": {
-        "title": "Ski patrol records app",
-        "meta": "2023 · Java, Spring, Hilla, Lit, Vaadin components",
-        "body": "A CRUD template for a Canadian Ski Patrol records app. Each record type gets a Java entity, a repository, a typed Hilla endpoint and a Lit view: events, financial reports, HR history and training history. The interface is bilingual, with English and French message files.",
+        "title": "Canadian Ski Patrol member system",
+        "meta": "2023, college capstone · Java, Spring Boot, Hilla, Lit",
+        "body": "A college capstone that replaced the Canadian Ski Patrol's old Laravel/PHP member system, built for them as a real client. It has modules for events, training history, HR records and financial reports, each with a Java entity, a typed Hilla endpoint and a Lit view, and the interface is fully bilingual. It was handed to the Ski Patrol's contact, who deployed it to production.",
         "figureCaption": "The real folder layout, trimmed: one backend package and one view per record type."
       },
       "picross": {
@@ -67,10 +73,10 @@
     "title": "Experience",
     "items": [
       {
-        "org": "Canadian Coast Guard, Fisheries and Oceans Canada",
-        "role": "Full-stack programmer analyst",
+        "org": "Canadian Coast Guard (Fisheries and Oceans Canada, now National Defence)",
+        "role": "Programmer analyst",
         "dates": "January 2022 to now",
-        "body": "I work on the Pay Issue Portal, iPlan, the National Training Tracking Tool, the Project Management Information System and Activity Based Budgeting. The stack is C#/ASP.NET with REST APIs and the CQRS pattern, Vue.js on the front end, and Oracle PL/SQL and T‑SQL underneath. I also write PowerShell steps for our Azure DevOps pipelines so deployments need less hand work."
+        "body": "I designed the back end of ATONIS, the system that tracks Canada's buoys and other aids to navigation: a .NET 8 API using CQRS, an Entity Framework model that follows the IHO S-201 standard, and a GraphQL API that answers map questions (what is inside this area, what is near this point) and exports GeoJSON. On the front end I built its Vue and Leaflet map, where staff draw and edit areas directly. I also moved FS3 to a new Azure DevOps project with rebuilt pipelines, started bringing the 2007-era Fleet Safety System onto Razor Pages, and work on iPlan, the Pay Issue Portal, NTTT, PMIS and Activity Based Budgeting. Tests run from xUnit unit tests through integration tests against a real SQL Server to Selenium."
       },
       {
         "org": "Canadian Food Inspection Agency",
@@ -101,19 +107,27 @@
     "rows": [
       {
         "label": "Languages",
-        "items": "C#, TypeScript and JavaScript, Python, Java, SQL (PL/SQL, T‑SQL), PHP"
+        "items": "C#, TypeScript and JavaScript, SQL, Python, Java"
       },
       {
-        "label": "Web",
-        "items": "ASP.NET, Blazor, Vue.js, React and Next.js, Spring Boot with Hilla and Lit"
+        "label": "Back end",
+        "items": ".NET 8 and ASP.NET Core, HotChocolate GraphQL, Entity Framework Core, MediatR, Spring Boot"
+      },
+      {
+        "label": "Front end",
+        "items": "Vue 3, Nuxt, Vuetify, Pinia, Leaflet, React and Next.js"
       },
       {
         "label": "Data",
-        "items": "Oracle, SQL Server, MySQL, MongoDB, pandas, Power BI"
+        "items": "SQL Server (including spatial types), Oracle, PostgreSQL, Redis, pandas, Power BI"
+      },
+      {
+        "label": "Testing",
+        "items": "xUnit, Moq, integration tests with WebApplicationFactory, Selenium, Postman"
       },
       {
         "label": "Delivery",
-        "items": "Azure DevOps, PowerShell, Git, Docker, Linux"
+        "items": "Azure DevOps pipelines, Docker, Git, IIS, WireGuard"
       }
     ]
   },
@@ -122,7 +136,8 @@
     "body": "Email is the best way to reach me. I'm also on GitHub and LinkedIn.",
     "email": "Email",
     "github": "GitHub",
-    "linkedin": "LinkedIn"
+    "linkedin": "LinkedIn",
+    "resume": "Résumé (PDF)"
   },
   "footer": {
     "source": "This site's code is on GitHub."
