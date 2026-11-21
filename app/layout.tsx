@@ -1,25 +1,23 @@
 import type { Metadata, Viewport } from 'next';
-import { Archivo, Inter } from 'next/font/google';
+import { Atkinson_Hyperlegible, IBM_Plex_Mono } from 'next/font/google';
 import Script from 'next/script';
-import { ThemeProvider, LanguageProvider, DocumentProvider } from '@/context';
+import { ThemeProvider, LanguageProvider } from '@/context';
 import './globals.css';
 
-/* Archivo carries display duty — variable weight axis (100–900) so the
-   institutional headline scale can use real weight contrast. */
-const archivo = Archivo({
+/* Atkinson Hyperlegible was drawn for the Braille Institute to stay readable
+   at any size. Plex Mono is only used for code and the puzzle clues. */
+const text = Atkinson_Hyperlegible({
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
-  preload: true,
-  variable: '--font-archivo',
-  fallback: ['system-ui', 'sans-serif'],
+  variable: '--font-text',
 });
 
-const inter = Inter({
+const mono = IBM_Plex_Mono({
   subsets: ['latin'],
+  weight: ['400', '500'],
   display: 'swap',
-  preload: true,
-  variable: '--font-inter',
-  fallback: ['system-ui', 'sans-serif'],
+  variable: '--font-mono',
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://parsadera.netlify.app';
@@ -39,27 +37,26 @@ const themeScript = `
 })();
 `;
 
+const DESCRIPTION =
+  "Parsa Derakhshan is a full-stack developer in Ottawa, working on the Canadian Coast Guard's internal web applications in C#, .NET and Vue.";
+
 export const metadata: Metadata = {
-  title: 'Parsa Derakhshan — Full-Stack Developer',
-  description:
-    'Portfolio of Parsa Derakhshan, a full-stack developer specializing in modern web technologies.',
-  keywords: 'full stack developer, web development, react, next.js, typescript, portfolio',
+  title: 'Parsa Derakhshan, full-stack developer in Ottawa',
+  description: DESCRIPTION,
   authors: [{ name: 'Parsa Derakhshan' }],
   robots: 'index, follow',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    title: 'Parsa Derakhshan — Full-Stack Developer',
-    description:
-      'Portfolio of Parsa Derakhshan, a full-stack developer specializing in modern web technologies.',
+    title: 'Parsa Derakhshan, full-stack developer in Ottawa',
+    description: DESCRIPTION,
     siteName: 'Parsa Derakhshan',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Parsa Derakhshan — Full-Stack Developer',
-    description:
-      'Portfolio of Parsa Derakhshan, a full-stack developer specializing in modern web technologies.',
+    title: 'Parsa Derakhshan, full-stack developer in Ottawa',
+    description: DESCRIPTION,
   },
   metadataBase: new URL(siteUrl),
   alternates: {
@@ -72,8 +69,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#faf8f5' },
-    { media: '(prefers-color-scheme: dark)', color: '#14110f' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#111316' },
   ],
 };
 
@@ -85,18 +82,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${inter.variable}`}
+      className={`${text.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-dvh bg-paper text-ink antialiased">
-        <DocumentProvider>
-          <ThemeProvider>
-            <LanguageProvider>{children}</LanguageProvider>
-          </ThemeProvider>
-        </DocumentProvider>
+      <body>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
 
         {gaId && (
           <>

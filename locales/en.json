@@ -1,209 +1,130 @@
 {
-  "nav": {
-    "home": "Home",
-    "about": "About",
-    "projects": "Projects",
-    "skills": "Skills",
-    "softskills": "Soft Skills",
-    "resume": "Resume",
-    "contact": "Contact"
+  "meta": {
+    "description": "Parsa Derakhshan is a full-stack developer in Ottawa, working on the Canadian Coast Guard's internal web applications in C#, .NET and Vue."
   },
   "ui": {
-    "menu": "Menu",
-    "close": "Close",
-    "backToTop": "Back to top",
-    "viewCode": "View code",
-    "liveDemo": "Live demo",
-    "privateRepo": "Private repository",
-    "readMore": "Read more",
-    "sending": "Sending",
-    "sent": "Message sent",
-    "errorGeneric": "Something went wrong. Please try again, or email me directly.",
-    "notConfigured": "The form isn't configured yet — please email me directly.",
-    "selectLanguage": "Select language"
+    "otherLanguage": "Français",
+    "otherLanguageCode": "fr",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "skip": "Skip to content",
+    "backToTop": "Back to top"
   },
-  "hero": {
-    "eyebrow": "Software Engineer",
-    "name": "Parsa Derakhshan",
-    "title": "Full-Stack Developer",
-    "description": "I'm a full-stack developer specializing in building exceptional digital experiences that live at the intersection of design and technology.",
-    "viewWork": "Explore my work",
-    "contact": "Get in touch",
-    "scroll": "Scroll",
-    "location": "Ottawa, Canada"
+  "nav": {
+    "label": "Sections",
+    "work": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "tools": "Tools",
+    "contact": "Contact"
   },
-  "stats": {
-    "eyebrow": "By the numbers",
-    "items": [
-      { "value": "3+", "label": "Years experience" },
-      { "value": "20+", "label": "Projects delivered" },
-      { "value": "10+", "label": "Technologies" }
-    ]
+  "intro": {
+    "role": "Full-stack developer in Ottawa",
+    "p1": "Since January 2022 I've worked at the Canadian Coast Guard as a full-stack programmer analyst. I build and maintain the internal web applications staff use for pay issues, training records, project planning and budgets, mostly in C#/.NET and Vue.js on top of Oracle and SQL Server.",
+    "p2": "Before that I was a data analyst intern at the Canadian Food Inspection Agency, and I studied Computer Engineering Technology at Algonquin College.",
+    "photoAlt": "Parsa sitting by the Ottawa River with Parliament Hill across the water",
+    "photoCaption": "On the Ottawa River, Parliament Hill behind me."
   },
-  "about": {
-    "eyebrow": "About",
-    "title": "About Me",
-    "description": "As a seasoned Full-Stack Developer, I blend technical expertise with creative problem-solving to build robust, scalable applications. My journey in software development is driven by a passion for creating elegant solutions that make a real impact.",
-    "skills": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "database": "Database",
-      "cloud": "Cloud"
-    },
-    "cards": {
-      "education": {
-        "title": "Education",
-        "description": "Advanced Diploma in Computer Engineering Technology from Algonquin College with Honours (2023).",
-        "stats": ["Honours Graduate", "3.7 GPA", "Dean's List"]
-      },
-      "experience": {
-        "title": "Experience",
-        "description": "Full-Stack Programmer Analyst at the Canadian Coast Guard, specializing in critical applications.",
-        "stats": ["3+ Years", "Enterprise Apps", "Agile Teams"]
-      },
-      "expertise": {
-        "title": "Technical Expertise",
-        "description": "Proficient in modern full-stack development with expertise in cloud solutions and microservices architecture.",
-        "stats": ["Cloud Native", "CI/CD", "DevOps"]
-      },
-      "achievements": {
-        "title": "Achievements",
-        "description": "Consistently recognized for technical excellence and innovative problem-solving in enterprise environments.",
-        "stats": ["Dean's List", "Innovation", "Leadership"]
-      }
-    }
-  },
-  "skills": {
-    "eyebrow": "Capabilities",
-    "title": "Technical Skills",
-    "subtitle": "The languages, frameworks and platforms I work with day to day.",
-    "languagesTitle": "Primary languages",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "database": "Database",
-      "devops": "DevOps & Cloud"
-    },
-    "learningTitle": "Always Learning",
-    "learningDescription": "Technology moves quickly. I set aside time every week to go deeper on the tools I already use and to properly evaluate the ones I don't."
-  },
-  "softSkills": {
-    "eyebrow": "Ways of working",
-    "title": "Soft Skills",
-    "subtitle": "The habits and practices that shape how I work with teams.",
-    "leadership": {
-      "title": "Leadership & Collaboration",
-      "description": "Proven track record of leading technical initiatives and collaborating across government agencies",
-      "skills": ["Technical Coaching", "Cross-Agency Collaboration", "Team Leadership"]
-    },
-    "problemSolving": {
-      "title": "Problem Solving",
-      "description": "Strong analytical mindset demonstrated through complex application development and automation",
-      "skills": ["Technical Analysis", "Process Automation", "Innovation"]
-    },
-    "communication": {
-      "title": "Technical Communication",
-      "description": "Expert at translating complex technical concepts and writing comprehensive documentation",
-      "skills": ["Technical Documentation", "Client Relations", "Knowledge Transfer"]
-    },
-    "projectManagement": {
-      "title": "Project Management",
-      "description": "Experienced in Agile methodologies and managing multiple critical applications",
-      "skills": ["Agile/Scrum", "Resource Planning", "Deadline Management"]
-    },
-    "dataAnalysis": {
-      "title": "Data Analysis",
-      "description": "Strong analytical skills in data visualization and statistical analysis",
-      "skills": ["Risk Analysis", "Data Visualization", "Statistical Modeling"]
-    },
-    "adaptability": {
-      "title": "Technical Adaptability",
-      "description": "Proven ability to quickly master new technologies and frameworks",
-      "skills": ["Multi-platform", "Quick Learning", "Technology Integration"]
-    }
-  },
-  "projects": {
-    "eyebrow": "Selected work",
+  "work": {
     "title": "Projects",
-    "subtitle": "A showcase of my technical expertise, featuring enterprise applications, data analysis tools, and innovative solutions.",
-    "categories": {
-      "all": "All",
-      "fullStack": "Full Stack",
-      "frontend": "Frontend",
-      "dataScience": "Data Science",
-      "gamedev": "Game Dev"
-    },
-    "moreOnGithub": "More on GitHub",
+    "repo": "Source on GitHub",
+    "privateNote": "Code not public",
     "items": {
-      "erms": {
-        "title": "Enterprise Resource Management System",
-        "description": "Architected and developed a comprehensive web application for managing organizational resources and workflows. Implemented CQRS pattern and modern architectural principles to ensure scalability and maintainability.",
-        "tags": ["Enterprise Application", "Full Stack"],
-        "technologies": [".NET/C#", "Vue.js", "SQL", "REST API", "Azure DevOps", "CQRS"]
-      },
       "skiPatrol": {
-        "title": "Canadian Ski Patrol Rewrite Template",
-        "description": "Developed a CRUD modern web application template for the Canadian Ski Patrol using TypeScript and modern web technologies. Implemented material design components and responsive layouts with SCSS for an optimal user experience.",
-        "tags": ["Web Application", "Full Stack"],
-        "technologies": ["TypeScript", "Node.js", "LitElements", "SCSS", "Webpack", "Material Design"]
-      },
-      "telegramAnalyzer": {
-        "title": "Telegram Chat Analyzer",
-        "description": "Built a comprehensive chat analysis tool using Python, featuring advanced data visualization and statistical analysis of conversation patterns, user engagement, and sentiment analysis.",
-        "tags": ["Data Analysis", "Data Science"],
-        "technologies": ["Python", "pandas", "NumPy", "seaborn", "matplotlib"]
+        "title": "Ski patrol records app",
+        "meta": "2023 · Java, Spring, Hilla, Lit, Vaadin components",
+        "body": "A CRUD template for a Canadian Ski Patrol records app. Each record type gets a Java entity, a repository, a typed Hilla endpoint and a Lit view: events, financial reports, HR history and training history. The interface is bilingual, with English and French message files.",
+        "figureCaption": "The real folder layout, trimmed: one backend package and one view per record type."
       },
       "picross": {
-        "title": "Interactive Picross Game",
-        "description": "Developed a modern implementation of the classic Picross/Nonogram puzzle game with multiplayer support, featuring a sleek GUI and efficient algorithms.",
-        "tags": ["Game Development", "Full Stack"],
-        "technologies": ["Unity", "C#", "Multiplayer", "UI/UX"]
+        "title": "Picross with multiplayer",
+        "meta": "Algonquin College · Java, Swing, client/server",
+        "body": "A nonogram game written in Java with a Swing interface, plus a client/server part so different players can connect and play. The grid below follows the same rules, if you want to try one.",
+        "figureCaption": "A 7 × 7 nonogram. Each number is a run of filled squares in that row or column, in order, with at least one gap between runs."
       },
-      "sqoWebsite": {
-        "title": "SQO Group Website",
-        "description": "Designed and developed a professional website for a quantum physics research group, implementing responsive design principles and modern web technologies.",
-        "tags": ["Web Application", "Frontend"],
-        "technologies": ["React", "Next.js", "Tailwind CSS", "Responsive Design"]
+      "telegram": {
+        "title": "Telegram chat analysis",
+        "meta": "Python · pandas, NumPy, seaborn, matplotlib",
+        "body": "An analysis of an exported Telegram chat in Python: conversation patterns, how much each person takes part, and sentiment, drawn as charts with seaborn and matplotlib."
       }
     }
   },
-  "contact": {
-    "eyebrow": "Contact",
-    "title": "Let's Connect",
-    "subtitle": "Have a question or want to work together? I'd love to hear from you!",
-    "connectTitle": "Connect With Me",
-    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.",
-    "quickResponse": "Quick Response",
-    "responseMessage": "I typically respond within 24 hours during business days. Looking forward to connecting with you!",
-    "form": {
-      "name": "Your Name",
-      "email": "Your Email",
-      "message": "Your Message",
-      "submit": "Send Message",
-      "namePlaceholder": "Jane Doe",
-      "emailPlaceholder": "jane@example.com",
-      "messagePlaceholder": "Tell me about your project…"
-    }
+  "puzzle": {
+    "label": "Nonogram puzzle",
+    "rowsLabel": "Row clues",
+    "colsLabel": "Column clues",
+    "help": "Click a square to fill it, click again to mark it empty, a third time to clear it.",
+    "cell": "Row {r}, column {c}",
+    "filled": "filled",
+    "marked": "marked empty",
+    "blank": "blank",
+    "clear": "Start over",
+    "reveal": "Show the answer",
+    "solved": "Solved. It's a sailboat.",
+    "revealed": "That's the answer: a sailboat."
   },
-  "resume": {
-    "eyebrow": "Exclusive access",
-    "title": "Unlock My Resume",
-    "subtitle": "Enter the special access code to download my resume instantly!",
-    "accessCodeLabel": "Access code",
-    "placeholder": "Enter Access Code",
-    "submit": "Unlock resume",
-    "verifying": "Verifying",
-    "unlocked": "Unlocked",
-    "download": "Download resume",
-    "invalidCode": "That code isn't right. Please try again.",
-    "noCode": "Don't have the access code?",
-    "contactMe": "Contact me"
+  "experience": {
+    "title": "Experience",
+    "items": [
+      {
+        "org": "Canadian Coast Guard, Fisheries and Oceans Canada",
+        "role": "Full-stack programmer analyst",
+        "dates": "January 2022 to now",
+        "body": "I work on the Pay Issue Portal, iPlan, the National Training Tracking Tool, the Project Management Information System and Activity Based Budgeting. The stack is C#/ASP.NET with REST APIs and the CQRS pattern, Vue.js on the front end, and Oracle PL/SQL and T‑SQL underneath. I also write PowerShell steps for our Azure DevOps pipelines so deployments need less hand work."
+      },
+      {
+        "org": "Canadian Food Inspection Agency",
+        "role": "Data analyst, co-op",
+        "dates": "May to December 2021",
+        "body": "Wrote and tested Python scripts that automate the agency's yearly data update, built Power BI dashboards and analysis tools for researchers, and helped update the Comparative Risk Model with data gathered alongside Statistics Canada and other agencies."
+      },
+      {
+        "org": "SQO group, University of Ottawa",
+        "role": "Website developer",
+        "dates": "December 2019 to May 2020",
+        "body": "Built the research group's website from the first design, working from what they asked for, then maintained the site and its database and added pages as needed, with every change tracked in Git."
+      }
+    ],
+    "sqoAlt": "The SQO group website: a dark red navigation bar above a photo of the research team in their lab",
+    "sqoCaption": "sqogroup.ca, still running."
+  },
+  "education": {
+    "title": "Education",
+    "school": "Algonquin College, Ottawa",
+    "program": "Advanced Diploma, Computer Engineering Technology (co-op)",
+    "dates": "2020 to 2023",
+    "body": "Graduated with honours, GPA 3.7 out of 4.0, on the Dean's Honour List every year. Coursework included data structures, database design, compilers, network engineering and numerical computing."
+  },
+  "tools": {
+    "title": "Tools",
+    "intro": "What I use at work and on my own projects.",
+    "rows": [
+      {
+        "label": "Languages",
+        "items": "C#, TypeScript and JavaScript, Python, Java, SQL (PL/SQL, T‑SQL), PHP"
+      },
+      {
+        "label": "Web",
+        "items": "ASP.NET, Blazor, Vue.js, React and Next.js, Spring Boot with Hilla and Lit"
+      },
+      {
+        "label": "Data",
+        "items": "Oracle, SQL Server, MySQL, MongoDB, pandas, Power BI"
+      },
+      {
+        "label": "Delivery",
+        "items": "Azure DevOps, PowerShell, Git, Docker, Linux"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "body": "Email is the best way to reach me. I'm also on GitHub and LinkedIn.",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
   },
   "footer": {
-    "tagline": "Building innovative web experiences with modern technologies and creative solutions.",
-    "quickLinks": "Quick Links",
-    "connect": "Connect",
-    "emailLabel": "Email",
-    "rights": "All rights reserved."
+    "source": "This site's code is on GitHub."
   }
 }

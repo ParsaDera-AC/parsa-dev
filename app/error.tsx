@@ -13,21 +13,14 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="shell flex min-h-dvh items-center justify-center">
-      <div className="max-w-md border-t border-rule pt-8">
-        <p className="eyebrow">Error</p>
-        <h1 className="mt-5 text-display-sm">Something went wrong</h1>
-        <p className="mt-4 leading-relaxed text-ink-muted">
-          An unexpected error occurred. Please try again.
-        </p>
-        <button
-          type="button"
-          onClick={reset}
-          className="mt-8 bg-clay px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-clay-deep"
-        >
+    <div className="page" style={{ padding: '4rem 1rem' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>Something went wrong</h1>
+      <p className="mt-3">The page hit an error while loading.</p>
+      <p className="mt-3">
+        <button type="button" className="textbutton" onClick={reset}>
           Try again
         </button>
-      </div>
+      </p>
     </div>
   );
 }
