@@ -22,7 +22,7 @@ const inter = Inter({
   fallback: ['system-ui', 'sans-serif'],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://parsaderakhshan.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://parsadera.netlify.app';
 const gaId = process.env.NEXT_PUBLIC_GA_ID ?? '';
 
 /* Runs before first paint so the correct theme class is on <html> when the
